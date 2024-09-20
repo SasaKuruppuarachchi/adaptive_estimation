@@ -4,20 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "cd7ce6ec0d81be8b",
+        "id": "4f5dfd99ad2d9ac7",
         "type": "tabs",
         "children": [
           {
-            "id": "c8f45e8892b5a65e",
+            "id": "12d7e483566ac68f",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
                 "file": "Planning/Proposal - Inverted Penulum.canvas",
                 "viewState": {
-                  "x": 1218,
-                  "y": -80,
-                  "zoom": -1.3312337428047083
+                  "x": 366.5949414328394,
+                  "y": -860.7658531744572,
+                  "zoom": -0.5417908821530333
                 }
               }
             }
@@ -145,7 +145,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 279.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -159,10 +159,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c8f45e8892b5a65e",
+  "active": "12d7e483566ac68f",
   "lastOpenFiles": [
-    "Planning/Pitch.canvas",
     "Planning/Proposal - Inverted Penulum.canvas",
+    "Planning/Pitch.canvas",
     "Todo.md",
     "BOM.md",
     "Planning/Goals.md",

@@ -43,16 +43,6 @@
       "label": "Start Slide"
     },
     {
-      "id": "3cb78026c1e3c0ab",
-      "type": "file",
-      "file": "Planning/Goals.md",
-      "styleAttributes": {},
-      "x": 1209,
-      "y": -620,
-      "width": 632,
-      "height": 560
-    },
-    {
       "id": "f1314f21af0075d0",
       "type": "link",
       "url": "https://github.com/users/EternalGoldenBraid/projects/4",
@@ -127,6 +117,16 @@
       "width": 250,
       "height": 120,
       "color": "3"
+    },
+    {
+      "id": "3cb78026c1e3c0ab",
+      "type": "file",
+      "file": "Planning/Goals.md",
+      "styleAttributes": {},
+      "x": 1209,
+      "y": -620,
+      "width": 632,
+      "height": 560
     },
     {
       "id": "ea7afc3260082493",
