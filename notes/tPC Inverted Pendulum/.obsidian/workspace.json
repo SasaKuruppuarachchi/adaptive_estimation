@@ -4,107 +4,25 @@
     "type": "split",
     "children": [
       {
-        "id": "42a3e9226a425e07",
+        "id": "cd7ce6ec0d81be8b",
         "type": "tabs",
         "children": [
           {
-            "id": "cbe74317ad45472f",
+            "id": "c8f45e8892b5a65e",
             "type": "leaf",
             "state": {
               "type": "canvas",
               "state": {
                 "file": "Planning/Proposal - Inverted Penulum.canvas",
                 "viewState": {
-                  "x": -70.5,
-                  "y": -109.99999999999999,
-                  "zoom": -0.06058615286103923
+                  "x": 1218,
+                  "y": -80,
+                  "zoom": -1.3312337428047083
                 }
-              }
-            }
-          },
-          {
-            "id": "5c7427ad7a9f71a7",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Planning/Proposal - Inverted Penulum.canvas",
-                "viewState": {
-                  "x": 449.8161764705883,
-                  "y": 20.333823529411802,
-                  "zoom": -0.9793236994445621
-                }
-              }
-            }
-          },
-          {
-            "id": "1af6302ee60b3bcc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Planning/Goals.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "3c72c3c979d662d4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Planning/Feasibility.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "68a1e8854d8cf5da",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Planning/Proposal - Inverted Penulum.canvas",
-                "viewState": {
-                  "x": -923.3205085485749,
-                  "y": -1391.0429128689902,
-                  "zoom": -1.1448665315523405
-                }
-              }
-            }
-          },
-          {
-            "id": "6e7d27e7fd38c493",
-            "type": "leaf",
-            "state": {
-              "type": "canvas",
-              "state": {
-                "file": "Planning/Proposal - Inverted Penulum.canvas",
-                "viewState": {
-                  "x": 1504.3460512788101,
-                  "y": -1183.4525162211899,
-                  "zoom": -1.7609332086656106
-                }
-              }
-            }
-          },
-          {
-            "id": "f48c51371db23927",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Ref/References.md",
-                "mode": "source",
-                "source": false
               }
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "vertical"
@@ -232,20 +150,21 @@
       "obsidian-advanced-slides:Show Slide Preview": false
     }
   },
-  "active": "6e7d27e7fd38c493",
+  "active": "c8f45e8892b5a65e",
   "lastOpenFiles": [
-    "Planning/SWOT.md",
-    "Planning/Proposal - Inverted Penulum.canvas",
-    "Planning/Goals.md",
-    "Planning/Hardware phase model design.md",
     "Planning/Pitch.canvas",
-    "Planning/Requirement Description.md",
+    "Planning/Proposal - Inverted Penulum.canvas",
+    "Todo.md",
     "BOM.md",
+    "Planning/Goals.md",
     "Planning/Feasibility.md",
+    "Ref/References.md",
+    "Planning/SWOT.md",
+    "Planning/Hardware phase model design.md",
+    "Planning/Requirement Description.md",
     "Planning",
     "Images/Furuta_pendulum.jpg",
     "Images/Furuta_pendulum.jpg.crdownload",
-    "Todo.md",
     "Welcome.md",
     "Ref/KF/1-s2.0-S2405896322000106-main.pdf",
     "Ref/KF",
@@ -254,7 +173,6 @@
     "Ref/Hardware/Rotary Inverted Pendulum Data Sheet.pdf",
     "Ref/sim-to-real",
     "Ref/Hardware/Gym2Real_Capstone_Project_Report.pdf",
-    "Ref/References.md",
     "Ref/Hardware",
     "Ref/Proposal - Inverted Penulum.canvas",
     "Images/apperatus.png",

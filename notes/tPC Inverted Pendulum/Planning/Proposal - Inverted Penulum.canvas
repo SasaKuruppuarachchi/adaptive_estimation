@@ -11,6 +11,16 @@
       "label": "Conceptual design"
     },
     {
+      "id": "f99d0ff6fabf1a9b",
+      "type": "group",
+      "styleAttributes": {},
+      "x": 2000,
+      "y": -809,
+      "width": 1240,
+      "height": 945,
+      "label": "Plan"
+    },
+    {
       "id": "c3e62163048f7fd3",
       "type": "group",
       "styleAttributes": {},
@@ -26,21 +36,65 @@
       "sideRatio": 1.7777777777777777,
       "isStartNode": true,
       "styleAttributes": {},
-      "x": -769,
-      "y": -2160,
+      "x": -804,
+      "y": -1600,
       "width": 924,
       "height": 520,
       "label": "Start Slide"
     },
     {
+      "id": "f1314f21af0075d0",
+      "type": "link",
+      "url": "https://github.com/users/EternalGoldenBraid/projects/4",
+      "styleAttributes": {},
+      "x": 2020,
+      "y": -649,
+      "width": 1200,
+      "height": 765
+    },
+    {
+      "id": "9c305b2f29f4613c",
+      "type": "text",
+      "text": "# Gantt chart\nhttps://github.com/users/EternalGoldenBraid/projects/4\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 2020,
+      "y": -789,
+      "width": 1200,
+      "height": 116
+    },
+    {
+      "id": "4653dbc1e7c8563c",
+      "type": "text",
+      "text": "# Proposal\n\n## Temporal Predictive Coding (tPC)\n + Learning based method to identify system dynamics and perform state estimation.\n + Does match performance of traditional estimators like kalman filter.\n\n### Hypothesis\n- Adapts to changes in system dynamics",
+      "styleAttributes": {},
+      "x": 1209,
+      "y": -1480,
+      "width": 512,
+      "height": 400
+    },
+    {
       "id": "8c5ec6e8ad5037f7",
       "type": "text",
-      "text": "# Problem\n\n## Traditional state estimators require prior knowledge off the system dynamics\n\n## It is difficult to accurately model dynamics of complex systems\n\n## When dynamic model is available it does not adapt to system changes \n\n",
+      "text": "# Problem\n\n### Traditional state estimators require prior knowledge off the system dynamics\n\n### It is difficult to accurately model dynamics of complex systems\n\n### When dynamic model is available it does not adapt to system changes \n\n",
       "styleAttributes": {},
-      "x": -580,
-      "y": -2100,
+      "x": 368,
+      "y": -1520,
       "width": 491,
       "height": 380
+    },
+    {
+      "id": "1af6926b9b91a4f7",
+      "type": "text",
+      "text": "# Real time Adaptive Estimation\n\n---\n\n\n##### Sasanka Kuruppu Arachchige, Nicklas Fienda\n\n##### Mentor: Gökhan Alcan, Azwirman Gusrialdi",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": -610,
+      "y": -1520,
+      "width": 548,
+      "height": 343
     },
     {
       "id": "bfe29db0547a47aa",
@@ -65,39 +119,6 @@
       "color": "3"
     },
     {
-      "id": "c29ed93b9a3e886b",
-      "type": "text",
-      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta_{1}} \\}$",
-      "styleAttributes": {},
-      "x": -740,
-      "y": -305,
-      "width": 260,
-      "height": 88
-    },
-    {
-      "id": "6225cb93b1dae97e",
-      "type": "text",
-      "text": "# State Estimation\n",
-      "styleAttributes": {},
-      "x": -381,
-      "y": -152,
-      "width": 287,
-      "height": 125,
-      "color": "1"
-    },
-    {
-      "id": "f9aed61bebbc8e63",
-      "type": "text",
-      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 8,
-      "y": -152,
-      "width": 360,
-      "height": 120
-    },
-    {
       "id": "ea7afc3260082493",
       "type": "file",
       "file": "Images/Furuta_pendulum.jpg",
@@ -112,20 +133,21 @@
       "type": "file",
       "file": "Planning/Goals.md",
       "styleAttributes": {},
-      "x": 1640,
-      "y": -655,
+      "x": 1209,
+      "y": -620,
       "width": 632,
       "height": 560
     },
     {
-      "id": "4653dbc1e7c8563c",
+      "id": "6225cb93b1dae97e",
       "type": "text",
-      "text": "# Proposal\n\n## Temporal Predictive Coding (tPC)\n + Learning based method to identify system dynamics and perform state estimation.\n + Does match performance of traditional estimators like kalman filter.\n\n### Hypothesis\n- Adapts to changes in system dynamics",
+      "text": "# State Estimation\n",
       "styleAttributes": {},
-      "x": 8,
-      "y": -1440,
-      "width": 512,
-      "height": 460
+      "x": -381,
+      "y": -152,
+      "width": 287,
+      "height": 125,
+      "color": "1"
     },
     {
       "id": "5d9d7e0396681d57",
@@ -176,26 +198,38 @@
       "height": 256
     },
     {
-      "id": "19878fd89f795ae5",
+      "id": "c29ed93b9a3e886b",
       "type": "text",
-      "text": "Title\nIntro slide case\nPlanning gantt chart\nSWOT\nend",
+      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta_{1}} \\}$",
       "styleAttributes": {},
-      "x": 1105,
-      "y": -1895,
+      "x": -740,
+      "y": -305,
+      "width": 260,
+      "height": 88
+    },
+    {
+      "id": "cf651ebc10ca1a04",
+      "type": "text",
+      "text": "# Thank you\n---\n\n\nQuestions ?",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 956,
+      "y": 1184,
       "width": 512,
       "height": 256
     },
     {
-      "id": "9c305b2f29f4613c",
+      "id": "f9aed61bebbc8e63",
       "type": "text",
-      "text": "# Gantt chart\n",
+      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
       "styleAttributes": {
         "textAlign": "center"
       },
-      "x": 2742,
-      "y": -499,
-      "width": 512,
-      "height": 256
+      "x": 8,
+      "y": -152,
+      "width": 360,
+      "height": 120
     }
   ],
   "edges": [
@@ -257,8 +291,8 @@
       "id": "5ddec2bcdc90755a",
       "styleAttributes": {},
       "fromNode": "88c945c57c9e1429",
-      "fromSide": "bottom",
-      "toNode": "4653dbc1e7c8563c",
+      "fromSide": "right",
+      "toNode": "8c5ec6e8ad5037f7",
       "toSide": "left"
     },
     {
@@ -280,7 +314,7 @@
     {
       "id": "baf0cc626d09b508",
       "styleAttributes": {},
-      "fromNode": "3cb78026c1e3c0ab",
+      "fromNode": "f99d0ff6fabf1a9b",
       "fromSide": "bottom",
       "toNode": "a6e97903b8eecacf",
       "toSide": "top"
@@ -310,12 +344,28 @@
       "toSide": "right"
     },
     {
-      "id": "60ea76cc4b10bb68",
+      "id": "1a2b8dd7e8953396",
       "styleAttributes": {},
       "fromNode": "3cb78026c1e3c0ab",
       "fromSide": "right",
-      "toNode": "9c305b2f29f4613c",
+      "toNode": "f99d0ff6fabf1a9b",
       "toSide": "left"
+    },
+    {
+      "id": "6a2eb279d6155096",
+      "styleAttributes": {},
+      "fromNode": "8c5ec6e8ad5037f7",
+      "fromSide": "right",
+      "toNode": "4653dbc1e7c8563c",
+      "toSide": "left"
+    },
+    {
+      "id": "c88c342dd21fc2a3",
+      "styleAttributes": {},
+      "fromNode": "6af8e196c5e53bb6",
+      "fromSide": "bottom",
+      "toNode": "cf651ebc10ca1a04",
+      "toSide": "top"
     }
   ],
   "metadata": {}
