@@ -1,0 +1,30 @@
+{
+	"nodes":[
+		{"id":"3c0219f2c75f3127","type":"group","x":-580,"y":120,"width":227,"height":400,"label":"Kalman Filter"},
+		{"id":"83566662b7b1f85f","type":"text","text":"State Space Initialization","x":-780,"y":440,"width":157,"height":60},
+		{"id":"6225cb93b1dae97e","type":"text","text":"# State Estimation\n","x":-390,"y":-257,"width":287,"height":125,"color":"1"},
+		{"id":"ea7afc3260082493","type":"file","file":"Images/Furuta_pendulum.jpg","x":240,"y":-343,"width":399,"height":243},
+		{"id":"bfe29db0547a47aa","type":"text","text":"# Actuation\nMotor Control","x":-180,"y":-740,"width":250,"height":100,"color":"4"},
+		{"id":"8c5ec6e8ad5037f7","type":"text","text":"# temporal Predictive Coding","x":-200,"y":110,"width":491,"height":60},
+		{"id":"2704059047f2e9d5","type":"text","text":"# Control \n## LQR or PID\n","x":-702,"y":-560,"width":250,"height":120,"color":"3"},
+		{"id":"95dd1d9f15593c6f","type":"text","text":"State Space Initialization","x":-545,"y":150,"width":157,"height":60},
+		{"id":"e36618d6c1e403b4","type":"text","text":"Prediction","x":-545,"y":340,"width":157,"height":60},
+		{"id":"8713f207357ade51","type":"text","text":"Process noise Assumption","x":-560,"y":240,"width":187,"height":60},
+		{"id":"2c72b253a10eb203","type":"text","text":"Measurement Update","x":-552,"y":440,"width":172,"height":60},
+		{"id":"a3079d692ce559d6","x":920,"y":-484,"width":400,"height":400,"type":"link","url":"https://en.wikipedia.org/wiki/Furuta_pendulum#:~:text=The%20Furuta%20pendulum%2C%20or%20rotational,Katsuhisa%20Furuta%20and%20his%20colleagues."}
+	],
+	"edges":[
+		{"id":"84e3db1024832fd2","fromNode":"ea7afc3260082493","fromSide":"left","toNode":"6225cb93b1dae97e","toSide":"right","color":"5","label":"Sensor Measurement\n{x, theta}"},
+		{"id":"7a41ab17dae55f93","fromNode":"6225cb93b1dae97e","fromSide":"left","toNode":"2704059047f2e9d5","toSide":"bottom","color":"1","label":"X = {x, theta, x_dot, theta_dot }"},
+		{"id":"67670bc46ededca5","fromNode":"bfe29db0547a47aa","fromSide":"right","toNode":"ea7afc3260082493","toSide":"top","color":"4","label":"PWM"},
+		{"id":"7800b6132f8c0561","fromNode":"2704059047f2e9d5","fromSide":"top","toNode":"bfe29db0547a47aa","toSide":"left","color":"3","label":"Set point - E "},
+		{"id":"740baacd95d511d7","fromNode":"6225cb93b1dae97e","fromSide":"bottom","toNode":"8c5ec6e8ad5037f7","toSide":"top","toEnd":"none"},
+		{"id":"8a3c707092b29654","fromNode":"95dd1d9f15593c6f","fromSide":"bottom","toNode":"8713f207357ade51","toSide":"top"},
+		{"id":"7f0826245daf39bc","fromNode":"8713f207357ade51","fromSide":"bottom","toNode":"e36618d6c1e403b4","toSide":"top"},
+		{"id":"87767fccd0fad58c","fromNode":"e36618d6c1e403b4","fromSide":"bottom","toNode":"2c72b253a10eb203","toSide":"top"},
+		{"id":"cdee22490d4efc19","fromNode":"2c72b253a10eb203","fromSide":"right","toNode":"95dd1d9f15593c6f","toSide":"right"},
+		{"id":"484007750e859edc","fromNode":"83566662b7b1f85f","fromSide":"right","toNode":"2c72b253a10eb203","toSide":"left"},
+		{"id":"73bc986b09ca6fda","fromNode":"6225cb93b1dae97e","fromSide":"bottom","toNode":"3c0219f2c75f3127","toSide":"top","toEnd":"none"},
+		{"id":"38fb6b7cf2fd8d62","fromNode":"ea7afc3260082493","fromSide":"right","toNode":"a3079d692ce559d6","toSide":"left","toEnd":"none"}
+	]
+}
