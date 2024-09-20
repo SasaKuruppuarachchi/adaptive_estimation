@@ -1,0 +1,322 @@
+{
+  "nodes": [
+    {
+      "id": "c19cbadf55e29341",
+      "type": "group",
+      "styleAttributes": {},
+      "x": -760,
+      "y": -720,
+      "width": 1760,
+      "height": 766,
+      "label": "Conceptual design"
+    },
+    {
+      "id": "c3e62163048f7fd3",
+      "type": "group",
+      "styleAttributes": {},
+      "x": 775,
+      "y": 246,
+      "width": 1086,
+      "height": 590,
+      "label": "SWOT"
+    },
+    {
+      "id": "88c945c57c9e1429",
+      "type": "group",
+      "sideRatio": 1.7777777777777777,
+      "isStartNode": true,
+      "styleAttributes": {},
+      "x": -769,
+      "y": -2160,
+      "width": 924,
+      "height": 520,
+      "label": "Start Slide"
+    },
+    {
+      "id": "8c5ec6e8ad5037f7",
+      "type": "text",
+      "text": "# Problem\n\n## Traditional state estimators require prior knowledge off the system dynamics\n\n## It is difficult to accurately model dynamics of complex systems\n\n## When dynamic model is available it does not adapt to system changes \n\n",
+      "styleAttributes": {},
+      "x": -580,
+      "y": -2100,
+      "width": 491,
+      "height": 380
+    },
+    {
+      "id": "bfe29db0547a47aa",
+      "type": "text",
+      "text": "# Actuation\nMotor Control",
+      "styleAttributes": {},
+      "x": -171,
+      "y": -700,
+      "width": 250,
+      "height": 100,
+      "color": "4"
+    },
+    {
+      "id": "2704059047f2e9d5",
+      "type": "text",
+      "text": "# Control \n## LQR or PID\n",
+      "styleAttributes": {},
+      "x": -740,
+      "y": -540,
+      "width": 250,
+      "height": 120,
+      "color": "3"
+    },
+    {
+      "id": "c29ed93b9a3e886b",
+      "type": "text",
+      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta_{1}} \\}$",
+      "styleAttributes": {},
+      "x": -740,
+      "y": -305,
+      "width": 260,
+      "height": 88
+    },
+    {
+      "id": "6225cb93b1dae97e",
+      "type": "text",
+      "text": "# State Estimation\n",
+      "styleAttributes": {},
+      "x": -381,
+      "y": -152,
+      "width": 287,
+      "height": 125,
+      "color": "1"
+    },
+    {
+      "id": "f9aed61bebbc8e63",
+      "type": "text",
+      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 8,
+      "y": -152,
+      "width": 360,
+      "height": 120
+    },
+    {
+      "id": "ea7afc3260082493",
+      "type": "file",
+      "file": "Images/Furuta_pendulum.jpg",
+      "styleAttributes": {},
+      "x": 469,
+      "y": -217,
+      "width": 399,
+      "height": 243
+    },
+    {
+      "id": "3cb78026c1e3c0ab",
+      "type": "file",
+      "file": "Planning/Goals.md",
+      "styleAttributes": {},
+      "x": 1640,
+      "y": -655,
+      "width": 632,
+      "height": 560
+    },
+    {
+      "id": "4653dbc1e7c8563c",
+      "type": "text",
+      "text": "# Proposal\n\n## Temporal Predictive Coding (tPC)\n + Learning based method to identify system dynamics and perform state estimation.\n + Does match performance of traditional estimators like kalman filter.\n\n### Hypothesis\n- Adapts to changes in system dynamics",
+      "styleAttributes": {},
+      "x": 8,
+      "y": -1440,
+      "width": 512,
+      "height": 460
+    },
+    {
+      "id": "5d9d7e0396681d57",
+      "type": "text",
+      "text": "# Weaknesses\n- tPC is a cutting edge learning based method which is yet to be established\n- Time management",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1329,
+      "y": 266,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "6af8e196c5e53bb6",
+      "type": "text",
+      "text": "# Opportunities\n- Enables learning dynamics of complex systems\n- Enables a plug and play estimation algorithms with minor/self tuning",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 795,
+      "y": 560,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "35069bfb71984235",
+      "type": "text",
+      "text": "# Threats\n- Sim-to-real gap\n- Uncertainty of scaling to bigger systems",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1329,
+      "y": 560,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "a6e97903b8eecacf",
+      "type": "text",
+      "text": "# Strengths \n- Technical know-how\n\t- Electronics and hardware design\n\t- Robotics\n\t- Real time control system design\n\t- Learning based system expertise\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 795,
+      "y": 266,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "19878fd89f795ae5",
+      "type": "text",
+      "text": "Title\nIntro slide case\nPlanning gantt chart\nSWOT\nend",
+      "styleAttributes": {},
+      "x": 1105,
+      "y": -1895,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "9c305b2f29f4613c",
+      "type": "text",
+      "text": "# Gantt chart\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 2742,
+      "y": -499,
+      "width": 512,
+      "height": 256
+    }
+  ],
+  "edges": [
+    {
+      "id": "84e3db1024832fd2",
+      "fromNode": "ea7afc3260082493",
+      "fromSide": "left",
+      "toNode": "f9aed61bebbc8e63",
+      "toSide": "right",
+      "color": "5"
+    },
+    {
+      "id": "67670bc46ededca5",
+      "fromNode": "bfe29db0547a47aa",
+      "fromSide": "right",
+      "toNode": "ea7afc3260082493",
+      "toSide": "top",
+      "color": "4",
+      "label": "PWM"
+    },
+    {
+      "id": "7800b6132f8c0561",
+      "fromNode": "2704059047f2e9d5",
+      "fromSide": "top",
+      "toNode": "bfe29db0547a47aa",
+      "toSide": "left",
+      "color": "3",
+      "label": "Set point - E "
+    },
+    {
+      "id": "73950ae97a5d487c",
+      "styleAttributes": {},
+      "fromNode": "f9aed61bebbc8e63",
+      "fromSide": "left",
+      "toNode": "6225cb93b1dae97e",
+      "toSide": "right",
+      "color": "5"
+    },
+    {
+      "id": "b6fd9350481ed13c",
+      "styleAttributes": {},
+      "fromNode": "6225cb93b1dae97e",
+      "fromSide": "left",
+      "toNode": "c29ed93b9a3e886b",
+      "toSide": "bottom",
+      "toEnd": "none",
+      "color": "1"
+    },
+    {
+      "id": "71c0b7b79ce00f80",
+      "styleAttributes": {},
+      "fromNode": "c29ed93b9a3e886b",
+      "fromSide": "top",
+      "toNode": "2704059047f2e9d5",
+      "toSide": "bottom",
+      "color": "1"
+    },
+    {
+      "id": "5ddec2bcdc90755a",
+      "styleAttributes": {},
+      "fromNode": "88c945c57c9e1429",
+      "fromSide": "bottom",
+      "toNode": "4653dbc1e7c8563c",
+      "toSide": "left"
+    },
+    {
+      "id": "11d6129301ebd77a",
+      "styleAttributes": {},
+      "fromNode": "4653dbc1e7c8563c",
+      "fromSide": "bottom",
+      "toNode": "c19cbadf55e29341",
+      "toSide": "top"
+    },
+    {
+      "id": "3e1f1f00ee934bc4",
+      "styleAttributes": {},
+      "fromNode": "c19cbadf55e29341",
+      "fromSide": "right",
+      "toNode": "3cb78026c1e3c0ab",
+      "toSide": "left"
+    },
+    {
+      "id": "baf0cc626d09b508",
+      "styleAttributes": {},
+      "fromNode": "3cb78026c1e3c0ab",
+      "fromSide": "bottom",
+      "toNode": "a6e97903b8eecacf",
+      "toSide": "top"
+    },
+    {
+      "id": "441422c92d22293e",
+      "styleAttributes": {},
+      "fromNode": "a6e97903b8eecacf",
+      "fromSide": "right",
+      "toNode": "5d9d7e0396681d57",
+      "toSide": "left"
+    },
+    {
+      "id": "577a118ee287a9f8",
+      "styleAttributes": {},
+      "fromNode": "5d9d7e0396681d57",
+      "fromSide": "bottom",
+      "toNode": "35069bfb71984235",
+      "toSide": "top"
+    },
+    {
+      "id": "238d9b146e077b37",
+      "styleAttributes": {},
+      "fromNode": "35069bfb71984235",
+      "fromSide": "left",
+      "toNode": "6af8e196c5e53bb6",
+      "toSide": "right"
+    },
+    {
+      "id": "60ea76cc4b10bb68",
+      "styleAttributes": {},
+      "fromNode": "3cb78026c1e3c0ab",
+      "fromSide": "right",
+      "toNode": "9c305b2f29f4613c",
+      "toSide": "left"
+    }
+  ],
+  "metadata": {}
+}
