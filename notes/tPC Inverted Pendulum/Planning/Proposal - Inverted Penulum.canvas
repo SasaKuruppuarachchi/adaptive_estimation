@@ -1,6 +1,16 @@
 {
   "nodes": [
     {
+      "id": "f99d0ff6fabf1a9b",
+      "type": "group",
+      "styleAttributes": {},
+      "x": 3960,
+      "y": -1200,
+      "width": 2720,
+      "height": 1800,
+      "label": "Plan"
+    },
+    {
       "id": "c19cbadf55e29341",
       "type": "group",
       "styleAttributes": {},
@@ -11,21 +21,11 @@
       "label": "Conceptual design"
     },
     {
-      "id": "f99d0ff6fabf1a9b",
-      "type": "group",
-      "styleAttributes": {},
-      "x": 2000,
-      "y": -809,
-      "width": 1240,
-      "height": 945,
-      "label": "Plan"
-    },
-    {
       "id": "c3e62163048f7fd3",
       "type": "group",
       "styleAttributes": {},
-      "x": 775,
-      "y": 246,
+      "x": 760,
+      "y": 1080,
       "width": 1086,
       "height": 590,
       "label": "SWOT"
@@ -41,51 +41,6 @@
       "width": 924,
       "height": 520,
       "label": "Start Slide"
-    },
-    {
-      "id": "cf651ebc10ca1a04",
-      "type": "text",
-      "text": "# Thank you\n---\n\n\nQuestions ?",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 956,
-      "y": 1184,
-      "width": 512,
-      "height": 256
-    },
-    {
-      "id": "3cb78026c1e3c0ab",
-      "type": "file",
-      "file": "Planning/Goals.md",
-      "styleAttributes": {},
-      "x": 1209,
-      "y": -620,
-      "width": 632,
-      "height": 560
-    },
-    {
-      "id": "2704059047f2e9d5",
-      "type": "text",
-      "text": "# Control \n## LQR or PID\n",
-      "styleAttributes": {},
-      "x": -740,
-      "y": -540,
-      "width": 250,
-      "height": 120,
-      "color": "3"
-    },
-    {
-      "id": "5d9d7e0396681d57",
-      "type": "text",
-      "text": "# Weaknesses\n- tPC is a cutting edge learning based method which is yet to be established\n- Time management",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 1329,
-      "y": 266,
-      "width": 512,
-      "height": 256
     },
     {
       "id": "c29ed93b9a3e886b",
@@ -121,101 +76,24 @@
       "color": "4"
     },
     {
-      "id": "6225cb93b1dae97e",
-      "type": "text",
-      "text": "# State Estimation\n",
-      "styleAttributes": {},
-      "x": -381,
-      "y": -152,
-      "width": 287,
-      "height": 125,
-      "color": "1"
-    },
-    {
-      "id": "f9aed61bebbc8e63",
-      "type": "text",
-      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 8,
-      "y": -152,
-      "width": 360,
-      "height": 120
-    },
-    {
-      "id": "f1314f21af0075d0",
-      "type": "link",
-      "url": "https://github.com/users/EternalGoldenBraid/projects/4",
-      "styleAttributes": {},
-      "x": 2020,
-      "y": -649,
-      "width": 1200,
-      "height": 765
-    },
-    {
-      "id": "9c305b2f29f4613c",
-      "type": "text",
-      "text": "# Gantt chart\nhttps://github.com/users/EternalGoldenBraid/projects/4\n",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 2020,
-      "y": -789,
-      "width": 1200,
-      "height": 116
-    },
-    {
       "id": "4653dbc1e7c8563c",
       "type": "text",
-      "text": "# Proposal\n\n## Temporal Predictive Coding (tPC)\n + Learning based method to identify system dynamics and perform state estimation.\n + Does match performance of traditional estimators like kalman filter.\n\n### Hypothesis\n- Adapts to changes in system dynamics",
-      "styleAttributes": {},
+      "text": "# Proposal\n---\n## Temporal Predictive Coding (tPC)\n + Learns system dynamics and perform state estimation.\n + Similar performance to Kalman filter.\n\n### Hypothesis\n- Will adapt to changes in system dynamics",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
       "x": 1209,
-      "y": -1480,
+      "y": -1540,
       "width": 512,
-      "height": 400
-    },
-    {
-      "id": "6af8e196c5e53bb6",
-      "type": "text",
-      "text": "# Opportunities\n- Enables learning dynamics of complex systems\n- Enables a plug and play estimation algorithms with minor/self tuning",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 795,
-      "y": 560,
-      "width": 512,
-      "height": 256
-    },
-    {
-      "id": "35069bfb71984235",
-      "type": "text",
-      "text": "# Threats\n- Sim-to-real gap\n- Uncertainty of scaling to bigger systems",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 1329,
-      "y": 560,
-      "width": 512,
-      "height": 256
-    },
-    {
-      "id": "a6e97903b8eecacf",
-      "type": "text",
-      "text": "# Strengths \n- Technical know-how\n\t- Electronics and hardware design\n\t- Robotics\n\t- Real time control system design\n\t- Learning based system expertise\n",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 795,
-      "y": 266,
-      "width": 512,
-      "height": 256
+      "height": 460
     },
     {
       "id": "8c5ec6e8ad5037f7",
       "type": "text",
-      "text": "# Problem\n\n### Traditional state estimators require prior knowledge off the system dynamics\n\n### It is difficult to accurately model dynamics of complex systems\n\n### When dynamic model is available it does not adapt to system changes \n\n",
-      "styleAttributes": {},
+      "text": "# Problem\n---\n###  Prior knowledge of the system dynamics\n\n### Difficulty to accurately model dynamics of complex systems\n\n### Adaptability to system changes \n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
       "x": 368,
       "y": -1520,
       "width": 491,
@@ -230,6 +108,120 @@
       "y": -217,
       "width": 399,
       "height": 243
+    },
+    {
+      "id": "f9aed61bebbc8e63",
+      "type": "text",
+      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 0,
+      "y": -155,
+      "width": 360,
+      "height": 120
+    },
+    {
+      "id": "6225cb93b1dae97e",
+      "type": "text",
+      "text": "# State Estimation\n",
+      "styleAttributes": {},
+      "x": -400,
+      "y": -157,
+      "width": 287,
+      "height": 125,
+      "color": "1"
+    },
+    {
+      "id": "2704059047f2e9d5",
+      "type": "text",
+      "text": "# Control \n## LQR or PID\n",
+      "styleAttributes": {},
+      "x": -735,
+      "y": -540,
+      "width": 250,
+      "height": 120,
+      "color": "3"
+    },
+    {
+      "id": "3cb78026c1e3c0ab",
+      "type": "file",
+      "file": "Planning/Goals.md",
+      "styleAttributes": {},
+      "x": 1200,
+      "y": -720,
+      "width": 632,
+      "height": 756
+    },
+    {
+      "id": "a6e97903b8eecacf",
+      "type": "text",
+      "text": "# Strengths \n- Technical know-how\n\t- Electronics and hardware design\n\t- Robotics\n\t- Real time control system design\n\t- Learning based system expertise\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 780,
+      "y": 1100,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "6af8e196c5e53bb6",
+      "type": "text",
+      "text": "# Opportunities\n- Enables learning dynamics of complex systems\n- Enables a plug and play estimation algorithms with minor/self tuning",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 780,
+      "y": 1394,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "35069bfb71984235",
+      "type": "text",
+      "text": "# Threats\n- Sim-to-real gap\n- Uncertainty of scaling to bigger systems",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1314,
+      "y": 1394,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "5d9d7e0396681d57",
+      "type": "text",
+      "text": "# Weaknesses\n- tPC is a cutting edge learning based method which is yet to be established\n- Time management",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1314,
+      "y": 1100,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "cf651ebc10ca1a04",
+      "type": "text",
+      "text": "# Thank you\n---\n\n\nQuestions ?",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 941,
+      "y": 2018,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "f1314f21af0075d0",
+      "type": "link",
+      "url": "https://github.com/users/EternalGoldenBraid/projects/4",
+      "styleAttributes": {},
+      "x": 3980,
+      "y": -1180,
+      "width": 2660,
+      "height": 1760
     }
   ],
   "edges": [

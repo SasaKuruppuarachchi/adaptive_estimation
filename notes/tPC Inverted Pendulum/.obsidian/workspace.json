@@ -15,9 +15,9 @@
               "state": {
                 "file": "Planning/Proposal - Inverted Penulum.canvas",
                 "viewState": {
-                  "x": 908.6900372228467,
-                  "y": -85.027096317668,
-                  "zoom": -0.9417908821530333
+                  "x": 5406.542683674944,
+                  "y": -43.62045212814451,
+                  "zoom": -0.19999999999999984
                 }
               }
             }
@@ -159,7 +159,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "381d092b28e68ca2",
+  "active": "12d7e483566ac68f",
   "lastOpenFiles": [
     "Planning/Proposal - Inverted Penulum.canvas",
     "Planning/Pitch.canvas",

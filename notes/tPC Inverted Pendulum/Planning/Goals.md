@@ -3,16 +3,17 @@
 
 
 # Objectives
-## Phase 1:
-- Set up simulator Nvidia Isaac sim (Sasa)
+## Phase 1 : Simulation
+- Set up simulator in NVIDIA IsaacSIM #Sasa
 - Replicate state estimation results of the paper.
-	- KL (Sasa)
-	- tPC (Nick)
-- Off the shelf control. PID, LQR etc.. (Sasa & Nick)
-- Evaluate systems adaptability (learning transition and emission dynamics) with
-	- changes in the physical parameters (e,g, gravity)
-	- changes in the dynamical paremeters (mass of pendulum).
-	-  novel sensing methods.
-# Phase 2:
-- Construct the physical device
-- Evaluate the adaptability to sim2real gap for both KF and tPC.
+	- KL as the baseline #Sasa 
+	- tPC #Nick
+- Off the shelf control. PID, LQR etc. #Sasa , #Nick 
+- Evaluate systems adaptability with #Sasa , #Nick 
+	- Changes in the physical parameters (e.g. gravity).
+	- Changes in the system dynamics (mass of pendulum).
+	- Unseen external disturbances.
+	- Novel sensing methods.
+# Phase 2 : Real world
+- Construct the physical device #Sasa , #Nick 
+- Evaluate the adaptability to sim2real gap for both KF and tPC. #Sasa , #Nick 
