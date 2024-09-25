@@ -43,6 +43,107 @@
       "label": "Start Slide"
     },
     {
+      "id": "cf651ebc10ca1a04",
+      "type": "text",
+      "text": "# Thank you\n---\n\n\nQuestions ?",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 956,
+      "y": 1184,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "3cb78026c1e3c0ab",
+      "type": "file",
+      "file": "Planning/Goals.md",
+      "styleAttributes": {},
+      "x": 1209,
+      "y": -620,
+      "width": 632,
+      "height": 560
+    },
+    {
+      "id": "2704059047f2e9d5",
+      "type": "text",
+      "text": "# Control \n## LQR or PID\n",
+      "styleAttributes": {},
+      "x": -740,
+      "y": -540,
+      "width": 250,
+      "height": 120,
+      "color": "3"
+    },
+    {
+      "id": "5d9d7e0396681d57",
+      "type": "text",
+      "text": "# Weaknesses\n- tPC is a cutting edge learning based method which is yet to be established\n- Time management",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1329,
+      "y": 266,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "c29ed93b9a3e886b",
+      "type": "text",
+      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta_{1}} \\}$",
+      "styleAttributes": {},
+      "x": -740,
+      "y": -305,
+      "width": 260,
+      "height": 88
+    },
+    {
+      "id": "1af6926b9b91a4f7",
+      "type": "text",
+      "text": "# Real time Adaptive Estimation\n\n---\n\n\n##### Sasanka Kuruppu Arachchige, Nicklas Fienda\n\n##### Mentor: Gökhan Alcan, Azwirman Gusrialdi",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": -610,
+      "y": -1520,
+      "width": 548,
+      "height": 343
+    },
+    {
+      "id": "bfe29db0547a47aa",
+      "type": "text",
+      "text": "# Actuation\nMotor Control",
+      "styleAttributes": {},
+      "x": -171,
+      "y": -700,
+      "width": 250,
+      "height": 100,
+      "color": "4"
+    },
+    {
+      "id": "6225cb93b1dae97e",
+      "type": "text",
+      "text": "# State Estimation\n",
+      "styleAttributes": {},
+      "x": -381,
+      "y": -152,
+      "width": 287,
+      "height": 125,
+      "color": "1"
+    },
+    {
+      "id": "f9aed61bebbc8e63",
+      "type": "text",
+      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 8,
+      "y": -152,
+      "width": 360,
+      "height": 120
+    },
+    {
       "id": "f1314f21af0075d0",
       "type": "link",
       "url": "https://github.com/users/EternalGoldenBraid/projects/4",
@@ -73,93 +174,6 @@
       "y": -1480,
       "width": 512,
       "height": 400
-    },
-    {
-      "id": "8c5ec6e8ad5037f7",
-      "type": "text",
-      "text": "# Problem\n\n### Traditional state estimators require prior knowledge off the system dynamics\n\n### It is difficult to accurately model dynamics of complex systems\n\n### When dynamic model is available it does not adapt to system changes \n\n",
-      "styleAttributes": {},
-      "x": 368,
-      "y": -1520,
-      "width": 491,
-      "height": 380
-    },
-    {
-      "id": "1af6926b9b91a4f7",
-      "type": "text",
-      "text": "# Real time Adaptive Estimation\n\n---\n\n\n##### Sasanka Kuruppu Arachchige, Nicklas Fienda\n\n##### Mentor: Gökhan Alcan, Azwirman Gusrialdi",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": -610,
-      "y": -1520,
-      "width": 548,
-      "height": 343
-    },
-    {
-      "id": "bfe29db0547a47aa",
-      "type": "text",
-      "text": "# Actuation\nMotor Control",
-      "styleAttributes": {},
-      "x": -171,
-      "y": -700,
-      "width": 250,
-      "height": 100,
-      "color": "4"
-    },
-    {
-      "id": "2704059047f2e9d5",
-      "type": "text",
-      "text": "# Control \n## LQR or PID\n",
-      "styleAttributes": {},
-      "x": -740,
-      "y": -540,
-      "width": 250,
-      "height": 120,
-      "color": "3"
-    },
-    {
-      "id": "3cb78026c1e3c0ab",
-      "type": "file",
-      "file": "Planning/Goals.md",
-      "styleAttributes": {},
-      "x": 1209,
-      "y": -620,
-      "width": 632,
-      "height": 560
-    },
-    {
-      "id": "ea7afc3260082493",
-      "type": "file",
-      "file": "Images/Furuta_pendulum.jpg",
-      "styleAttributes": {},
-      "x": 469,
-      "y": -217,
-      "width": 399,
-      "height": 243
-    },
-    {
-      "id": "6225cb93b1dae97e",
-      "type": "text",
-      "text": "# State Estimation\n",
-      "styleAttributes": {},
-      "x": -381,
-      "y": -152,
-      "width": 287,
-      "height": 125,
-      "color": "1"
-    },
-    {
-      "id": "5d9d7e0396681d57",
-      "type": "text",
-      "text": "# Weaknesses\n- tPC is a cutting edge learning based method which is yet to be established\n- Time management",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 1329,
-      "y": 266,
-      "width": 512,
-      "height": 256
     },
     {
       "id": "6af8e196c5e53bb6",
@@ -198,38 +212,24 @@
       "height": 256
     },
     {
-      "id": "c29ed93b9a3e886b",
+      "id": "8c5ec6e8ad5037f7",
       "type": "text",
-      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta_{1}} \\}$",
+      "text": "# Problem\n\n### Traditional state estimators require prior knowledge off the system dynamics\n\n### It is difficult to accurately model dynamics of complex systems\n\n### When dynamic model is available it does not adapt to system changes \n\n",
       "styleAttributes": {},
-      "x": -740,
-      "y": -305,
-      "width": 260,
-      "height": 88
+      "x": 368,
+      "y": -1520,
+      "width": 491,
+      "height": 380
     },
     {
-      "id": "cf651ebc10ca1a04",
-      "type": "text",
-      "text": "# Thank you\n---\n\n\nQuestions ?",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 956,
-      "y": 1184,
-      "width": 512,
-      "height": 256
-    },
-    {
-      "id": "f9aed61bebbc8e63",
-      "type": "text",
-      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 8,
-      "y": -152,
-      "width": 360,
-      "height": 120
+      "id": "ea7afc3260082493",
+      "type": "file",
+      "file": "Images/Furuta_pendulum.jpg",
+      "styleAttributes": {},
+      "x": 469,
+      "y": -217,
+      "width": 399,
+      "height": 243
     }
   ],
   "edges": [
