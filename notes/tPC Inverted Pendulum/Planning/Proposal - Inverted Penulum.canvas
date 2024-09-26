@@ -76,18 +76,6 @@
       "color": "4"
     },
     {
-      "id": "4653dbc1e7c8563c",
-      "type": "text",
-      "text": "# Proposal\n---\n## Temporal Predictive Coding (tPC)\n + Learns system dynamics and perform state estimation.\n + Similar performance to Kalman filter.\n\n### Hypothesis\n- Will adapt to changes in system dynamics",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 1209,
-      "y": -1540,
-      "width": 512,
-      "height": 460
-    },
-    {
       "id": "8c5ec6e8ad5037f7",
       "type": "text",
       "text": "# Problem\n---\n###  Prior knowledge of the system dynamics\n\n### Difficulty to accurately model dynamics of complex systems\n\n### Adaptability to system changes \n\n",
@@ -98,16 +86,6 @@
       "y": -1520,
       "width": 491,
       "height": 380
-    },
-    {
-      "id": "ea7afc3260082493",
-      "type": "file",
-      "file": "Images/Furuta_pendulum.jpg",
-      "styleAttributes": {},
-      "x": 469,
-      "y": -217,
-      "width": 399,
-      "height": 243
     },
     {
       "id": "f9aed61bebbc8e63",
@@ -142,6 +120,28 @@
       "width": 250,
       "height": 120,
       "color": "3"
+    },
+    {
+      "id": "4653dbc1e7c8563c",
+      "type": "text",
+      "text": "# Proposal\n---\n## Temporal Predictive Coding (tPC)\n + Learns system dynamics and perform state estimation.\n + Similar performance to Kalman filter.\n\n### Hypothesis\n- Will adapt to changes in system dynamics",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1209,
+      "y": -1540,
+      "width": 512,
+      "height": 460
+    },
+    {
+      "id": "ea7afc3260082493",
+      "type": "file",
+      "file": "Images/Furuta_pendulum.jpg",
+      "styleAttributes": {},
+      "x": 469,
+      "y": -217,
+      "width": 399,
+      "height": 243
     },
     {
       "id": "3cb78026c1e3c0ab",
