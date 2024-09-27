@@ -15,9 +15,9 @@
               "state": {
                 "file": "Planning/Proposal - Inverted Penulum.canvas",
                 "viewState": {
-                  "x": 5499.682726772262,
-                  "y": -147.43684199484207,
-                  "zoom": -0.19999999999999984
+                  "x": 5320,
+                  "y": -300.00000000000006,
+                  "zoom": -0.3219280948873623
                 }
               }
             }
@@ -161,6 +161,8 @@
   },
   "active": "12d7e483566ac68f",
   "lastOpenFiles": [
+    "Planning/Proposal markdown.md",
+    "Planning/Proposal markdown.md~",
     "Planning/Proposal - Inverted Penulum.canvas",
     "Planning/Pitch.canvas",
     "Todo.md",
@@ -182,7 +184,6 @@
     "Ref/Hardware/Rotary Inverted Pendulum Data Sheet.pdf",
     "Ref/sim-to-real",
     "Ref/Hardware/Gym2Real_Capstone_Project_Report.pdf",
-    "Ref/Hardware",
     "Ref/Proposal - Inverted Penulum.canvas",
     "Images/apperatus.png",
     "Images/appuratus.png",
