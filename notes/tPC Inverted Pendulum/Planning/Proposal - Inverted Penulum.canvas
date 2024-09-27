@@ -43,14 +43,15 @@
       "label": "Start Slide"
     },
     {
-      "id": "c29ed93b9a3e886b",
+      "id": "bfe29db0547a47aa",
       "type": "text",
-      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta_{1}} \\}$",
+      "text": "# Actuation\nMotor Control",
       "styleAttributes": {},
-      "x": -740,
-      "y": -305,
-      "width": 260,
-      "height": 88
+      "x": -171,
+      "y": -700,
+      "width": 250,
+      "height": 100,
+      "color": "4"
     },
     {
       "id": "1af6926b9b91a4f7",
@@ -65,39 +66,37 @@
       "height": 343
     },
     {
-      "id": "bfe29db0547a47aa",
+      "id": "2704059047f2e9d5",
       "type": "text",
-      "text": "# Actuation\nMotor Control",
+      "text": "# Control \n## LQR or PID\n",
       "styleAttributes": {},
-      "x": -171,
-      "y": -700,
+      "x": -735,
+      "y": -540,
       "width": 250,
-      "height": 100,
-      "color": "4"
+      "height": 120,
+      "color": "3"
     },
     {
-      "id": "8c5ec6e8ad5037f7",
+      "id": "f1314f21af0075d0",
+      "type": "link",
+      "url": "https://github.com/users/EternalGoldenBraid/projects/4",
+      "styleAttributes": {},
+      "x": 3980,
+      "y": -1180,
+      "width": 2660,
+      "height": 1760
+    },
+    {
+      "id": "cf651ebc10ca1a04",
       "type": "text",
-      "text": "# Problem\n---\n###  Prior knowledge of the system dynamics\n\n### Difficulty to accurately model dynamics of complex systems\n\n### Adaptability to system changes \n\n",
+      "text": "# Thank you\n---\n\n\nQuestions ?",
       "styleAttributes": {
         "textAlign": "center"
       },
-      "x": 368,
-      "y": -1520,
-      "width": 491,
-      "height": 380
-    },
-    {
-      "id": "f9aed61bebbc8e63",
-      "type": "text",
-      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 0,
-      "y": -155,
-      "width": 360,
-      "height": 120
+      "x": 941,
+      "y": 2018,
+      "width": 512,
+      "height": 256
     },
     {
       "id": "6225cb93b1dae97e",
@@ -111,71 +110,14 @@
       "color": "1"
     },
     {
-      "id": "2704059047f2e9d5",
+      "id": "c29ed93b9a3e886b",
       "type": "text",
-      "text": "# Control \n## LQR or PID\n",
+      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta} \\}$",
       "styleAttributes": {},
-      "x": -735,
-      "y": -540,
-      "width": 250,
-      "height": 120,
-      "color": "3"
-    },
-    {
-      "id": "4653dbc1e7c8563c",
-      "type": "text",
-      "text": "# Proposal\n---\n## Temporal Predictive Coding (tPC)\n + Learns system dynamics and perform state estimation.\n + Similar performance to Kalman filter.\n\n### Hypothesis\n- Will adapt to changes in system dynamics",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 1209,
-      "y": -1540,
-      "width": 512,
-      "height": 460
-    },
-    {
-      "id": "ea7afc3260082493",
-      "type": "file",
-      "file": "Images/Furuta_pendulum.jpg",
-      "styleAttributes": {},
-      "x": 469,
-      "y": -217,
-      "width": 399,
-      "height": 243
-    },
-    {
-      "id": "3cb78026c1e3c0ab",
-      "type": "file",
-      "file": "Planning/Goals.md",
-      "styleAttributes": {},
-      "x": 1200,
-      "y": -720,
-      "width": 632,
-      "height": 756
-    },
-    {
-      "id": "a6e97903b8eecacf",
-      "type": "text",
-      "text": "# Strengths \n- Technical know-how\n\t- Electronics and hardware design\n\t- Robotics\n\t- Real time control system design\n\t- Learning based system expertise\n",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 780,
-      "y": 1100,
-      "width": 512,
-      "height": 256
-    },
-    {
-      "id": "6af8e196c5e53bb6",
-      "type": "text",
-      "text": "# Opportunities\n- Enables learning dynamics of complex systems\n- Enables a plug and play estimation algorithms with minor/self tuning",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 780,
-      "y": 1394,
-      "width": 512,
-      "height": 256
+      "x": -740,
+      "y": -305,
+      "width": 260,
+      "height": 88
     },
     {
       "id": "35069bfb71984235",
@@ -202,26 +144,84 @@
       "height": 256
     },
     {
-      "id": "cf651ebc10ca1a04",
+      "id": "a6e97903b8eecacf",
       "type": "text",
-      "text": "# Thank you\n---\n\n\nQuestions ?",
+      "text": "# Strengths \n- Technical know-how\n\t- Electronics and hardware design\n\t- Robotics\n\t- Real time control system design\n\t- Learning based system expertise\n",
       "styleAttributes": {
         "textAlign": "center"
       },
-      "x": 941,
-      "y": 2018,
+      "x": 780,
+      "y": 1100,
       "width": 512,
       "height": 256
     },
     {
-      "id": "f1314f21af0075d0",
-      "type": "link",
-      "url": "https://github.com/users/EternalGoldenBraid/projects/4",
+      "id": "8c5ec6e8ad5037f7",
+      "type": "text",
+      "text": "# Problem\n---\n###  Prior knowledge of the system dynamics\n\n### Difficulty to accurately model dynamics of complex systems\n\n### Adaptability to system changes \n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 368,
+      "y": -1520,
+      "width": 491,
+      "height": 380
+    },
+    {
+      "id": "3cb78026c1e3c0ab",
+      "type": "file",
+      "file": "Planning/Goals.md",
       "styleAttributes": {},
-      "x": 3980,
-      "y": -1180,
-      "width": 2660,
-      "height": 1760
+      "x": 1200,
+      "y": -720,
+      "width": 632,
+      "height": 756
+    },
+    {
+      "id": "4653dbc1e7c8563c",
+      "type": "text",
+      "text": "# Proposal\n---\n## Temporal Predictive Coding (tPC)\n + Learns system dynamics and perform state estimation.\n + Similar performance to Kalman filter.\n\n### Hypothesis\n- Will adapt to changes in system dynamics",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1209,
+      "y": -1540,
+      "width": 512,
+      "height": 460
+    },
+    {
+      "id": "6af8e196c5e53bb6",
+      "type": "text",
+      "text": "# Opportunities\n- Enables learning dynamics of complex systems\n- Enables a plug and play estimation algorithms with minor/self tuning",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 780,
+      "y": 1394,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "ea7afc3260082493",
+      "type": "file",
+      "file": "Images/Furuta_pendulum.jpg",
+      "styleAttributes": {},
+      "x": 469,
+      "y": -217,
+      "width": 399,
+      "height": 243
+    },
+    {
+      "id": "f9aed61bebbc8e63",
+      "type": "text",
+      "text": "# Sensor measurement $\\set{\\theta_1,\\theta_2}$\n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 0,
+      "y": -155,
+      "width": 360,
+      "height": 120
     }
   ],
   "edges": [
