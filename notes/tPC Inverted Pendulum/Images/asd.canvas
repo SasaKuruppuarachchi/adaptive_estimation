@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    {
+      "id": "0bb12c0b54a77d3b",
+      "type": "file",
+      "file": "Pasted image 20240913085552.png",
+      "styleAttributes": {},
+      "x": -820,
+      "y": 6380,
+      "width": 1588,
+      "height": 580
+    },
+    {
+      "id": "b4f7e1b6510cf9f9",
+      "type": "file",
+      "file": "Pasted image 20240913085450.png",
+      "styleAttributes": {},
+      "x": -1120,
+      "y": 5440,
+      "width": 2188,
+      "height": 760
+    }
+  ],
+  "edges": [],
+  "metadata": {}
+}
