@@ -17,7 +17,7 @@
       "x": -760,
       "y": -720,
       "width": 1760,
-      "height": 766,
+      "height": 1080,
       "label": "Conceptual design"
     },
     {
@@ -43,15 +43,28 @@
       "label": "Start Slide"
     },
     {
-      "id": "bfe29db0547a47aa",
+      "id": "4653dbc1e7c8563c",
       "type": "text",
-      "text": "# Actuation\nMotor Control",
-      "styleAttributes": {},
-      "x": -171,
-      "y": -700,
-      "width": 250,
-      "height": 100,
-      "color": "4"
+      "text": "# Proposal\n---\n## Temporal Predictive Coding (tPC)\n + Learns system dynamics and perform state estimation.\n + Similar performance to Kalman filter.\n\n### Hypothesis\n- Will adapt to changes in system dynamics",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1209,
+      "y": -1540,
+      "width": 512,
+      "height": 460
+    },
+    {
+      "id": "8c5ec6e8ad5037f7",
+      "type": "text",
+      "text": "# Problem\n---\n###  Prior knowledge of the system dynamics\n\n### Difficulty to accurately model dynamics of complex systems\n\n### Adaptability to system changes \n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 368,
+      "y": -1520,
+      "width": 491,
+      "height": 380
     },
     {
       "id": "1af6926b9b91a4f7",
@@ -66,17 +79,6 @@
       "height": 343
     },
     {
-      "id": "2704059047f2e9d5",
-      "type": "text",
-      "text": "# Control \n## LQR or PID\n",
-      "styleAttributes": {},
-      "x": -735,
-      "y": -540,
-      "width": 250,
-      "height": 120,
-      "color": "3"
-    },
-    {
       "id": "f1314f21af0075d0",
       "type": "link",
       "url": "https://github.com/users/EternalGoldenBraid/projects/4",
@@ -87,49 +89,36 @@
       "height": 1760
     },
     {
-      "id": "cf651ebc10ca1a04",
-      "type": "text",
-      "text": "# Thank you\n---\n\n\nQuestions ?",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 941,
-      "y": 2018,
-      "width": 512,
-      "height": 256
-    },
-    {
-      "id": "6225cb93b1dae97e",
-      "type": "text",
-      "text": "# State Estimation\n",
+      "id": "3cb78026c1e3c0ab",
+      "type": "file",
+      "file": "Planning/Goals.md",
       "styleAttributes": {},
-      "x": -400,
-      "y": -157,
-      "width": 287,
-      "height": 125,
-      "color": "1"
+      "x": 1194,
+      "y": -610,
+      "width": 632,
+      "height": 756
     },
     {
-      "id": "c29ed93b9a3e886b",
+      "id": "bfe29db0547a47aa",
       "type": "text",
-      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta} \\}$",
+      "text": "# Actuation\nMotor Control",
       "styleAttributes": {},
-      "x": -740,
-      "y": -305,
-      "width": 260,
-      "height": 88
+      "x": -120,
+      "y": -522,
+      "width": 250,
+      "height": 100,
+      "color": "4"
     },
     {
-      "id": "35069bfb71984235",
+      "id": "2704059047f2e9d5",
       "type": "text",
-      "text": "# Threats\n- Sim-to-real gap\n- Uncertainty of scaling to bigger systems",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 1314,
-      "y": 1394,
-      "width": 512,
-      "height": 256
+      "text": "# Control \n## LQR or PID\n",
+      "styleAttributes": {},
+      "x": -684,
+      "y": -362,
+      "width": 250,
+      "height": 120,
+      "color": "3"
     },
     {
       "id": "5d9d7e0396681d57",
@@ -156,38 +145,16 @@
       "height": 256
     },
     {
-      "id": "8c5ec6e8ad5037f7",
+      "id": "35069bfb71984235",
       "type": "text",
-      "text": "# Problem\n---\n###  Prior knowledge of the system dynamics\n\n### Difficulty to accurately model dynamics of complex systems\n\n### Adaptability to system changes \n\n",
+      "text": "# Threats\n- Sim-to-real gap\n- Uncertainty of scaling to bigger systems",
       "styleAttributes": {
         "textAlign": "center"
       },
-      "x": 368,
-      "y": -1520,
-      "width": 491,
-      "height": 380
-    },
-    {
-      "id": "3cb78026c1e3c0ab",
-      "type": "file",
-      "file": "Planning/Goals.md",
-      "styleAttributes": {},
-      "x": 1200,
-      "y": -720,
-      "width": 632,
-      "height": 756
-    },
-    {
-      "id": "4653dbc1e7c8563c",
-      "type": "text",
-      "text": "# Proposal\n---\n## Temporal Predictive Coding (tPC)\n + Learns system dynamics and perform state estimation.\n + Similar performance to Kalman filter.\n\n### Hypothesis\n- Will adapt to changes in system dynamics",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": 1209,
-      "y": -1540,
+      "x": 1314,
+      "y": 1394,
       "width": 512,
-      "height": 460
+      "height": 256
     },
     {
       "id": "6af8e196c5e53bb6",
@@ -202,14 +169,47 @@
       "height": 256
     },
     {
+      "id": "cf651ebc10ca1a04",
+      "type": "text",
+      "text": "# Thank you\n---\n\n\nQuestions ?",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 941,
+      "y": 2018,
+      "width": 512,
+      "height": 256
+    },
+    {
+      "id": "c29ed93b9a3e886b",
+      "type": "text",
+      "text": "# $X=\\{ x , \\theta , \\dot{x} , \\dot{\\theta} \\}$",
+      "styleAttributes": {},
+      "x": -689,
+      "y": -127,
+      "width": 260,
+      "height": 88
+    },
+    {
       "id": "ea7afc3260082493",
       "type": "file",
       "file": "Images/Furuta_pendulum.jpg",
       "styleAttributes": {},
-      "x": 469,
-      "y": -217,
+      "x": 520,
+      "y": -39,
       "width": 399,
       "height": 243
+    },
+    {
+      "id": "6225cb93b1dae97e",
+      "type": "text",
+      "text": "# State Estimation\n",
+      "styleAttributes": {},
+      "x": -349,
+      "y": 21,
+      "width": 287,
+      "height": 125,
+      "color": "1"
     },
     {
       "id": "f9aed61bebbc8e63",
@@ -218,8 +218,8 @@
       "styleAttributes": {
         "textAlign": "center"
       },
-      "x": 0,
-      "y": -155,
+      "x": 51,
+      "y": 23,
       "width": 360,
       "height": 120
     }
