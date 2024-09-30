@@ -122,6 +122,16 @@
       "height": 280
     },
     {
+      "id": "6f6129835c619c20",
+      "type": "file",
+      "file": "Images/Furuta_pendulum.jpg",
+      "styleAttributes": {},
+      "x": 1948,
+      "y": -863,
+      "width": 399,
+      "height": 243
+    },
+    {
       "id": "07b9dbecbecf7eb2",
       "type": "text",
       "text": "# Temporal Predictive Coding\n\n- A few words on where free energy comes from\n\n$$\n\\begin{align*}\n\\mathcal{F}_{k} &= -\\log{p(y_{k},x_{k}|\\hat{x}_{k-1},u_{k})} \\\\\n&= -\\log{p(y_{k}|x_{k})p(x_{k}|\\hat{x}_{k-1},u_{k})}\n\\end{align*}\n$$\n\nBy substituting the normal distribution assumptions one gets\n$$\n\\begin{align}\n\\mathcal{F}_{k} &= \\frac{1}{2}(y_{k}-Cf(x_{k}))^T\\Sigma_{y}^{-1}(y_{k}-Cf(x_{k})) \\\\\n\\quad &+ \\frac{1}{2}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})^T\\Sigma_{x}^{-1}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})\n\\end{align}\n$$\n\nStates can be inferred by computing \n$$\n\\begin{equation}\n\\tau \\frac{d}{dt}x_{k}=-\\frac{\\partial \\mathcal{F}_{k}}{\\partial x_{k}}\n\\end{equation}\n$$\n\nParameters can be learned by\n$$\n\\begin{equation}\n\\Delta A = -\\eta \\frac{\\partial \\mathcal{F}_{k}}{\\partial A} \\quad\n\\Delta B = -\\eta \\frac{\\partial \\mathcal{F}_{k}}{\\partial B} \\quad\n\\Delta C = -\\eta \\frac{\\partial \\mathcal{F}_{k}}{\\partial C}\n\\end{equation}\n$$\n\n> [!info] \n> The theoretical difference between the two is that tPC assumes\n> $$\n> x_{k-1}|y_{1:k-1} \\sim \\delta(x_{k-1}-\\hat{x}_{k-1})\n> $$\n> instead of \n> $$\n> \\begin{equation}\n> x_{k-1}|y_{1:k-1} \\sim \\mathcal{N}(\\hat{x}_{k-1}, \\Sigma_{k-1})\n> \\end{equation}\n> $$\n> ",
@@ -132,14 +142,14 @@
       "height": 860
     },
     {
-      "id": "6f6129835c619c20",
+      "id": "b4f7e1b6510cf9f9",
       "type": "file",
-      "file": "Images/Furuta_pendulum.jpg",
+      "file": "Images/Pasted image 20240913085450.png",
       "styleAttributes": {},
-      "x": 1948,
-      "y": -863,
-      "width": 399,
-      "height": 243
+      "x": -1120,
+      "y": 5440,
+      "width": 2188,
+      "height": 760
     },
     {
       "id": "19e58079fb9c655d",
@@ -172,23 +182,13 @@
       "height": 580
     },
     {
-      "id": "b4f7e1b6510cf9f9",
-      "type": "file",
-      "file": "Pasted image 20240913085450.png",
-      "styleAttributes": {},
-      "x": -1120,
-      "y": 5440,
-      "width": 2188,
-      "height": 760
-    },
-    {
       "id": "410f061b5b3509f8",
       "type": "text",
-      "text": "\n![[Pasted image 20240911104450.png]]",
+      "text": "\n![[Pasted image 20240913085450.png]]",
       "styleAttributes": {},
       "x": -455,
       "y": 3160,
-      "width": 831,
+      "width": 1195,
       "height": 613
     }
   ],
