@@ -1,0 +1,85 @@
+{
+  "nodes": [
+    {
+      "id": "6d20dba44bc5648e",
+      "x": -1560,
+      "y": 20,
+      "width": 1792,
+      "height": 660,
+      "color": "6",
+      "type": "group",
+      "label": "Synchronisation"
+    },
+    {
+      "id": "f9c48302980d43ed",
+      "type": "text",
+      "text": "# [Agent](https://github.com/SasaKuruppuarachchi/adaptive_estimation/blob/main/tpc/src/agent/agent.py)\n- Computes actions and state estimations\n- Takes in observations from the `Simulator`\n- Sends actions to `Simulator`",
+      "styleAttributes": {},
+      "x": -1540,
+      "y": -600,
+      "width": 512,
+      "height": 180,
+      "color": "2"
+    },
+    {
+      "id": "d144866d9b114a2d",
+      "type": "text",
+      "text": "# Initialise system\n```\ndef init_sim(config: DictConfig):\n    sim = Simulator()\n\n    agent = Agent()\n\n    visualiser = Visualiser(simulator=sim, agent=agent)\n\n    return sim, agent, visualiser\n\n```",
+      "styleAttributes": {},
+      "x": -1540,
+      "y": 170,
+      "width": 576,
+      "height": 360,
+      "color": "6"
+    },
+    {
+      "id": "881b28d2d365eec9",
+      "type": "text",
+      "text": "# [Main loop](https://github.com/SasaKuruppuarachchi/adaptive_estimation/blob/main/tpc/main.py)\n\n```\n@hydra.main(config_path=\"config/config.yaml\")\ndef main(config: DictConfig):\n\n    sim, agent, visualiser = init_sim(config)\n\n    sim.start()\n\n    agent.attach(simulator=sim)\n\n    while not sim.done:\n        time = perf_counter()\n        agent.step()\n        visualiser.update()\n        sim.step()\n\n        log.info(f\"Step {sim.step_count}, {perf_counter() - time:.2f} seconds\")\n\n        sleep(config.simulation.step_time)\n\n\t\n```",
+      "styleAttributes": {},
+      "x": -592,
+      "y": 40,
+      "width": 803,
+      "height": 620,
+      "color": "6"
+    },
+    {
+      "id": "5140481815fec2f7",
+      "type": "text",
+      "text": "# [Simulator](https://github.com/SasaKuruppuarachchi/adaptive_estimation/blob/main/tpc/src/simulator/simulator.py)\n- Steps through the world\n- Updates it's observations\n\t- and states? Are there states in the simulator\n- Supports online parameterisation:\n\t- Change gravity\n\t- Change robot configuration (break limbs.)",
+      "styleAttributes": {},
+      "x": -301,
+      "y": -600,
+      "width": 512,
+      "height": 256,
+      "color": "4"
+    }
+  ],
+  "edges": [
+    {
+      "id": "d9c19d6b2d0e44d1",
+      "styleAttributes": {},
+      "fromNode": "d144866d9b114a2d",
+      "fromSide": "right",
+      "toNode": "881b28d2d365eec9",
+      "toSide": "left"
+    },
+    {
+      "id": "2585bf1d716c80a3",
+      "styleAttributes": {},
+      "fromNode": "5140481815fec2f7",
+      "fromSide": "bottom",
+      "toNode": "6d20dba44bc5648e",
+      "toSide": "top"
+    },
+    {
+      "id": "3aac8c8c9471c452",
+      "styleAttributes": {},
+      "fromNode": "f9c48302980d43ed",
+      "fromSide": "bottom",
+      "toNode": "6d20dba44bc5648e",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {}
+}
