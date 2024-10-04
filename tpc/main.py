@@ -4,14 +4,15 @@ log = logging.getLogger(__name__)
 
 from typing import List, Dict
 from omegaconf import DictConfig
-import hydra
+import omegaconf as oc
 
 from tpc.simulator import Simulator, PendulumSimulator
 from tpc.agent import Agent, PendulumAgent
 from tpc.visualiser import Visualiser, PendulumVisualiser
 
+from config import Config
 
-def init_sim(config: DictConfig) -> Dict
+def init_sim(config: DictConfig) -> Dict:
     sim: PendulumSimulator = PendulumSimulator(config=config.simulator)
 
     agent: PendulumAgent = PendulumAgent(config=config.agent)
@@ -23,8 +24,9 @@ def init_sim(config: DictConfig) -> Dict
     return { 'simulator': sim, 'agent': agent, 'visualiser': visualiser }
 
 
-@hydra.main(config_path="config/config.yaml")
-def main(config: DictConfig):
+def main():
+
+    config = oc.OmegaConf.load("config.yaml")
 
     inits = init_sim(config)
     sim: PendulumSimulator = inits['simulator']
