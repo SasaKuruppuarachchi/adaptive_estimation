@@ -3,8 +3,9 @@ from typing import Tuple, List, Dict
 
 import numpy as np
 
-from utils import PendulumState, PendulumObservations
-from simulator import Simulator, PendulumSimulator, SimulatorHandle
+from tpc.utils.utils import PendulumState, PendulumObservations
+from tpc.simulator import SimulatorHandle
+from tpc.utils.types import Simulator
 
 class Agent(ABC):
 
@@ -51,27 +52,36 @@ class PendulumAgent(Agent):
         self.simulator_handle: SimulatorHandle = None
 
     def attach(self, simulator):
-        self.simulator_handle = simulator.set_listener(
+        self.simulator_handle = simulator.set_handle(
             self, 
             states=[PendulumState.x_0, PendulumState.x_1],
             observations=[PendulumObservations.y_0, PendulumObservations.y_1]
         )
 
     def detach(self, simulator):
-        simulator.remove_listener(self)
+        raise NotImplementedError("Not implemented on simulator")
+        simulator.remove_handle(self)
 
     def compute_action(self):
-        pass
+
+        self.action = np.random.normal(0, 1, self.action.shape)
+        return True
+
+
+    def compute_state(self):
+        self.state = np.random.normal(0, 1, self.state.shape)
+        return True
+
+    def get_action(self):
+        return self.action
 
     def step(self):
-        # Read observations from simulator
-        success_observation = self.observation = self.simulator.get_observations()
+
+        # Compute state
+        success_state: bool = self.simulator_handle.update_state()
 
         # Compute action
-        success_action = self.action = self.compute_action()
+        success_action: bool =  self.compute_action()
 
-        # Apply action to simulator
-        success_set_action = self.simulator_handle.set_action(self.action)
-
-        return success_observation, success_action, success_set_action
+        return success_state and success_action
 

@@ -1,1 +1,1 @@
-from simulator import Simulator, PendulumSimulator, SimulatorHandle
+from .simulator import Simulator, SimulatorHandle, PendulumSimulator

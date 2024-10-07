@@ -2,17 +2,17 @@ from time import perf_counter, sleep
 import logging
 log = logging.getLogger(__name__)
 
-from typing import List, Dict
-from omegaconf import DictConfig
+from typing import List, Dict, Union, Optional
+from omegaconf import DictConfig, ListConfig
 import omegaconf as oc
 
 from tpc.simulator import Simulator, PendulumSimulator
 from tpc.agent import Agent, PendulumAgent
-from tpc.visualiser import Visualiser, PendulumVisualiser
+# from tpc.visualiser import Visualiser, PendulumVisualiser
 
-from config import Config
+from tpc.config import Config
 
-def init_sim(config: DictConfig) -> Dict:
+def init_sim(config: Config) -> Dict:
     sim: PendulumSimulator = PendulumSimulator(config=config.simulator)
 
     agent: PendulumAgent = PendulumAgent(config=config.agent)
@@ -26,7 +26,7 @@ def init_sim(config: DictConfig) -> Dict:
 
 def main():
 
-    config = oc.OmegaConf.load("config.yaml")
+    config: Config = oc.OmegaConf.load("config.yaml")
 
     inits = init_sim(config)
     sim: PendulumSimulator = inits['simulator']
@@ -38,7 +38,6 @@ def main():
 
     while not sim.done:
         time = perf_counter()
-        agent.step()
         visualiser.update()
         sim.step()
 

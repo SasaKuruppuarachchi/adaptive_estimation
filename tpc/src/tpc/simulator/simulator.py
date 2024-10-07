@@ -2,10 +2,10 @@ from typing import Dict, List, Tuple
 from abc import ABC, abstractmethod
 
 import numpy as np
+import gymnasium as gym
 
-from utils import PendulumState, PendulumObservations
-from agent import Agent, PendulumAgent
-
+from tpc.utils.utils import PendulumState, PendulumObservations
+from tpc.utils.types import Agent, Simulator
 
 class SimulatorHandle:
     
@@ -32,6 +32,11 @@ class SimulatorHandle:
 
 class Simulator(ABC):
 
+    def __init__(self):
+
+        self.agents: Dict[str, Agent] = {}
+        pass
+
     @abstractmethod
     def start(self):
         pass
@@ -53,10 +58,12 @@ class Simulator(ABC):
         pass
 
     @abstractmethod
-    def set_listener(
-        self, agent: Agent, 
-        states: PendulumState,
-            observations: PendulumObservations) -> SimulatorHandle:
+    def set_handle(
+        self, agent: Agent, states: PendulumState,
+        observations: PendulumObservations) -> SimulatorHandle:
+        """
+        Create a handle for the agent to interact with the simulator.
+        """
         pass
 
 
@@ -66,10 +73,18 @@ class PendulumSimulator(Simulator):
         state_dim: int,
         action_dim: int,
         dt: float,
+        seed: int,
+        gymnasium_env: str = 'CartPole-v1'
     ):
-        self.state: np.ndarray = np.zeros(state_dim)
-        self.action: np.ndarray = np.zeros(action_dim)
+        # self.state: np.ndarray = np.zeros(state_dim)
+        # self.action: np.ndarray = np.zeros(action_dim)
+        self.actions:  Dict[str, np.ndarray] = {}
         self.handles: Dict[str, SimulatorHandle] = {}
+
+        self.rng = np.random.default_rng(seed)
+
+        self.env: gym.Env  = gym.make(gymnasium_env)
+        self.state, self.info = self.env.reset()
 
     def start(self):
         pass
@@ -78,7 +93,21 @@ class PendulumSimulator(Simulator):
         pass
 
     def step(self):
-        pass
+
+        self.observation: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
+        self.state: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
+
+        for agent in self.agents:
+
+            # Send updated state and observation to the agent
+            agent.observation = self.observation
+            agent.state = self.state
+
+            # Update agent state and get action
+            agent.step()
+            self.actions[agent.name] = agent.get_action()
+
+            # Send action to the simulator environment
 
     def reset(self):
         pass
@@ -86,21 +115,12 @@ class PendulumSimulator(Simulator):
     def run(self):
         pass
 
-    def set_listener(
+    def set_handle(
         self, agent: Agent, 
         states: PendulumState,
         observations: PendulumObservations) -> SimulatorHandle:
 
         self.handles[agent.name] = SimulatorHandle(self)
-
-        # Somehow integrate this agent with the states it's requiring
-        # Such that when agent calls get_state, get_observation, etc.
-        # it gets the correct available state or observation 
-
-        for state in states:
-            pass
-        for observation in observations:
-            pass
 
         return self.handles[agent.name]
 
