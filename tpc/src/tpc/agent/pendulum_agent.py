@@ -3,39 +3,10 @@ from typing import Tuple, List, Dict
 
 import numpy as np
 
-from tpc.utils.utils import PendulumState, PendulumObservations
-from tpc.simulator import SimulatorHandle
-from tpc.utils.types import Simulator
+from tpc.agent import Agent
+# from tpc.utils.utils import PendulumState, PendulumObservations
 
-class Agent(ABC):
-
-    @abstractmethod
-    def attach(self, simulator):
-        """
-        Attach the agent to a simulator.
-        Access all configured readable states from the simulator.
-        """
-        pass
-
-    @abstractmethod
-    def detach(self, simulator):
-        pass
-
-    @abstractmethod
-    def step(self):
-        pass
-
-    @abstractmethod
-    def update(self):
-        pass
-
-    @abstractmethod
-    def reset(self):
-        pass
-
-    @abstractmethod
-    def run(self):
-        pass
+from tpc.utils.types import SimulatorType, SimulatorHandleType
 
 class PendulumAgent(Agent):
     
@@ -44,18 +15,18 @@ class PendulumAgent(Agent):
         state_dim: Tuple[int],
         action_dim: Tuple[int],
         observation_dim: Tuple[int],
-        name: str
+        name: str,
     ):
         self.state: np.ndarray = np.zeros(state_dim)
         self.observation: np.ndarray = np.zeros(state_dim)
         self.action: np.ndarray = np.zeros(action_dim)
-        self.simulator_handle: SimulatorHandle = None
+        self.simulator_handle: SimulatorHandleType = None
 
     def attach(self, simulator):
         self.simulator_handle = simulator.set_handle(
             self, 
-            states=[PendulumState.x_0, PendulumState.x_1],
-            observations=[PendulumObservations.y_0, PendulumObservations.y_1]
+            # states=[PendulumState.x_0, PendulumState.x_1],
+            # observations=[PendulumObservations.y_0, PendulumObservations.y_1]
         )
 
     def detach(self, simulator):

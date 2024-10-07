@@ -1,1 +1,1 @@
-from .agent import Agent, PendulumAgent
+from .base import Agent

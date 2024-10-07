@@ -1,0 +1,9 @@
+# Invalid YAML (agent.name is an int)
+name: "PendulumConfig"
+agent:
+  name: PendulumAgent
+  # Add additional agent config here
+
+simulator:
+  name: "PendulumSimulator"
+  # Add additional simulator config here

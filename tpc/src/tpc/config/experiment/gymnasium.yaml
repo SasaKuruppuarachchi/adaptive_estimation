@@ -1,0 +1,10 @@
+# Invalid YAML (agent.name is an int)
+name: "GymnasiumConfig"
+agent:
+  name: PendulumAgent
+  # Add additional agent config here
+
+simulator:
+  name: "GymnasiumSimulator"
+  env_name: "CartPole-v1"
+  # Add additional simulator config here

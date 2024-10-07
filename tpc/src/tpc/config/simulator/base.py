@@ -2,11 +2,8 @@ from dataclasses import dataclass
 from typing import List, Tuple, Dict, Optional
 
 @dataclass
-class Agent:
+class Simulator:
 
     name: str
+    env_name: str
 
-@dataclass
-class PendulumAgent(Agent):
-
-    name: str = "PendulumAgent"
