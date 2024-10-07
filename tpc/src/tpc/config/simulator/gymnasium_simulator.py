@@ -4,9 +4,9 @@ from typing import List, Tuple, Dict, Optional
 from tpc.config.simulator.base import Simulator
 
 @dataclass
-class PendulumSimulator(Simulator):
+class GymnasiumSimulator(Simulator):
 
-    name: str = "PendulumSimulator"
+    name: str = "GymnasiumSimulator"
     env_name: str = "CartPole-v1"
 
     dt: float = 0.01

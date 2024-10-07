@@ -1,13 +1,19 @@
+# import logging
+# logger = logging.getLogger(__name__)
+from loguru import logger
+logger.add("logs/main.log", rotation="500 MB")
+
 from typing import Dict, List, Tuple
 from abc import ABC, abstractmethod
 
 import numpy as np
 import gymnasium as gym
+from gymnasium.wrappers import ClipAction
 
 # from tpc.utils.utils import PendulumState, PendulumObservations
 from tpc.utils.types import AgentType, SimulatorType
 
-from tpc.simulator import SimulatorHandle, Simulator
+from tpc.simulator import Simulator
 
 class GymnasiumSimulator(Simulator):
 
@@ -17,20 +23,32 @@ class GymnasiumSimulator(Simulator):
         dt: float,
         seed: int,
         name: str,
-        env_name: str = 'CartPole-v1'
+        env_name: str = 'CartPole-v1',
+        render_mode: str = 'human',
+
     ):
-        # self.state: np.ndarray = np.zeros(state_dim)
-        # self.action: np.ndarray = np.zeros(action_dim)
-        self.actions:  Dict[str, np.ndarray] = {}
-        self.handles: Dict[str, SimulatorHandle] = {}
+        self.agents: Dict[str, AgentType] = {}
 
         self.rng = np.random.default_rng(seed)
 
-        self.env: gym.Env  = gym.make(gymnasium_env)
-        self.state, self.info = self.env.reset()
+        self.env: gym.Env  = gym.make(env_name, render_mode=render_mode)
+        # self.env = ClipAction(self.env)
+
+        self.action_shape: np.ndarray = np.array([1])
+        if self.env.action_space.shape:
+            self.action_shape = self.env.action_space.shape
+
+        self.state_shape: np.ndarray = np.array([1])
+        if self.env.observation_space.shape:
+            self.state_shape = self.env.observation_space.shape
+
 
     def start(self):
-        pass
+        self.state, self.info = self.env.reset()
+        self.env.render()
+        logger.info(f"Initial state: {self.state}")
+
+        return self.info
 
     def stop(self):
         pass
@@ -40,7 +58,7 @@ class GymnasiumSimulator(Simulator):
         self.observation: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
         self.state: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
 
-        for agent in self.agents:
+        for agent_name, agent in self.agents.items():
 
             # Send updated state and observation to the agent
             agent.observation = self.observation
@@ -48,23 +66,17 @@ class GymnasiumSimulator(Simulator):
 
             # Update agent state and get action
             agent.step()
-            self.actions[agent.name] = agent.get_action()
+            # action = agent.get_action()
+            action = self.env.action_space.sample()
 
             # Send action to the simulator environment
+            self.env.step(action)
+
+            logger.info(f"{agent.name} action: {action}")
+
 
     def reset(self):
         pass
 
     def run(self):
         pass
-
-    def set_handle(
-        self, agent: AgentType, 
-        # states: PendulumState,
-        # observations: PendulumObservations
-        ) -> SimulatorHandle:
-
-        self.handles[agent.name] = SimulatorHandle(self)
-
-        return self.handles[agent.name]
-

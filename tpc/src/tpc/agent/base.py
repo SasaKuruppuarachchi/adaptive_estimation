@@ -16,21 +16,5 @@ class Agent(ABC):
         pass
 
     @abstractmethod
-    def detach(self, simulator):
-        pass
-
-    @abstractmethod
     def step(self):
-        pass
-
-    @abstractmethod
-    def update(self):
-        pass
-
-    @abstractmethod
-    def reset(self):
-        pass
-
-    @abstractmethod
-    def run(self):
         pass

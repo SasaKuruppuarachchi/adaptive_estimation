@@ -1,1 +1,1 @@
-from .base import Simulator, SimulatorHandle
+from .base import Simulator

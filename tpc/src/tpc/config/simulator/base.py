@@ -5,5 +5,5 @@ from typing import List, Tuple, Dict, Optional
 class Simulator:
 
     name: str
-    env_name: str
+    env_name: str = "BOO"
 
