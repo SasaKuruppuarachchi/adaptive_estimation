@@ -1,0 +1,11 @@
+{
+  "vim-toggle:toggle-vim": [
+    {
+      "modifiers": [
+        "Alt",
+        "Mod"
+      ],
+      "key": "V"
+    }
+  ]
+}

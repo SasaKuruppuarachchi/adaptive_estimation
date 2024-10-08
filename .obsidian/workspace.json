@@ -1,0 +1,162 @@
+{
+  "main": {
+    "id": "b0b0008fa1b1dbb6",
+    "type": "split",
+    "children": [
+      {
+        "id": "57ae2d9cf31e5826",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "de5614581b7f0d4c",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "notes/tPC Inverted Pendulum/Planning/Pitch.canvas",
+                "viewState": {
+                  "x": -892.6368213056127,
+                  "y": 2445.301751619533,
+                  "zoom": 0.4926951993767664
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "75de0ae83939927b",
+    "type": "split",
+    "children": [
+      {
+        "id": "a4706934c4a7b612",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8255c178033b2f99",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b90b0049933f0926",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "6c3ec8e4b3cf3161",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "565b778393e9a3f2",
+    "type": "split",
+    "children": [
+      {
+        "id": "094b47b81206fabf",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "00f57b19382347ca",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "notes/tPC Inverted Pendulum/Planning/Pitch.canvas",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "22fa99a2e99ae05b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "notes/tPC Inverted Pendulum/Planning/Pitch.canvas",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "de969b8052f22e14",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "61a83c8b236aa1f2",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "notes/tPC Inverted Pendulum/Planning/Pitch.canvas"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-advanced-slides:Show Slide Preview": false,
+      "vim-toggle:Toggle Vim Mode": false
+    }
+  },
+  "active": "de5614581b7f0d4c",
+  "lastOpenFiles": [
+    "notes/tPC Inverted Pendulum/Images/Furuta_pendulum.jpg",
+    "notes/tPC Inverted Pendulum/Planning/Pitch.canvas",
+    "notes/tPC Inverted Pendulum/CodeDocs/SystemSchema.canvas",
+    "videos/preping_cad.mp4"
+  ]
+}
