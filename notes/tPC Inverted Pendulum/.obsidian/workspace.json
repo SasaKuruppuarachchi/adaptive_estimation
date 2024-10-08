@@ -13,11 +13,11 @@
             "state": {
               "type": "canvas",
               "state": {
-                "file": "CodeDocs/SystemSchema.canvas",
+                "file": "Planning/Pitch.canvas",
                 "viewState": {
-                  "x": -552.9893808210757,
-                  "y": 137.27474880568425,
-                  "zoom": -0.40000000000000013
+                  "x": 510.20307667770516,
+                  "y": 10169.369021395662,
+                  "zoom": -0.8000000000000002
                 }
               }
             }
@@ -89,7 +89,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CodeDocs/SystemSchema.canvas",
+                "file": "Planning/Pitch.canvas",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,7 +106,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CodeDocs/SystemSchema.canvas",
+                "file": "Planning/Pitch.canvas",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -129,7 +129,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CodeDocs/SystemSchema.canvas"
+                "file": "Planning/Pitch.canvas"
               }
             }
           },
@@ -163,6 +163,12 @@
   },
   "active": "cc55a0f35a9fcfd7",
   "lastOpenFiles": [
+    "Pasted image 20241008132514.png",
+    "tPC_simple_non_linear.png",
+    "Planning/Pitch.canvas",
+    "Images/tPC_linear_state_inference.png",
+    "Images/tPC_linear_observation_inference.png",
+    "Images/tPC_non_linear_pendulum_state.png",
     "CodeDocs/SystemSchema.canvas",
     "CodeDocs/Untitled",
     "CodeDocs",
@@ -170,7 +176,6 @@
     "Planning/Feasibility.md",
     "Planning/Goals.md",
     "Planning/Hardware phase model design.md",
-    "Planning/Pitch.canvas",
     "Planning/Proposal - Inverted Penulum.canvas",
     "Planning/Proposal markdown.md",
     "Planning/Requirement Description.md",
@@ -178,7 +183,6 @@
     "BOM.md",
     "ppts/ppt1_proposal",
     "ppts",
-    "Images/Pasted image 20240913085450.png",
     "Images/asd.canvas",
     "Planning/Proposal markdown.md~",
     "Ref/References.md",
