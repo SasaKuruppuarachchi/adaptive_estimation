@@ -3,6 +3,7 @@
     {
       "id": "f2527819d0666f57",
       "type": "group",
+      "styleAttributes": {},
       "x": -1920,
       "y": 2960,
       "width": 4240,
@@ -23,16 +24,6 @@
       "label": "New Slide"
     },
     {
-      "id": "683af945d4cda032",
-      "type": "group",
-      "x": -1480,
-      "y": 280,
-      "width": 2640,
-      "height": 2470,
-      "color": "6",
-      "label": "Theoretical background"
-    },
-    {
       "id": "6113866a049266a6",
       "type": "group",
       "sideRatio": 1.7777777777777777,
@@ -46,12 +37,13 @@
     },
     {
       "id": "6e796b7508f703c4",
+      "type": "group",
+      "styleAttributes": {},
       "x": -380,
       "y": 9560,
       "width": 1500,
       "height": 1300,
       "color": "1",
-      "type": "group",
       "label": "Implementation steps"
     },
     {
@@ -66,12 +58,13 @@
     },
     {
       "id": "3aada8c48ae6c819",
+      "type": "group",
+      "styleAttributes": {},
       "x": -360,
       "y": 10100,
       "width": 1460,
       "height": 180,
       "color": "1",
-      "type": "group",
       "label": "Control"
     },
     {
@@ -85,6 +78,17 @@
       "width": 700,
       "height": 180,
       "label": "Start Slide"
+    },
+    {
+      "id": "683af945d4cda032",
+      "type": "group",
+      "styleAttributes": {},
+      "x": -1480,
+      "y": 280,
+      "width": 2640,
+      "height": 2470,
+      "color": "6",
+      "label": "Theoretical background"
     },
     {
       "id": "410f061b5b3509f8",
@@ -300,6 +304,7 @@
       "id": "7fe49e687335726b",
       "type": "file",
       "file": "Pasted image 20241008132514.png",
+      "styleAttributes": {},
       "x": 480,
       "y": 6400,
       "width": 1584,
@@ -444,15 +449,6 @@
       "toSide": "top"
     },
     {
-      "id": "284e3619982538f6",
-      "styleAttributes": {},
-      "fromNode": "6113866a049266a6",
-      "fromSide": "bottom",
-      "toNode": "f63c70fb8178e770",
-      "toSide": "top",
-      "color": "4"
-    },
-    {
       "id": "788404e95045ec1b",
       "styleAttributes": {},
       "fromNode": "6f6129835c619c20",
@@ -467,6 +463,15 @@
       "fromSide": "left",
       "toNode": "b30941ba610c5af6",
       "toSide": "right"
+    },
+    {
+      "id": "284e3619982538f6",
+      "styleAttributes": {},
+      "fromNode": "6113866a049266a6",
+      "fromSide": "bottom",
+      "toNode": "f63c70fb8178e770",
+      "toSide": "top",
+      "color": "4"
     },
     {
       "id": "d1adb6f5d3cf11a0",
