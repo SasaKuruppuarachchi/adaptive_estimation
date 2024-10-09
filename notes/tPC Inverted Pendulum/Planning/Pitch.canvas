@@ -24,6 +24,17 @@
       "label": "New Slide"
     },
     {
+      "id": "683af945d4cda032",
+      "type": "group",
+      "styleAttributes": {},
+      "x": -1480,
+      "y": 280,
+      "width": 2640,
+      "height": 2470,
+      "color": "6",
+      "label": "Theoretical background"
+    },
+    {
       "id": "6113866a049266a6",
       "type": "group",
       "sideRatio": 1.7777777777777777,
@@ -78,17 +89,6 @@
       "width": 700,
       "height": 180,
       "label": "Start Slide"
-    },
-    {
-      "id": "683af945d4cda032",
-      "type": "group",
-      "styleAttributes": {},
-      "x": -1480,
-      "y": 280,
-      "width": 2640,
-      "height": 2470,
-      "color": "6",
-      "label": "Theoretical background"
     },
     {
       "id": "410f061b5b3509f8",
@@ -256,7 +256,7 @@
     {
       "id": "c77de7fd90642de1",
       "type": "text",
-      "text": "# Pros\n- Able to learn a representation of the system dynamics that track observations\n- Allows investigation of hierarchical/composite transformations from states to observations $x_{k}^{i-1}=A_{i}f(x_{k-1}^i)$\n\t- Neural net like Encoder/Decoder structures\n- PCNets provably implicitly estimate higher order gradients of the BP like loss function --> Sample efficiency and faster convergence.\n\t- Shallower minimas though\n\n# Cons\n- We are uncertain for what use are the inferred states good for?\n\t- Clearly they track the original system s.t. the correct observations are produced.\n- PCNets seem to be in the pre-AlexNet era of development. \n\t- Scalable implementations are yet to come.\n\t- Development focused on optimisers and other tricks that enabled deep neural nets to solve the tasks they solve today.",
+      "text": "# Pros\n- Able to learn a representation of the system dynamics that track observations\n- Allows investigation of hierarchical/composite transformations from states to observations $x_{k}^{i-1}=A_{i}f(x_{k-1}^i)$\n\t- Neural net like Encoder/Decoder structures\n- PCNets provably implicitly estimate higher order gradients of the BP like loss function --> Sample efficiency and faster convergence.\n\t- Shallower minimas though\n\n# Cons\n- We are uncertain for what use are the inferred states good for?\n- PCNets seem to be in the pre-AlexNet era of development. \n\t- Scalable implementations are yet to come.\n\t- Development focused on optimisers and other tricks that enabled deep neural nets to solve the tasks they solve today.",
       "styleAttributes": {},
       "x": 80,
       "y": 8680,
@@ -277,7 +277,7 @@
     {
       "id": "07b9dbecbecf7eb2",
       "type": "text",
-      "text": "# Temporal Predictive Coding\n\n### On free energy: \n1. Estimate the posterior $\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})} = \\frac{p(x_{k},y_{1:k})}{\\textcolor{Aquamarine}{p(y_{1:k})}}$\n2. Get rid of intractable marginal $p(y_{1:k})$ and use an approximate posterior $q(x_{k})$\n$$\nD_{KL}(q(x)||p(x_{k}|y_{1:k}))=\\sum_{x_{k}\\in \\mathcal{X_{}}}q(x_{k})\\log{\\frac{q(x_{k})}{\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})}}} = \\mathcal{F} + \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\nfrom which it follows that:\n$$\n\\mathcal{F}_{k} \\ge D_{KL}(q(x)||p(x_{k}|y_{1:k})) - \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\n3. If we assume $q(x_{k}) \\sim \\mathcal{N}(\\mu_{k}, \\Sigma_{q})$, include the control action $u_{k}$ and the past estimate $\\hat{x}_{k-1}$, then\n\n$$\n\\begin{align*}\n\\mathcal{F}_{k} &= -\\log{p(y_{k},\\mu_{k}|\\hat{x}_{k-1},u_{k})} \\\\\n&= -\\log{p(y_{k}|\\mu_{k})p(\\mu_{k}|\\hat{x}_{k-1},u_{k})}\n\\end{align*}\n$$",
+      "text": "# Temporal Predictive Coding\n\n### On free energy: \n1. Estimate the posterior $\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})} = \\frac{p(x_{k},y_{1:k})}{\\textcolor{Aquamarine}{p(y_{1:k})}}$\n2. Get rid of intractable marginal $\\textcolor{Aquamarine}{p(y_{1:k})}$ and use an approximate posterior $q(x_{k})$\n$$\nD_{KL}(q(x)||\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})})=\\sum_{x_{k}\\in \\mathcal{X_{}}}q(x_{k})\\log{\\frac{q(x_{k})}{\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})}}} = \\mathcal{F} + \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\nfrom which it follows that:\n$$\n\\mathcal{F}_{k} \\ge D_{KL}(q(x)||\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})}) - \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\n3. If we assume $q(x_{k}) \\sim \\mathcal{N}(\\mu_{k}, \\Sigma_{q})$, include the control action $u_{k}$ and the past estimate $\\hat{x}_{k-1}$, then\n\n$$\n\\begin{align*}\n\\mathcal{F}_{k} &= -\\log{p(y_{k},\\mu_{k}|\\hat{x}_{k-1},u_{k})} \\\\\n&= -\\log{p(y_{k}|\\mu_{k})p(\\mu_{k}|\\hat{x}_{k-1},u_{k})}\n\\end{align*}\n$$",
       "styleAttributes": {
         "textAlign": "center"
       },
@@ -368,7 +368,7 @@
     {
       "id": "256f3bb05ede9aa7",
       "type": "text",
-      "text": "- Off the shelf control. PID, LQR etc.. (Sasa & Nick)\n",
+      "text": "- Off the shelf control. PID, LQR etc.. (Sasa & Nick)\n\t- MPC: Can we learn system dynamics at each step of the generated state trajectory?",
       "styleAttributes": {},
       "x": -320,
       "y": 10120,
