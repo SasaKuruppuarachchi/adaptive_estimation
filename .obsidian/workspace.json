@@ -154,9 +154,25 @@
   },
   "active": "de5614581b7f0d4c",
   "lastOpenFiles": [
+    "notes/tPC Inverted Pendulum/tPC_simple_non_linear.png",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/14_LQR Control/Rotary Pen Model/qube_servo_2_rotpen_model",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/8_Lead Compensator/bode_plot.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/8_Lead Compensator/QUBE-Servo 2 PI.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/8_Lead Compensator/QUBE-Servo 2 Lead.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/9_Moment of Inertia/QUBE-Servo 2 ROTPEN Inertia.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/7_PD Control/QUBE-Servo 2 PD Control.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/6_Second Order Systems/QUBE-Servo 2 Second Order.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/5_First Principles Modeling/QUBE-Servo 2 Modeling.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/4_Bump Test/QUBE-Servo 2 Bumptest.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/Fundamentals/Software/Labs/4_Bump Test/QUBE-Servo 2 Bumptest Val.vi",
+    "notes/tPC Inverted Pendulum/Ref/Hardware/fundametals/readme.Md",
+    "notes/tPC Inverted Pendulum/Pasted image 20241008132514.png",
+    "notes/tPC Inverted Pendulum/Images/tPC_non_linear_pendulum_state.png",
+    "notes/tPC Inverted Pendulum/Images/tPC_linear_state_inference.png",
+    "notes/tPC Inverted Pendulum/Images/tPC_linear_observation_inference.png",
+    "cad/ipt/readme.Md",
     "notes/tPC Inverted Pendulum/Images/Furuta_pendulum.jpg",
     "notes/tPC Inverted Pendulum/Planning/Pitch.canvas",
-    "notes/tPC Inverted Pendulum/CodeDocs/SystemSchema.canvas",
-    "videos/preping_cad.mp4"
+    "notes/tPC Inverted Pendulum/CodeDocs/SystemSchema.canvas"
   ]
 }

@@ -15,9 +15,24 @@
               "state": {
                 "file": "Planning/Pitch.canvas",
                 "viewState": {
-                  "x": -854.0280730656407,
-                  "y": 2295.7567390655036,
-                  "zoom": 0.7999999999999999
+                  "x": 375.67003207994105,
+                  "y": 10649.833775817418,
+                  "zoom": -0.19999999999999984
+                }
+              }
+            }
+          },
+          {
+            "id": "900ddc321ba9801b",
+            "type": "leaf",
+            "state": {
+              "type": "canvas",
+              "state": {
+                "file": "Planning/Proposal - Inverted Penulum.canvas",
+                "viewState": {
+                  "x": 613.5,
+                  "y": -1330,
+                  "zoom": 0
                 }
               }
             }
@@ -72,7 +87,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "8bcf5d07afa98c6e",
@@ -162,6 +178,9 @@
   },
   "active": "cc55a0f35a9fcfd7",
   "lastOpenFiles": [
+    "Planning/Proposal - Inverted Penulum.canvas",
+    "Planning/Pitch.canvas",
+    "tpc_simple_non_linear_A_matrix.png",
     "Ref/Hardware/fundametals/readme.Md",
     "Ref/Hardware/fundametals/Fundamentals/Software/Labs/14_LQR Control/Rotary Pen Model/qube_servo_2_rotpen_model",
     "Ref/Hardware/fundametals/Fundamentals/Software/Labs/9_Moment of Inertia/QUBE-Servo 2 ROTPEN Inertia.vi",
@@ -174,9 +193,7 @@
     "Ref/Hardware/fundametals/Fundamentals/Software/Labs/4_Bump Test/QUBE-Servo 2 Bumptest.vi",
     "Ref/Hardware/fundametals/Fundamentals/Software/Labs/4_Bump Test/QUBE-Servo 2 Bumptest Val.vi",
     "Images/Pasted image 20240913085450.png",
-    "Pasted image 20241008132514.png",
     "tPC_simple_non_linear.png",
-    "Planning/Pitch.canvas",
     "Images/tPC_linear_state_inference.png",
     "Images/tPC_linear_observation_inference.png",
     "Images/tPC_non_linear_pendulum_state.png",
@@ -184,7 +201,6 @@
     "Planning/Feasibility.md",
     "Planning/Goals.md",
     "Planning/Hardware phase model design.md",
-    "Planning/Proposal - Inverted Penulum.canvas",
     "Planning/Proposal markdown.md",
     "Planning/Requirement Description.md",
     "Todo.md",

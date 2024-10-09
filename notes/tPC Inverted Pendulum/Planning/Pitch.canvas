@@ -39,10 +39,10 @@
       "type": "group",
       "sideRatio": 1.7777777777777777,
       "styleAttributes": {},
-      "x": -300,
-      "y": 3620,
-      "width": 2509,
-      "height": 1411,
+      "x": -280,
+      "y": 3680,
+      "width": 2201,
+      "height": 1238,
       "color": "4",
       "label": "Linear Experiments"
     },
@@ -68,108 +68,117 @@
       "label": "New Slide"
     },
     {
-      "id": "3aada8c48ae6c819",
-      "type": "group",
-      "styleAttributes": {},
-      "x": -360,
-      "y": 10100,
-      "width": 1460,
-      "height": 180,
-      "color": "1",
-      "label": "Control"
-    },
-    {
       "id": "c50b8086e788275b",
       "type": "group",
       "sideRatio": 1.7777777777777777,
       "isStartNode": true,
       "styleAttributes": {},
-      "x": -660,
-      "y": -1020,
-      "width": 700,
-      "height": 180,
+      "x": -1360,
+      "y": -1122,
+      "width": 720,
+      "height": 405,
       "label": "Start Slide"
+    },
+    {
+      "id": "7fe49e687335726b",
+      "type": "file",
+      "file": "tpc_simple_non_linear_A_matrix.png",
+      "styleAttributes": {},
+      "x": 480,
+      "y": 6400,
+      "width": 1584,
+      "height": 800,
+      "color": "4"
+    },
+    {
+      "id": "4f59d1c452a43437",
+      "type": "text",
+      "text": "# Can we thus estimate the true states?",
+      "styleAttributes": {},
+      "x": 120,
+      "y": 7380,
+      "width": 613,
+      "height": 60
+    },
+    {
+      "id": "cdfc49082b1cab96",
+      "type": "file",
+      "file": "tPC_simple_non_linear.png",
+      "styleAttributes": {},
+      "x": -1320,
+      "y": 6400,
+      "width": 1574,
+      "height": 800,
+      "color": "4"
     },
     {
       "id": "410f061b5b3509f8",
       "type": "text",
-      "text": "# Non-linear pendulum\n$$\n\\begin{align}\n\\dot{\\theta_{1}} &= \\theta_{2} \\\\ \\\\\n\\dot{\\theta_{2}} &= -\\frac{g}{L}\\sin{\\theta_{1}}\n\\end{align}\n$$\n- Form dataset by numerically integrating the above DE given some initial conditions $x_{0} = (\\theta_{1,0},\\theta_{2,0})$\n- $y_{k} = x_{k} + \\mathcal{N}(0, \\Sigma_{y})$ (True)\n- Initialise $A = 0, C = I$\n- $\\hat{y}_{k} = Cf(\\hat{x}_{k})$ (tPC/$\\textcolor{Magenta}{\\text{Nonlinear model}}$)\n\n![[tPC_non_linear_pendulum_state.png]]\nB: $\\hat{y}_{k}$ for last 80 seconds of runtime\n\n# Concerns:\n- How can we use the latent states $\\hat{x}_{k}$? \n\t- Are they feasible for setting a control input to the system? (See linear experiment)\n- No ablation on the effect of transition dynamics $Af(x)$\n\t- Would $A=0$ and $\\frac{\\partial \\mathcal{F}}{\\partial A}=0$ have produced the same results?\n\t\t- I.e. is $\\hat{y}_{k}=Cx_{k}$ sufficient for tracking the observations? \n\t\t\t- This would corresponds to a \"standard\" neural net setting without additional internal temporal dynamics of $x_{k}$?\n\t",
+      "text": "# Non-linear pendulum\n$$\n\\begin{align}\n\\dot{\\theta_{1}} &= \\theta_{2} \\\\ \\\\\n\\dot{\\theta_{2}} &= -\\frac{g}{L}\\sin{\\theta_{1}}\n\\end{align}\n$$\n- Form dataset by numerically integrating the above DE given some initial conditions $x_{0} = (\\theta_{1,0},\\theta_{2,0})$\n- $y_{k} = x_{k} + \\mathcal{N}(0, \\Sigma_{y})$ (True)\n- Initialise $A = 0, C = I$\n- $\\hat{y}_{k} = Cf(\\hat{x}_{k})$ (tPC/$\\textcolor{Magenta}{\\text{Nonlinear model}}$)\n\n![[tPC_non_linear_pendulum_state.png]]\nB: $\\hat{y}_{k}$ for last 80 seconds of runtime\n# Concerns:\n- How can we use the latent states $\\hat{x}_{k}$? \n\t- Are they feasible for setting a control input to the system? (See linear experiment)",
       "styleAttributes": {
         "textAlign": "center"
       },
-      "x": -1760,
+      "x": -1740,
       "y": 3740,
-      "width": 1060,
-      "height": 1020,
+      "width": 1040,
+      "height": 880,
       "color": "4"
     },
     {
-      "id": "c5c0de5dae6567aa",
-      "type": "file",
-      "file": "Images/tPC_linear_state_inference.png",
-      "styleAttributes": {},
-      "x": -100,
-      "y": 3961,
-      "width": 1030,
-      "height": 739,
-      "color": "4"
-    },
-    {
-      "id": "9d490fba886082bc",
-      "type": "file",
-      "file": "Images/tPC_linear_observation_inference.png",
-      "styleAttributes": {},
-      "x": 980,
-      "y": 3962,
-      "width": 1030,
-      "height": 738,
-      "color": "4"
-    },
-    {
-      "id": "2c8af7ede52efbaf",
+      "id": "b30941ba610c5af6",
       "type": "text",
-      "text": "# Concerns:\n- How can we use the latent states $\\hat{x}_{k}$? \n\t- Are they feasible for setting a control input to the system?",
+      "text": "# State Estimation\n",
       "styleAttributes": {},
-      "x": -100,
-      "y": 4760,
-      "width": 2110,
-      "height": 140,
-      "color": "4"
+      "x": 1318,
+      "y": -777,
+      "width": 287,
+      "height": 125,
+      "color": "1"
     },
     {
-      "id": "0b7d134a29f0658d",
+      "id": "7e7cd9c16aa3a269",
       "type": "text",
-      "text": "# Linear system where data again generated by integrating a IVP:\n$$\nA = \\begin{bmatrix}\n1 & \\Delta k & \\frac{1}{2}\\Delta k^2 \\\\\n0 & 1 & \\Delta k \\\\\n0 & 0 & 1\n\\end{bmatrix}, \\quad B = \\begin{bmatrix}\n0 & 0 & 1\n\\end{bmatrix}, \\quad u_{k}=e^{-0.001k}\n$$\n*\"We use a random C matrix for the observation mapping to simulate and test the most difficult scenario where the observations are entirely scrambled.\"*",
-      "styleAttributes": {},
-      "x": -100,
-      "y": 3741,
-      "width": 2110,
-      "height": 180,
-      "color": "4"
-    },
-    {
-      "id": "3cacae0e1669f631",
-      "type": "text",
-      "text": "# Experiments from the paper",
-      "styleAttributes": {},
-      "x": -420,
-      "y": 2980,
-      "width": 500,
-      "height": 74,
-      "color": "4"
-    },
-    {
-      "id": "c8fe20d8486d5f50",
-      "type": "text",
-      "text": "# Temporal Predictive Coding\n\n\nBy substituting the normal distribution assumptions from $KF$-case into\n$$\n\\mathcal{F}_{k} = -\\log{p(y_{k}|\\mu_{k})p(\\mu_{k}|\\hat{x}_{k-1},u_{k})}\n$$\none gets (abuse of notation $u_{k} \\to x_{k}$)\n$$\n\\begin{align}\n\\mathcal{F}_{k} &= \\frac{1}{2}(y_{k}-Cf(x_{k}))^T\\Sigma_{y}^{-1}(y_{k}-Cf(x_{k})) \\\\\n\\quad &+ \\frac{1}{2}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})^T\\Sigma_{x}^{-1}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})\n\\end{align}\n$$\n\nStates can be inferred by computing \n$$\n\\begin{equation}\n\\tau \\frac{d}{dt}x_{k}=-\\frac{\\partial \\mathcal{F}_{k}}{\\partial x_{k}}\n\\end{equation}\n$$\n\nParameters can be learned by\n$$\n\\begin{equation}\n\\Delta A = -\\alpha \\frac{\\partial \\mathcal{F}_{k}}{\\partial A} \\quad\n\\Delta B = -\\beta \\frac{\\partial \\mathcal{F}_{k}}{\\partial B} \\quad\n\\Delta C = -\\eta \\frac{\\partial \\mathcal{F}_{k}}{\\partial C}\n\\end{equation}\n$$\n\n> [!info] \n> The theoretical difference between the two is that tPC assumes\n> $$\n> x_{k-1}|y_{1:k-1} \\sim \\delta(x_{k-1}-\\hat{x}_{k-1})\n> $$\n> instead of \n> $$\n> \\begin{equation}\n> x_{k-1}|y_{1:k-1} \\sim \\mathcal{N}(\\hat{x}_{k-1}, \\Sigma_{k-1})\n> \\end{equation}\n> $$\n> ",
+      "text": "Sensor Measurement $\\set{\\theta_1, \\theta_2}$",
       "styleAttributes": {
+        "border": "dashed",
         "textAlign": "center"
       },
-      "x": 80,
-      "y": 1940,
-      "width": 1060,
-      "height": 790,
-      "color": "6"
+      "x": 1760,
+      "y": -785,
+      "width": 229,
+      "height": 90
+    },
+    {
+      "id": "6f6129835c619c20",
+      "type": "file",
+      "file": "Images/Furuta_pendulum.jpg",
+      "styleAttributes": {},
+      "x": 2100,
+      "y": -862,
+      "width": 399,
+      "height": 243
+    },
+    {
+      "id": "3fda5bc1e675bfc5",
+      "type": "text",
+      "text": "# Control \n## LQR or PID\n",
+      "styleAttributes": {},
+      "x": 1006,
+      "y": -1080,
+      "width": 250,
+      "height": 120,
+      "color": "3"
+    },
+    {
+      "id": "e8b0a6da9887a145",
+      "type": "text",
+      "text": "# Actuation\nMotor Control",
+      "styleAttributes": {},
+      "x": 1528,
+      "y": -1260,
+      "width": 250,
+      "height": 100,
+      "color": "4"
     },
     {
       "id": "860653a4a5ac24c0",
@@ -198,139 +207,26 @@
       "color": "6"
     },
     {
-      "id": "b30941ba610c5af6",
+      "id": "3cacae0e1669f631",
       "type": "text",
-      "text": "# State Estimation\n",
+      "text": "# Experiments from the paper",
       "styleAttributes": {},
-      "x": 1318,
-      "y": -777,
-      "width": 287,
-      "height": 125,
-      "color": "1"
-    },
-    {
-      "id": "7e7cd9c16aa3a269",
-      "type": "text",
-      "text": "Sensor Measurement $\\set{\\theta_1, \\theta_2}$",
-      "styleAttributes": {
-        "border": "dashed",
-        "textAlign": "center"
-      },
-      "x": 1760,
-      "y": -785,
-      "width": 229,
-      "height": 90
-    },
-    {
-      "id": "635fea97cf52cf5e",
-      "type": "text",
-      "text": "# Temporal Predictive Coding for state estimation (and control)\n",
-      "styleAttributes": {},
-      "x": -620,
-      "y": -980,
-      "width": 609,
-      "height": 100
-    },
-    {
-      "id": "3fda5bc1e675bfc5",
-      "type": "text",
-      "text": "# Control \n## LQR or PID\n",
-      "styleAttributes": {},
-      "x": 1006,
-      "y": -1080,
-      "width": 250,
-      "height": 120,
-      "color": "3"
-    },
-    {
-      "id": "e8b0a6da9887a145",
-      "type": "text",
-      "text": "# Actuation\nMotor Control",
-      "styleAttributes": {},
-      "x": 1528,
-      "y": -1260,
-      "width": 250,
-      "height": 100,
+      "x": -420,
+      "y": 2980,
+      "width": 500,
+      "height": 74,
       "color": "4"
     },
     {
       "id": "c77de7fd90642de1",
       "type": "text",
-      "text": "# Pros\n- Able to learn a representation of the system dynamics that track observations\n- Allows investigation of hierarchical/composite transformations from states to observations $x_{k}^{i-1}=A_{i}f(x_{k-1}^i)$\n\t- Neural net like Encoder/Decoder structures\n- PCNets provably implicitly estimate higher order gradients of the BP like loss function --> Sample efficiency and faster convergence.\n\t- Shallower minimas though\n\n# Cons\n- We are uncertain for what use are the inferred states good for?\n- PCNets seem to be in the pre-AlexNet era of development. \n\t- Scalable implementations are yet to come.\n\t- Development focused on optimisers and other tricks that enabled deep neural nets to solve the tasks they solve today.",
+      "text": "# Pros\n- Able to learn a representation of the system dynamics that track observations\n- Allows stacking of layers  $x_{k}^{i-1}=A_{i}f(x_{k-1}^i)$\n- PCNets more suitable for online learning.\n\t- Second order gradients -> sample efficiency\n\n# Cons\n- We are uncertain for what use are the inferred states good for?\n- PCNets seem to be in the pre-AlexNet era of development. \n\t- Scalable implementations are yet to come.\n\t- Development focused on optimisers and other tricks that enabled deep neural nets to solve the tasks they solve today.",
       "styleAttributes": {},
       "x": 80,
       "y": 8680,
       "width": 580,
-      "height": 660,
+      "height": 480,
       "color": "2"
-    },
-    {
-      "id": "6f6129835c619c20",
-      "type": "file",
-      "file": "Images/Furuta_pendulum.jpg",
-      "styleAttributes": {},
-      "x": 2100,
-      "y": -862,
-      "width": 399,
-      "height": 243
-    },
-    {
-      "id": "07b9dbecbecf7eb2",
-      "type": "text",
-      "text": "# Temporal Predictive Coding\n\n### On free energy: \n1. Estimate the posterior $\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})} = \\frac{p(x_{k},y_{1:k})}{\\textcolor{Aquamarine}{p(y_{1:k})}}$\n2. Get rid of intractable marginal $\\textcolor{Aquamarine}{p(y_{1:k})}$ and use an approximate posterior $q(x_{k})$\n$$\nD_{KL}(q(x)||\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})})=\\sum_{x_{k}\\in \\mathcal{X_{}}}q(x_{k})\\log{\\frac{q(x_{k})}{\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})}}} = \\mathcal{F} + \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\nfrom which it follows that:\n$$\n\\mathcal{F}_{k} \\ge D_{KL}(q(x)||\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})}) - \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\n3. If we assume $q(x_{k}) \\sim \\mathcal{N}(\\mu_{k}, \\Sigma_{q})$, include the control action $u_{k}$ and the past estimate $\\hat{x}_{k-1}$, then\n\n$$\n\\begin{align*}\n\\mathcal{F}_{k} &= -\\log{p(y_{k},\\mu_{k}|\\hat{x}_{k-1},u_{k})} \\\\\n&= -\\log{p(y_{k}|\\mu_{k})p(\\mu_{k}|\\hat{x}_{k-1},u_{k})}\n\\end{align*}\n$$",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": -1400,
-      "y": 2065,
-      "width": 1040,
-      "height": 540,
-      "color": "6"
-    },
-    {
-      "id": "f63c70fb8178e770",
-      "type": "text",
-      "text": "# Simple non-linear system (Appendix)\n\n$$\n\\begin{align}\nA_{gt} &= \\begin{bmatrix}\n\\frac{-1}{2}\\Delta k & 1 \\\\\n-1 & \\frac{-1}{2}\\Delta k\n\\end{bmatrix}\\times 3 \\\\ \\\\\nB_{gt} &= \\begin{bmatrix}\n1 & 0 \\\\ 0 & 1\n\\end{bmatrix}\\times 3\n\\end{align}\n$$\n$C$ initialised to identity\n$A$ initialised to zero\n### Data generated according to\n$$\n\\begin{align}\nx_{k} &= Af(x_{k-1}) + Bu_{k}+\\omega_{x} \\\\\ny_{k} &= Cf(x_{k}) + \\omega_{y}\n\\end{align}\n$$",
-      "styleAttributes": {
-        "textAlign": "center"
-      },
-      "x": -605,
-      "y": 5780,
-      "width": 2000,
-      "height": 560,
-      "color": "4"
-    },
-    {
-      "id": "7fe49e687335726b",
-      "type": "file",
-      "file": "Pasted image 20241008132514.png",
-      "styleAttributes": {},
-      "x": 480,
-      "y": 6400,
-      "width": 1584,
-      "height": 800,
-      "color": "4"
-    },
-    {
-      "id": "cdfc49082b1cab96",
-      "type": "file",
-      "file": "tPC_simple_non_linear.png",
-      "styleAttributes": {},
-      "x": -1320,
-      "y": 6400,
-      "width": 1574,
-      "height": 800,
-      "color": "4"
-    },
-    {
-      "id": "4f59d1c452a43437",
-      "type": "text",
-      "text": "# Can we thus estimate the true states?",
-      "styleAttributes": {},
-      "x": 120,
-      "y": 7380,
-      "width": 613,
-      "height": 60
     },
     {
       "id": "0dd9fdc02c5fbbdb",
@@ -348,51 +244,149 @@
       "type": "text",
       "text": "- Evaluate systems adaptability (learning transition and emission dynamics) with\n\t- changes in the physical parameters (e,g, gravity)\n\t- changes in the dynamical paremeters (mass of pendulum).\n\t-  novel sensing methods.\n# Phase 2:\n- Construct the physical device\n- Evaluate the adaptability to sim2real gap for both KF and tPC.",
       "styleAttributes": {},
-      "x": 114,
+      "x": 80,
       "y": 10460,
-      "width": 512,
+      "width": 580,
       "height": 380,
       "color": "1"
     },
     {
-      "id": "2db9c4cb4f1ef3de",
+      "id": "635fea97cf52cf5e",
       "type": "text",
-      "text": "- Are there ways to control with estimated observations?\n\t- What does this look like when observations are e.g. image features?",
+      "text": "# Temporal Predictive Coding for state estimation (and control)\n",
       "styleAttributes": {},
-      "x": 540,
-      "y": 10120,
-      "width": 512,
-      "height": 140,
-      "color": "1"
+      "x": -1320,
+      "y": -987,
+      "width": 609,
+      "height": 100
+    },
+    {
+      "id": "f24be4b0b179815c",
+      "type": "text",
+      "text": "# Problem\n---\n###  Prior knowledge of the system dynamics\n\n### Difficulty to accurately model dynamics of complex systems\n\n### Adaptability to system changes \n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": -120,
+      "y": -1120,
+      "width": 491,
+      "height": 380
+    },
+    {
+      "id": "b50c490f9d96059a",
+      "type": "text",
+      "text": "$X = \\set{x, \\dot{x}}$",
+      "styleAttributes": {
+        "border": "dashed",
+        "textAlign": "center"
+      },
+      "x": 1017,
+      "y": -875,
+      "width": 229,
+      "height": 90
+    },
+    {
+      "id": "0b7d134a29f0658d",
+      "type": "text",
+      "text": "# Linear system where data again generated by integrating a IVP:\n$$\nA = \\begin{bmatrix}\n1 & \\Delta k & \\frac{1}{2}\\Delta k^2 \\\\\n0 & 1 & \\Delta k \\\\\n0 & 0 & 1\n\\end{bmatrix}, \\quad B = \\begin{bmatrix}\n0 & 0 & 1\n\\end{bmatrix}, \\quad u_{k}=e^{-0.001k}\n$$\n*\"We use a random C matrix for the observation mapping to simulate and test the most difficult scenario where the observations are entirely scrambled.\"*",
+      "styleAttributes": {},
+      "x": -240,
+      "y": 3740,
+      "width": 2110,
+      "height": 180,
+      "color": "4"
+    },
+    {
+      "id": "9d490fba886082bc",
+      "type": "file",
+      "file": "Images/tPC_linear_observation_inference.png",
+      "styleAttributes": {},
+      "x": 840,
+      "y": 3961,
+      "width": 1030,
+      "height": 738,
+      "color": "4"
+    },
+    {
+      "id": "c5c0de5dae6567aa",
+      "type": "file",
+      "file": "Images/tPC_linear_state_inference.png",
+      "styleAttributes": {},
+      "x": -240,
+      "y": 3960,
+      "width": 1030,
+      "height": 739,
+      "color": "4"
+    },
+    {
+      "id": "f63c70fb8178e770",
+      "type": "text",
+      "text": "# Simple non-linear system (Appendix)\n\n$$\n\\begin{align}\nA_{gt} &= \\begin{bmatrix}\n\\frac{-1}{2}\\Delta k & 1 \\\\\n-1 & \\frac{-1}{2}\\Delta k\n\\end{bmatrix}\\times 3 \\\\ \\\\\nB_{gt} &= \\begin{bmatrix}\n1 & 0 \\\\ 0 & 1\n\\end{bmatrix}\\times 3\n\\end{align}\n$$\n$C$ initialised to identity\n$A$ initialised to zero\n### Data generated according to\n$$\n\\begin{align}\nx_{k} &= Af(x_{k-1}) + Bu_{k}+\\omega_{x} \\\\\ny_{k} &= Cf(x_{k}) + \\omega_{y}\n\\end{align}\n$$",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 80,
+      "y": 5780,
+      "width": 545,
+      "height": 520,
+      "color": "4"
+    },
+    {
+      "id": "07b9dbecbecf7eb2",
+      "type": "text",
+      "text": "# Temporal Predictive Coding\n\n### On free energy: \n1. Estimate the posterior $\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})} = \\frac{p(x_{k},y_{1:k})}{\\textcolor{Aquamarine}{p(y_{1:k})}}$\n2. Get rid of intractable marginal $\\textcolor{Aquamarine}{p(y_{1:k})}$ and use an approximate posterior $q(x_{k})$\n$$\nD_{KL}(q(x)||\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})})=\\sum_{x_{k}\\in \\mathcal{X_{}}}q(x_{k})\\log{\\frac{q(x_{k})}{\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})}}} = \\mathcal{F} + \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\nfrom which it follows that:\n$$\n\\mathcal{F}_{k} \\ge D_{KL}(q(x)||\\textcolor{YellowOrange}{p(x_{k}|y_{1:k})}) - \\textcolor{Aquamarine}{\\log{p(y_{1:k})}}\n$$\n3. If we assume $q(x_{k}) \\sim \\mathcal{N}(\\mu_{k}, \\Sigma_{q})$, include the control action $u_{k}$ and the past estimate $\\hat{x}_{k-1}$, then\n\n$$\n\\begin{align*}\n\\mathcal{F}_{k} &= -\\log{p(y_{k},\\mu_{k}|\\hat{x}_{k-1},u_{k})} \\\\\n&= -\\log{p(y_{k}|\\mu_{k})p(\\mu_{k}|\\hat{x}_{k-1},u_{k})}\n\\end{align*}\n$$",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 0,
+      "y": 1160,
+      "width": 1040,
+      "height": 540,
+      "color": "6"
+    },
+    {
+      "id": "b181396840609138",
+      "type": "text",
+      "text": "\n> [!note] Kalman Filter\n> $$\n> \\begin{align}\n> \\hat{x}_{k} &= \\arg\\min_{x} \\ (y_{k}-Cx_{k})^T\\Sigma_{y}^{-1}(y_{k}-Cx_{k}) \\\\\n> & \\quad + (x_{k}-A\\hat{x}_{k-1}-Bu_{k})^T(\\textcolor{Red}{A\\Sigma_{k-1}A^T}+\\Sigma_{x})^{-1}(x_{k}-A\\hat{x}_{k-1}-Bu_{k})\n> \\end{align}\n> $$\n\n> [!note] tPC\n> $$\n> \\begin{align}\n> \\mathcal{F}_{k} &= \\frac{1}{2}(y_{k}-Cf(x_{k}))^T\\Sigma_{y}^{-1}(y_{k}-Cf(x_{k})) \\\\\n> \\quad &+ \\frac{1}{2}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})^T\\Sigma_{x}^{-1}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})\n> \\end{align}\n> $$\n\n> [!note] Thus\n> The theoretical difference between the two is that tPC assumes\n> $$\n> x_{k-1}|y_{1:k-1} \\sim \\delta(x_{k-1}-\\hat{x}_{k-1})\n> $$\n> instead of \n> $$\n> \\begin{equation}\n> x_{k-1}|y_{1:k-1} \\sim \\mathcal{N}(\\hat{x}_{k-1}, \\Sigma_{k-1})\n> \\end{equation}\n> $$\n> ",
+      "styleAttributes": {},
+      "x": -960,
+      "y": 1930,
+      "width": 580,
+      "height": 590,
+      "color": "6"
+    },
+    {
+      "id": "c8fe20d8486d5f50",
+      "type": "text",
+      "text": "# Temporal Predictive Coding\n\n\nBy substituting the normal distribution assumptions from $KF$-case into\n$$\n\\mathcal{F}_{k} = -\\log{p(y_{k}|\\mu_{k})p(\\mu_{k}|\\hat{x}_{k-1},u_{k})}\n$$\none gets (abuse of notation $u_{k} \\to x_{k}$)\n$$\n\\begin{align}\n\\mathcal{F}_{k} &= \\frac{1}{2}(y_{k}-Cf(x_{k}))^T\\Sigma_{y}^{-1}(y_{k}-Cf(x_{k})) \\\\\n\\quad &+ \\frac{1}{2}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})^T\\Sigma_{x}^{-1}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})\n\\end{align}\n$$\n\nStates can be inferred by computing \n$$\n\\begin{equation}\n\\tau \\frac{d}{dt}x_{k}=-\\frac{\\partial \\mathcal{F}_{k}}{\\partial x_{k}}\n\\end{equation}\n$$\n\nParameters can be learned by\n$$\n\\begin{equation}\n\\Delta A = -\\alpha \\frac{\\partial \\mathcal{F}_{k}}{\\partial A} \\quad\n\\Delta B = -\\beta \\frac{\\partial \\mathcal{F}_{k}}{\\partial B} \\quad\n\\Delta C = -\\eta \\frac{\\partial \\mathcal{F}_{k}}{\\partial C}\n\\end{equation}\n$$\n\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 210,
+      "y": 1925,
+      "width": 620,
+      "height": 595,
+      "color": "6"
     },
     {
       "id": "256f3bb05ede9aa7",
       "type": "text",
       "text": "- Off the shelf control. PID, LQR etc.. (Sasa & Nick)\n\t- MPC: Can we learn system dynamics at each step of the generated state trajectory?",
       "styleAttributes": {},
-      "x": -320,
-      "y": 10120,
-      "width": 512,
+      "x": 80,
+      "y": 10140,
+      "width": 580,
       "height": 140,
       "color": "1"
     }
   ],
   "edges": [
     {
-      "id": "142295958c360701",
-      "styleAttributes": {},
-      "fromNode": "860653a4a5ac24c0",
-      "fromSide": "bottom",
-      "toNode": "07b9dbecbecf7eb2",
-      "toSide": "top",
-      "color": "6"
-    },
-    {
       "id": "5f6de95656302fb4",
       "styleAttributes": {},
       "fromNode": "c50b8086e788275b",
       "fromSide": "right",
-      "toNode": "864ba9ee8a4144e3",
+      "toNode": "f24be4b0b179815c",
       "toSide": "left"
     },
     {
@@ -417,10 +411,9 @@
       "id": "205d2a4c172ddd0d",
       "fromNode": "b30941ba610c5af6",
       "fromSide": "left",
-      "toNode": "3fda5bc1e675bfc5",
+      "toNode": "b50c490f9d96059a",
       "toSide": "bottom",
-      "color": "1",
-      "label": "X = \\set{x, theta, x_dot, theta_dot }"
+      "color": "1"
     },
     {
       "id": "e0ceb6b0ec2da14b",
@@ -449,6 +442,15 @@
       "toSide": "top"
     },
     {
+      "id": "284e3619982538f6",
+      "styleAttributes": {},
+      "fromNode": "6113866a049266a6",
+      "fromSide": "bottom",
+      "toNode": "f63c70fb8178e770",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
       "id": "788404e95045ec1b",
       "styleAttributes": {},
       "fromNode": "6f6129835c619c20",
@@ -463,32 +465,6 @@
       "fromSide": "left",
       "toNode": "b30941ba610c5af6",
       "toSide": "right"
-    },
-    {
-      "id": "284e3619982538f6",
-      "styleAttributes": {},
-      "fromNode": "6113866a049266a6",
-      "fromSide": "bottom",
-      "toNode": "f63c70fb8178e770",
-      "toSide": "top",
-      "color": "4"
-    },
-    {
-      "id": "d1adb6f5d3cf11a0",
-      "styleAttributes": {},
-      "fromNode": "07b9dbecbecf7eb2",
-      "fromSide": "right",
-      "toNode": "c8fe20d8486d5f50",
-      "toSide": "left",
-      "color": "6"
-    },
-    {
-      "id": "edb362841584c7a5",
-      "styleAttributes": {},
-      "fromNode": "c8fe20d8486d5f50",
-      "fromSide": "bottom",
-      "toNode": "3cacae0e1669f631",
-      "toSide": "top"
     },
     {
       "id": "1f5c25a74d81b693",
@@ -517,44 +493,6 @@
       "color": "4"
     },
     {
-      "id": "9ba87dd98121b086",
-      "styleAttributes": {},
-      "fromNode": "0dd9fdc02c5fbbdb",
-      "fromSide": "bottom",
-      "toNode": "256f3bb05ede9aa7",
-      "toSide": "top",
-      "color": "1",
-      "label": "State updates OK"
-    },
-    {
-      "id": "124a16ae2e93c673",
-      "styleAttributes": {},
-      "fromNode": "0dd9fdc02c5fbbdb",
-      "fromSide": "bottom",
-      "toNode": "2db9c4cb4f1ef3de",
-      "toSide": "top",
-      "color": "1",
-      "label": "State updates not OK"
-    },
-    {
-      "id": "c2e9aac03ee819fe",
-      "styleAttributes": {},
-      "fromNode": "2db9c4cb4f1ef3de",
-      "fromSide": "bottom",
-      "toNode": "e3c38161b4c20692",
-      "toSide": "top",
-      "color": "1"
-    },
-    {
-      "id": "701c59de5054b661",
-      "styleAttributes": {},
-      "fromNode": "256f3bb05ede9aa7",
-      "fromSide": "bottom",
-      "toNode": "e3c38161b4c20692",
-      "toSide": "top",
-      "color": "1"
-    },
-    {
       "id": "cf018ffbb842d369",
       "styleAttributes": {},
       "fromNode": "c77de7fd90642de1",
@@ -563,21 +501,71 @@
       "toSide": "top"
     },
     {
-      "id": "5713330d96b60abe",
+      "id": "ae52623b778e91dd",
+      "styleAttributes": {},
+      "fromNode": "f24be4b0b179815c",
+      "fromSide": "right",
+      "toNode": "864ba9ee8a4144e3",
+      "toSide": "left"
+    },
+    {
+      "id": "c73fd33f46bd028f",
+      "styleAttributes": {},
+      "fromNode": "b50c490f9d96059a",
+      "fromSide": "top",
+      "toNode": "3fda5bc1e675bfc5",
+      "toSide": "bottom"
+    },
+    {
+      "id": "6f7af7665dff3144",
+      "styleAttributes": {},
+      "fromNode": "860653a4a5ac24c0",
+      "fromSide": "right",
+      "toNode": "07b9dbecbecf7eb2",
+      "toSide": "left",
+      "color": "6"
+    },
+    {
+      "id": "4269beb898f4d659",
+      "styleAttributes": {},
+      "fromNode": "07b9dbecbecf7eb2",
+      "fromSide": "bottom",
+      "toNode": "c8fe20d8486d5f50",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "3709b1b0b250bb9c",
+      "styleAttributes": {},
+      "fromNode": "c8fe20d8486d5f50",
+      "fromSide": "left",
+      "toNode": "b181396840609138",
+      "toSide": "right",
+      "color": "6"
+    },
+    {
+      "id": "7cb1c623001e8b37",
+      "styleAttributes": {},
+      "fromNode": "b181396840609138",
+      "fromSide": "bottom",
+      "toNode": "3cacae0e1669f631",
+      "toSide": "top"
+    },
+    {
+      "id": "d27b7219fdf692eb",
+      "styleAttributes": {},
+      "fromNode": "256f3bb05ede9aa7",
+      "fromSide": "bottom",
+      "toNode": "e3c38161b4c20692",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "85ee0c921b922645",
       "styleAttributes": {},
       "fromNode": "0dd9fdc02c5fbbdb",
       "fromSide": "bottom",
-      "toNode": "3aada8c48ae6c819",
-      "toSide": "top",
-      "color": "1",
-      "label": "1"
-    },
-    {
-      "id": "788f861dd8032336",
-      "styleAttributes": {},
-      "fromNode": "3aada8c48ae6c819",
-      "fromSide": "bottom",
-      "toNode": "e3c38161b4c20692",
+      "toNode": "256f3bb05ede9aa7",
       "toSide": "top",
       "color": "1"
     }
