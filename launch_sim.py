@@ -1,98 +1,37 @@
 from omni.isaac.kit import SimulationApp
-app = SimulationApp({"headless": False})
+simulation_app = SimulationApp({"headless": False})
 
-from omni.isaac.core import World
-import rclpy
-from rclpy.node import Node
-from geometry_msgs.msg import PoseStamped
-from rosgraph_msgs.msg import Clock
-from std_msgs.msg import Float32
-from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
+# -----------------------------------
+# The actual script should start here
+# -----------------------------------
+import omni.timeline
+from omni.isaac.core.world import World
+from omni.isaac.core.utils.extensions import disable_extension, enable_extension
+
+# Enable/disable ROS bridge extensions to keep only ROS2 Bridge
+disable_extension("omni.isaac.ros_bridge")
+enable_extension("omni.isaac.ros2_bridge")
+
 
 from omni.isaac.core.utils import nucleus, stage
 from omni.isaac.core.utils.stage import clear_stage, create_new_stage_async, update_stage_async, create_new_stage
-from omni.isaac.core.utils.prims import define_prim, get_prim_at_path
-from omni.usd import get_stage_next_free_path
-from omni.isaac.core.robots.robot import Robot
 import carb
 import asyncio
 import omni
 from scipy.spatial.transform import Rotation
-from omni.isaac.core import World
-from simulator.params import ROBOTS, SIMULATION_ENVIRONMENTS
-from simulator.logic.interface.sim_interface import SimInterface
+from omni.isaac.core import SimulationContext
 
+from simulator.params import SIMULATION_ENVIRONMENTS, ROBOTS
+from simulator.robot.pendulum import Pendulum
 
-class ComInterfaceROS2(Node):
-    def __init__(self):
-        super().__init__('drone_location_publisher')
-        qos_profile = QoSProfile(
-            reliability=ReliabilityPolicy.BEST_EFFORT,
-            durability=DurabilityPolicy.TRANSIENT_LOCAL,
-            history=HistoryPolicy.KEEP_LAST,
-            depth=1
-        )
-        self.time_publisher = self.create_publisher(Clock, 'clock', qos_profile)
-        
-        # subscribe to controls
-        
-class Pendulum(Robot):
-    def __init__(
-        self,
-        stage_prefix: str,
-        usd_path: str = None,
-        init_pos=[0.0, 0.0, 0.0],
-        init_orientation=[0.0, 0.0, 0.0, 1.0],
-    ):
-        """
-        Class that initializes a vehicle in the isaac sim's curent stage
-
-        Args:
-            stage_prefix (str): The name the vehicle will present in the simulator when spawned. Defaults to "quadrotor".
-            usd_path (str): The USD file that describes the looks and shape of the vehicle. Defaults to "".
-            init_pos (list): The initial position of the vehicle in the inertial frame (in ENU convention). Defaults to [0.0, 0.0, 0.0].
-            init_orientation (list): The initial orientation of the vehicle in quaternion [qx, qy, qz, qw]. Defaults to [0.0, 0.0, 0.0, 1.0].
-        """
-
-        # Get the current world at which we want to spawn the vehicle
-        self._world = InvertedPendulumApp().world
-        self._current_stage = self._world.stage
-
-        # Save the name with which the vehicle will appear in the stage
-        # and the name of the .usd file that contains its description
-        self._stage_prefix = get_stage_next_free_path(self._current_stage, stage_prefix, False)
-        self._usd_file = usd_path
-
-        # Get the vehicle name by taking the last part of vehicle stage prefix
-        self._vehicle_name = self._stage_prefix.rpartition("/")[-1]
-
-        # Spawn the vehicle primitive in the world's stage
-        self._prim = define_prim(self._stage_prefix, "Xform")
-        self._prim = get_prim_at_path(self._stage_prefix)
-        self._prim.GetReferences().AddReference(self._usd_file)
-
-        # Initialize the "Robot" class
-        # Note: we need to change the rotation to have qw first, because NVidia
-        # does not keep a standard of quaternions inside its own libraries (not good, but okay)
-        super().__init__(
-            prim_path=self._stage_prefix,
-            name=self._stage_prefix,
-            position=init_pos,
-            orientation=[init_orientation[3], init_orientation[0], init_orientation[1], init_orientation[2]],
-            articulation_controller=None,
-        )
-
-        # Add this object for the world to track, so that if we clear the world, this object is deleted from memory and
-        # as a consequence, from the VehicleManager as well
-        self._world.scene.add(self)
+import rclpy
+from cominterface_ros2 import ComInterfaceROS2
         
 class InvertedPendulumApp:
     def __init__(self):
         # Acquire the timeline that will be used to start/stop the simulation
         self.timeline = omni.timeline.get_timeline_interface()
         self.assets_root_path = nucleus.get_assets_root_path()
-        
-        self.interface = SimInterface()
         
         #setup world
         self.phy_dt = 300.0
@@ -101,22 +40,24 @@ class InvertedPendulumApp:
         self._world = World(**self._world_settings)
         
         # Load environment
-        self.pg.load_environment(SIMULATION_ENVIRONMENTS["Curved Gridroom"])
+        self.load_environment(SIMULATION_ENVIRONMENTS["Curved Gridroom"])
         
         # add robot
         self.pendulum = Pendulum(
-            "/World/drone0",
-            ROBOTS['Agipix v2'],
-            0,
-            [0.0, 0.0, 0.07],
+            "/World/qservo",
+            ROBOTS['qServo'],
+            [0.0, 0.0, 0.0],
             Rotation.from_euler("XYZ", [0.0, 0.0, 0.0], degrees=True).as_quat(),
+            self._world,
         ) #  orientation [w, x, y, z]
-        self._world.scene.add(self.pendulum)
         
         # Reset the simulation environment so that all articulations (aka robots) are initialized
-        self.world.reset()
+        print(ROBOTS['qServo'])
+        self._world.reset()
         self.stage = omni.usd.get_context().get_stage()
-        self.drone_prim = self.stage.GetPrimAtPath("/World/drone0/body")
+        self.pendulum_prim = self._world.stage.GetPrimAtPath(self.pendulum._stage_prefix + "/pendulum")
+        
+        #self.simulation_context = SimulationContext(physics_dt=1.0 / self.phy_dt, rendering_dt=1.0 / 30.0, stage_units_in_meters=1.0)
 
         
         # Initialize ROS 2
@@ -125,4 +66,98 @@ class InvertedPendulumApp:
         # Create ROS 2 publisher node
         self.node = ComInterfaceROS2()
         
-    
+        self.stop_sim = False
+        
+        self._world.add_physics_callback(self.pendulum._stage_prefix + "/sim_step", callback_fn=self.physics_step)
+        
+    def physics_step(self, step_size):
+        return
+        
+    async def load_environment_async(self, usd_path: str, force_clear: bool=False):
+        """Method that loads a given world (specified in the usd_path) into the simulator asynchronously.
+
+        Args:
+            usd_path (str): The path where the USD file describing the world is located.
+            force_clear (bool): Whether to perform a clear before loading the asset. Defaults to False. 
+            It should be set to True only if the method is invoked from an App (GUI mode).
+        """
+
+        # Reset and pause the world simulation (only if force_clear is true)
+        # This is done to maximize the support between running in GUI as extension vs App
+        if force_clear == True:
+
+            # Create a new stage and initialize (or re-initialized) the world
+            await create_new_stage_async()
+            self._world = World(**self._world_settings)
+            await self._world.initialize_simulation_context_async()
+            self._world = World.instance()
+
+            await self._world.reset_async()
+            await self._world.stop_async()
+
+        # Load the USD asset that will be used for the environment
+        try:
+            self.load_asset(usd_path, "/World/layout")
+        except Exception as e:
+            carb.log_warn("Could not load the desired environment: " + str(e))
+
+        carb.log_info("A new environment has been loaded successfully")
+        
+    def load_asset(self, usd_asset: str, stage_prefix: str):
+        """
+        Method that will attempt to load an asset into the current simulation world, given the USD asset path.
+
+        Args:
+            usd_asset (str): The path where the USD file describing the world is located.
+            stage_prefix (str): The name the vehicle will present in the simulator when spawned. 
+        """
+
+        # Try to check if there is already a prim with the same stage prefix in the stage
+        if self._world.stage.GetPrimAtPath(stage_prefix):
+            raise Exception("A primitive already exists at the specified path")
+
+        # Create the stage primitive and load the usd into it
+        prim = self._world.stage.DefinePrim(stage_prefix)
+        success = prim.GetReferences().AddReference(usd_asset)
+
+        if not success:
+            raise Exception("The usd asset" + usd_asset + "is not load at stage path " + stage_prefix)
+
+    def load_environment(self, usd_path: str, force_clear: bool=False):
+        """Method that loads a given world (specified in the usd_path) into the simulator. If invoked from a python app,
+        this method should have force_clear=False, as the world reset and stop are performed asynchronously by this method, 
+        and when we are operating in App mode, we want everything to run in sync.
+
+        Args:
+            usd_path (str): The path where the USD file describing the world is located.
+            force_clear (bool): Whether to perform a clear before loading the asset. Defaults to False.
+        """
+        asyncio.ensure_future(self.load_environment_async(usd_path, force_clear))
+        
+    def run(self):
+        """
+        Method that implements the application main loop, where the physics steps are executed.
+        """
+
+        # Start the simulation
+        self.timeline.play()
+        #self.simulation_context.play()
+        # The "infinite" loop
+        while simulation_app.is_running() and not self.stop_sim:
+            simulation_app.update()
+        
+        # Cleanup and stop
+        carb.log_warn("PegasusApp Simulation App is closing.")
+        #self.simulation_context.stop()
+        #self.timeline.stop()
+        simulation_app.close()
+
+def main():
+    # Instantiate the template app
+    pendulum_app = InvertedPendulumApp()
+
+    # Run the application loop
+    pendulum_app.run()
+
+if __name__ == "__main__":
+    main()
