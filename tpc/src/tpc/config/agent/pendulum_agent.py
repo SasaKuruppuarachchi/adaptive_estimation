@@ -7,3 +7,14 @@ from tpc.config.agent.base import Agent
 class PendulumAgent(Agent):
 
     name: str = "PendulumAgent"
+
+@dataclass
+class KFPendulumAgent(Agent):
+
+    name: str = "PendulumAgent"
+
+@dataclass
+class tPCPendulumAgent(Agent):
+
+    name: str = "PendulumAgent"
+    inference_duration: int = 500

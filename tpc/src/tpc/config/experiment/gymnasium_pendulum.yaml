@@ -1,0 +1,10 @@
+# Invalid YAML (agent.name is an int)
+name: "GymnasiumConfig"
+agent:
+  name: tPCPendulumAgent
+  # Add additional agent config here
+
+simulator:
+  name: "GymnasiumSimulator"
+  env_name: "Pendulum-v1"
+  dt: 0.02

@@ -45,6 +45,7 @@ class GymnasiumSimulator(Simulator):
 
     def start(self):
         self.state, self.info = self.env.reset()
+        self.observation = self.state + self.rng.normal(0, 1, self.state.shape)
         self.env.render()
         logger.info(f"Initial state: {self.state}")
 
@@ -55,14 +56,14 @@ class GymnasiumSimulator(Simulator):
 
     def step(self):
 
-        self.observation: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
-        self.state: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
+        # self.observation: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
+        # self.state: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
 
         for agent_name, agent in self.agents.items():
 
             # Send updated state and observation to the agent
             agent.observation = self.observation
-            agent.state = self.state
+            # agent.state = self.state
 
             # Update agent state and get action
             agent.step()
@@ -70,9 +71,12 @@ class GymnasiumSimulator(Simulator):
             action = self.env.action_space.sample()
 
             # Send action to the simulator environment
-            self.env.step(action)
+            # self.env.step(action)
+            self.state, self.reward, terminated, truncated, info = self.env.step(action)
+            # self.observation = self.state + self.rng.normal(0, 0.01, self.state.shape)
+            self.observation = self.state
 
-            logger.info(f"{agent.name} action: {action}")
+            # logger.info(f"{agent.name} action: {action}")
 
 
     def reset(self):

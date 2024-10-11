@@ -12,5 +12,6 @@ class Config:
     name: str
     simulator: Simulator
     agent: Agent
+    seed: int = 42
     # simulator: Union[PendulumSimulator, Simulator]
     # agent: Union[Agent, PendulumAgent]
