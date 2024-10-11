@@ -1,20 +1,25 @@
 from dataclasses import dataclass
-from typing import List, Tuple, Dict, Optional
+from typing import List, Tuple, Dict, Optional, Union
 
 from tpc.config.agent.base import Agent
+
+from tpc.utils.types import ControlTypes
 
 @dataclass
 class PendulumAgent(Agent):
 
-    name: str = "PendulumAgent"
+    name: str
 
 @dataclass
 class KFPendulumAgent(Agent):
 
-    name: str = "PendulumAgent"
+    name: str
 
 @dataclass
 class tPCPendulumAgent(Agent):
 
-    name: str = "PendulumAgent"
-    inference_duration: int = 500
+    inference_duration: int
+    control_type: ControlTypes
+    controller_args: Dict[str, Union[float, int]]
+    name: str
+    dt: float

@@ -1,5 +1,6 @@
 from typing import List, Tuple
 import matplotlib.pyplot as plt
+from matplotlib.patches import Arc
 plt.style.use('dark_background')
 import numpy as np
 
@@ -95,6 +96,20 @@ class GymnasiumPendulumVisualizer:
             label="Estimated Observation",
             animated=False
         )
+
+        # Line representing the pendulum rod
+        self.pendulum_line, = self.axs[0].plot(
+            [0, observation[0]],
+            [0, observation[1]],
+            'b-', linewidth=2
+        )
+
+        # Line representing the estimated pendulum rod
+        self.pendulum_line_estimate, = self.axs[0].plot(
+            [0, observation_estimate[0]],
+            [0, observation_estimate[1]],
+            'g-', linewidth=2
+        )
         
         # Plot the target position
         # self.axs[0].scatter(
@@ -112,8 +127,12 @@ class GymnasiumPendulumVisualizer:
         #     'o-', c='white', animated=False
         # )
         # self.artists.append((self.ln_links, self.axs[0]))
-        
+
         plt.ion()
+
+    @staticmethod
+    def flip_axes(x: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
+        return -y, x
 
     def step(self, 
              # state: np.ndarray,
@@ -124,12 +143,21 @@ class GymnasiumPendulumVisualizer:
              # observation_error: np.ndarray,
              # positions_x: List[float], positions_y: List[float]
              ):
+
+        observation = self.flip_axes(x=observation[0], y=observation[1])
+        observation_estimate = self.flip_axes(x=observation_estimate[0], y=observation_estimate[1])
     
         # Update the artists
         # self.scat_pos.set_offsets(np.c_[pos_x, pos_y])
         # self.ln_links.set_data(positions_x, positions_y)
         self.scat_sim_observation.set_offsets(np.c_[observation[0], observation[1]])
         self.scat_agent_observation.set_offsets(np.c_[observation_estimate[0], observation_estimate[1]])
+
+        theta_deg = np.degrees(np.arctan2(observation[1], observation[0]))  # Convert radians to degrees
+
+        # Update the pendulum line position
+        self.pendulum_line.set_data([0, observation[0]], [0, observation[1]])
+        self.pendulum_line_estimate.set_data([0, observation_estimate[0]], [0, observation_estimate[1]])
     
         # Redraw the figure
         self.fig.canvas.draw_idle()

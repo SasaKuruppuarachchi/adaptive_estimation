@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
 from typing import Tuple, List, Dict, Union, Optional
 from loguru import logger
+from simple_pid import PID
 
 import numpy as np
 
 from tpc.agent import Agent
 # from tpc.utils.utils import PendulumState, PendulumObservations
 
-from tpc.utils.types import SimulatorType
+from tpc.utils.types import SimulatorType, ControlTypes
 
 class PendulumAgent(Agent):
     
@@ -18,6 +19,7 @@ class PendulumAgent(Agent):
         observation_dim: Union[Tuple[int], np.ndarray],
         A: np.ndarray, C: np.ndarray, B: np.ndarray,
         name: str,
+        control_type: ControlTypes,
     ):
         self.state: np.ndarray = np.zeros(state_dim)
         self.observation: np.ndarray = np.zeros(state_dim)
@@ -76,11 +78,19 @@ class tPCPendulumAgent(Agent):
         action_dim: Union[Tuple[int], np.ndarray],
         observation_dim: Union[Tuple[int], np.ndarray],
         A: np.ndarray, C: np.ndarray, B: np.ndarray,
+        control_type: ControlTypes,
+        controller_args: Dict,
+        dt: float,
         inference_duration: int,
         learning_duration: int = 1,
         k1: float = 0.001, k2: float = 0.008,
-        dt: float = 0.5, activation: str = 'nonlinear',
+        activation: str = 'nonlinear',
     ):
+        """
+        dt: float
+            Time step/step size for state update
+
+        """
         self.state: np.ndarray = np.zeros(state_dim)
         self.observation: np.ndarray = np.zeros(state_dim)
         self.predicted_observation: np.ndarray = np.zeros(state_dim)
@@ -94,6 +104,18 @@ class tPCPendulumAgent(Agent):
         self.inference_duration: int = inference_duration
         self.learning_duration: int = learning_duration
 
+        
+        if control_type == ControlTypes.PID:
+            self.controller = PID(
+                **controller_args
+            )
+        elif control_type == ControlTypes.RANDOM:
+            self.controller = lambda x: np.random.normal(0, 1, 1)
+        elif control_type == ControlTypes.LQR:
+            raise NotImplementedError("LQR not implemented yet")
+        else:
+            logger.error(f'Invalid control type: {control_type}. Only "PID", "Random" or "LQR" allowed.')
+            raise KeyError()
 
         self.name = name
 
@@ -114,7 +136,7 @@ class tPCPendulumAgent(Agent):
     def compute_action(self):
 
         # self.action[:] = (np.random.normal(0, 1, self.action.shape) > 0).astype(int)
-        self.action[:] = np.random.normal(0, 1, self.action.shape)
+        # self.action[:] = np.random.normal(0, 1, self.action.shape)
         return True
 
     def compute_state(self, C_decay: Optional[int] = None, A_decay: Optional[int] = None):
@@ -136,7 +158,6 @@ class tPCPendulumAgent(Agent):
             self.predicted_observation[:] = self.C @ self.f(self.state)
             error_observation[:] = self.observation - self.predicted_observation
             error_state[:] = self.C.T @ self.df(self.state) * error_observation
-            # x = x + self.dt * (self.C.T @ (self.df(x) * error_observation))
             self.state[:] = self.state + self.dt * (self.C.T @ (self.df(self.state) * error_observation))
             self.C += self.dt * (self.k1 * error_observation[..., np.newaxis] @ self.f(self.state)[..., np.newaxis].T)
             self.A += self.dt * (self.k2 * error_state[..., np.newaxis] @ self.f(prev_state)[..., np.newaxis].T)
@@ -160,7 +181,14 @@ class tPCPendulumAgent(Agent):
         return True
 
     def get_action(self):
-        return int(self.action.item())
+
+        self.theta = np.arctan2(self.state[1], self.state[0])
+        self.theta_dot = self.state[2]
+
+        self.action[:] = self.controller(self.theta)
+
+        # return int(self.action.item())
+        return self.action
 
     def step(self) -> bool:
 

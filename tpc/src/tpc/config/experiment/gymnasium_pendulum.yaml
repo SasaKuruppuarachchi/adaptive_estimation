@@ -1,8 +1,15 @@
 # Invalid YAML (agent.name is an int)
 name: "GymnasiumConfig"
 agent:
+  inference_duration: 5
+  control_type: "PID"
   name: tPCPendulumAgent
-  # Add additional agent config here
+  dt: 0.20
+  controller_args:
+    setpoint: 0.0
+    Kp: 1.0
+    Ki: 0.1
+    Kd: 0.1
 
 simulator:
   name: "GymnasiumSimulator"

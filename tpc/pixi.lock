@@ -155,6 +155,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/sdl2_image-2.8.2-h06ee604_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/sdl2_mixer-2.6.3-h8830914_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/sdl2_ttf-2.22.0-h08b1b5d_2.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/simple-pid-1.0.1-pyhd8ed1ab_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/noarch/six-1.16.0-pyh6c4a22f_0.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/svt-av1-2.2.1-h5888daf_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/termcolor-2.5.0-pyhd8ed1ab_0.conda
@@ -2965,6 +2966,23 @@ packages:
   size: 61752
   timestamp: 1719636090403
 - kind: conda
+  name: simple-pid
+  version: 1.0.1
+  build: pyhd8ed1ab_0
+  subdir: noarch
+  noarch: python
+  url: https://conda.anaconda.org/conda-forge/noarch/simple-pid-1.0.1-pyhd8ed1ab_0.tar.bz2
+  sha256: ba50b2f2075233aac3147e642be422d0d7ff708714f4293d61c5c17f236f4ee5
+  md5: 64a7e36411d04cb91539e870cc9632b2
+  depends:
+  - python >=3.6
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/simple-pid?source=hash-mapping
+  size: 11157
+  timestamp: 1627069504878
+- kind: conda
   name: six
   version: 1.16.0
   build: pyh6c4a22f_0
@@ -3056,7 +3074,7 @@ packages:
   name: tpc
   version: 0.1.0
   path: .
-  sha256: 465165b6e6412c04f00215f48c22739e6cd93fc24821d15a316f78b0702b18c2
+  sha256: a25c43daec2f5fb0cefebb35c231714fe162a4fef0ea78bbf3edc05a58bb279d
   requires_dist:
   - gymnasium[classic-control]
   requires_python: '>=3.11'

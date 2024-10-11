@@ -62,19 +62,19 @@ class GymnasiumSimulator(Simulator):
         for agent_name, agent in self.agents.items():
 
             # Send updated state and observation to the agent
-            agent.observation = self.observation
+            agent.observation[:] = self.observation
             # agent.state = self.state
 
             # Update agent state and get action
             agent.step()
-            # action = agent.get_action()
-            action = self.env.action_space.sample()
+            action = agent.get_action()
+            # action = self.env.action_space.sample()
 
             # Send action to the simulator environment
             # self.env.step(action)
-            self.state, self.reward, terminated, truncated, info = self.env.step(action)
-            # self.observation = self.state + self.rng.normal(0, 0.01, self.state.shape)
-            self.observation = self.state
+            self.state[:], self.reward, terminated, truncated, info = self.env.step(action)
+            # self.observation[:] = self.state + self.rng.normal(0, 0.05, self.state.shape)
+            self.observation[:] = self.state
 
             # logger.info(f"{agent.name} action: {action}")
 

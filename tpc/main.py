@@ -39,8 +39,11 @@ AGENT_CONFIGS = {
 }
 
 def init_tPC_matrices(rng: np.random.Generator, state_dim: int, action_dim: int, observation_dim: int) -> Dict:
-    A = rng.normal(0, 1, (state_dim, state_dim))
-    C = rng.normal(0, 1, (observation_dim, state_dim))
+    # A = rng.normal(0, 1, (state_dim, state_dim))
+    # C = rng.normal(0, 1, (observation_dim, state_dim))
+    A = np.zeros((state_dim, state_dim))
+    C = np.eye(state_dim)
+
 
     B = np.zeros((state_dim, action_dim))
     B[-1, -1] = 1 
@@ -72,7 +75,7 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
 def main():
 
     ### Load config overrides
-    experiment_name: str  = sys.argv[1] if len(sys.argv) > 1 else "default"
+    experiment_name: str  = sys.argv[1] if len(sys.argv) > 1 else "gymnasium_pendulum"
     config_path: Path = Path(f"src/tpc/config/experiment/{experiment_name}.yaml")
     yaml_config: Union[DictConfig, ListConfig] = oc.load(config_path)
 
@@ -131,6 +134,9 @@ def main():
         # Observation
         cprint(f"GymnasiumSimulator observation: {sim.observation}", 'red')
         cprint(f"PendulumAgent observation: {agent.predicted_observation}", 'cyan')
+
+        # Action
+        cprint(f"PendulumAgent action: {agent.action}", 'yellow')
 
         viz.step(
             observation = sim.observation,
