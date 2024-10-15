@@ -25,6 +25,7 @@ from simulator.params import SIMULATION_ENVIRONMENTS, ROBOTS
 from simulator.robot.pendulum import Pendulum
 
 import rclpy
+#from geometry_msgs.msg import 
 from cominterface_ros2 import ComInterfaceROS2
         
 class InvertedPendulumApp:
@@ -71,6 +72,9 @@ class InvertedPendulumApp:
         self._world.add_physics_callback(self.pendulum._stage_prefix + "/sim_step", callback_fn=self.physics_step)
         
     def physics_step(self, step_size):
+        print(Rotation.from_quat(self.pendulum._state.attitude).as_rotvec())
+        
+        #self.node.time_publisher.publish()
         return
         
     async def load_environment_async(self, usd_path: str, force_clear: bool=False):
