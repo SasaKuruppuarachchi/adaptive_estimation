@@ -1,15 +1,34 @@
 # Invalid YAML (agent.name is an int)
 name: "GymnasiumConfig"
-agent:
-  inference_duration: 5
-  control_type: "PID"
-  name: tPCPendulumAgent
-  dt: 0.20
-  controller_args:
-    setpoint: 0.0
-    Kp: 1.0
-    Ki: 0.1
-    Kd: 0.1
+agents:
+
+  agent_1:
+    type: tPCPendulumAgent
+    args:
+      inference_duration: 1
+      control_type: PID
+      # control_type: "RANDOM"
+      name: slow_agent
+      dt: 0.02
+      controller_args:
+        setpoint: 0.0
+        Kp: 1.0
+        Ki: 0.1
+        Kd: 0.1
+
+  agent_2:
+    type: tPCPendulumAgent
+    args:
+      inference_duration: 1
+      control_type: NONE
+      # control_type: "RANDOM"
+      name: fast_agent
+      dt: 0.50
+      controller_args:
+        setpoint: 0.0
+        Kp: 1.0
+        Ki: 0.1
+        Kd: 0.1
 
 simulator:
   name: "GymnasiumSimulator"

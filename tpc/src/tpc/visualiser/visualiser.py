@@ -68,10 +68,23 @@ class GymnasiumPendulumVisualizer:
                  # state: np.ndarray,
                  # state_estimate: np.ndarray,
                  observation: np.ndarray,
-                 observation_estimate: np.ndarray,
+                 observation_estimate: np.ndarray, 
                  # state_error: np.ndarray,
                  # observation_error: np.ndarray,
         ):
+        """
+        observation: np.ndarray
+            The current observation of the pendulum from the simulator
+        observation_estimate: np.ndarray
+            The estimated observation of the pendulum from each agent.
+            shape: (n_agents, observation_dim)
+        """
+
+        if observation_estimate.ndim != 2:
+            raise ValueError("observation_estimate must be a 2D array.")
+        n_agents: int = observation_estimate.shape[0]
+        if n_agents > 2:
+            raise ValueError("Visualizer can only support up to 2 agents.")
         
         # self.fig, self.axs = plt.subplots(1,2)
         # self.fig, self.axs = plt.subplots(2,2)
@@ -79,7 +92,7 @@ class GymnasiumPendulumVisualizer:
         if not isinstance(self.axs, np.ndarray):
             self.axs = np.array([self.axs])
         self.axs = self.axs.flatten()
-        self.artists: List[Tuple[plt.Artist, plt.Axes]] = []
+        # self.artists: List[Tuple[plt.Artist, plt.Axes]] = []
         
         # Plot the current position
         self.scat_sim_observation = self.axs[0].scatter(
@@ -88,28 +101,34 @@ class GymnasiumPendulumVisualizer:
             label="Simulated Observation",
             animated=False
         )
-        self.artists.append((self.scat_sim_observation, self.axs[0]))
-
-        self.scat_agent_observation = self.axs[0].scatter(
-            x=observation_estimate[0], y=observation_estimate[1], 
-            c='green', marker='x', s=100,
-            label="Estimated Observation",
-            animated=False
-        )
-
         # Line representing the pendulum rod
         self.pendulum_line, = self.axs[0].plot(
             [0, observation[0]],
             [0, observation[1]],
             'b-', linewidth=2
         )
+        # self.artists.append((self.scat_sim_observation, self.axs[0]))
 
-        # Line representing the estimated pendulum rod
-        self.pendulum_line_estimate, = self.axs[0].plot(
-            [0, observation_estimate[0]],
-            [0, observation_estimate[1]],
-            'g-', linewidth=2
-        )
+        # self.scat_agent_observation = self.axs[0].scatter(
+        self.scat_agent_observation: List[plt.Artist] = []
+        self.pendulum_line_estimate: List[plt.Artist] = []
+        for agent in range(n_agents):
+            self.scat_agent_observation.append(
+                self.axs[0].scatter(
+                    x=observation_estimate[agent,0], y=observation_estimate[agent,1], 
+                    c='green', marker='x', s=100,
+                    label="Estimated Observation",
+                    animated=False
+                )
+            )
+
+            # Line representing the estimated pendulum rod
+            pendulum_line_estimate, = self.axs[0].plot(
+                [0, observation_estimate[agent, 0]],
+                [0, observation_estimate[agent, 1]],
+                'g-', linewidth=2
+            )
+            self.pendulum_line_estimate.append(pendulum_line_estimate)
         
         # Plot the target position
         # self.axs[0].scatter(
@@ -144,20 +163,32 @@ class GymnasiumPendulumVisualizer:
              # positions_x: List[float], positions_y: List[float]
              ):
 
-        observation = self.flip_axes(x=observation[0], y=observation[1])
-        observation_estimate = self.flip_axes(x=observation_estimate[0], y=observation_estimate[1])
+        # # observation = self.flip_axes(
+        # observation[0], observation[1] = self.flip_axes(
+        #     x=observation[0],
+        #     y=observation[1])
+        # # observation_estimate = self.flip_axes(
+        # observation_estimate[:,0], observation_estimate[:,1] = self.flip_axes(
+        #     x=observation_estimate[:,0],
+        #     y=observation_estimate[:,1]
+        # )
     
-        # Update the artists
+        ### Update the artists
         # self.scat_pos.set_offsets(np.c_[pos_x, pos_y])
         # self.ln_links.set_data(positions_x, positions_y)
         self.scat_sim_observation.set_offsets(np.c_[observation[0], observation[1]])
-        self.scat_agent_observation.set_offsets(np.c_[observation_estimate[0], observation_estimate[1]])
 
-        theta_deg = np.degrees(np.arctan2(observation[1], observation[0]))  # Convert radians to degrees
+        ## Update each agent's estimated observation
+        # self.scat_agent_observation.set_offsets(np.c_[observation_estimate[0], observation_estimate[1]])
+        #
+        # # Update the pendulum line position
+        # self.pendulum_line.set_data([0, observation[0]], [0, observation[1]])
+        # self.pendulum_line_estimate.set_data([0, observation_estimate[0]], [0, observation_estimate[1]])
+        for agent in range(len(self.scat_agent_observation)):
+            self.scat_agent_observation[agent].set_offsets(np.c_[observation_estimate[agent,0], observation_estimate[agent,1]])
+            self.pendulum_line_estimate[agent].set_data([0, observation_estimate[agent,0]], [0, observation_estimate[agent,1]])
 
-        # Update the pendulum line position
-        self.pendulum_line.set_data([0, observation[0]], [0, observation[1]])
-        self.pendulum_line_estimate.set_data([0, observation_estimate[0]], [0, observation_estimate[1]])
+        # theta_deg = np.degrees(np.arctan2(observation[1], observation[0]))  # Convert radians to degrees
     
         # Redraw the figure
         self.fig.canvas.draw_idle()

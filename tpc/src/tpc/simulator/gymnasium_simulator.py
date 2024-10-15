@@ -42,10 +42,12 @@ class GymnasiumSimulator(Simulator):
         if self.env.observation_space.shape:
             self.state_shape = self.env.observation_space.shape
 
-
-    def start(self):
         self.state, self.info = self.env.reset()
         self.observation = self.state + self.rng.normal(0, 1, self.state.shape)
+
+    def start(self):
+        # self.state, self.info = self.env.reset()
+        # self.observation = self.state + self.rng.normal(0, 1, self.state.shape)
         self.env.render()
         logger.info(f"Initial state: {self.state}")
 
@@ -73,8 +75,8 @@ class GymnasiumSimulator(Simulator):
             # Send action to the simulator environment
             # self.env.step(action)
             self.state[:], self.reward, terminated, truncated, info = self.env.step(action)
-            # self.observation[:] = self.state + self.rng.normal(0, 0.05, self.state.shape)
-            self.observation[:] = self.state
+            self.observation[:] = self.state + self.rng.normal(0, 0.05, self.state.shape)
+            # self.observation[:] = self.state
 
             # logger.info(f"{agent.name} action: {action}")
 

@@ -1,78 +1,37 @@
 from abc import ABC, abstractmethod
 from typing import Tuple, List, Dict, Union, Optional
 from loguru import logger
-from simple_pid import PID
 
 import numpy as np
 
 from tpc.agent import Agent
 # from tpc.utils.utils import PendulumState, PendulumObservations
 
-from tpc.utils.types import SimulatorType, ControlTypes
-
-class PendulumAgent(Agent):
-    
-
-    def __init__(self,
-        state_dim: Union[Tuple[int], np.ndarray],
-        action_dim: Union[Tuple[int], np.ndarray],
-        observation_dim: Union[Tuple[int], np.ndarray],
-        A: np.ndarray, C: np.ndarray, B: np.ndarray,
-        name: str,
-        control_type: ControlTypes,
-    ):
-        self.state: np.ndarray = np.zeros(state_dim)
-        self.observation: np.ndarray = np.zeros(state_dim)
-        self.action: np.ndarray = np.zeros(action_dim)
-
-        self.name = name
-
-    def attach(self, simulator):
-        simulator.agents[self.name] = self
-
-    def compute_action(self):
-
-        # self.action[:] = (np.random.normal(0, 1, self.action.shape) > 0).astype(int)
-        self.action[:] = np.random.normal(0, 1, self.action.shape)
-        return True
-
-
-    def compute_state(self):
-        self.state[:] = np.random.normal(0, 1, self.state.shape)
-        return True
-
-    def get_action(self):
-        return int(self.action.item())
-
-    def step(self):
-
-        # Compute state
-        success_state: bool = self.compute_state()
-
-        # Compute action
-        success_action: bool =  self.compute_action()
-
-        return success_state and success_action
-
+from tpc.utils.types import SimulatorType, ControlTypes, ControlType
+from tpc.utils.control import get_controller
 
 def linear(x):
     return x
 
-
 def linear_deriv(x):
     return np.array([np.sum(np.eye(x.shape[0]), axis=0)]).reshape(2, )
-
 
 def tanh(x):
     return np.tanh(x)
 
-
 def tanh_deriv(x):
     return 1 - tanh(x) ** 2
 
-class tPCPendulumAgent(Agent):
-    
+def get_activation(activation: str):
+    if activation == 'linear':
+        return linear, linear_deriv
+    elif activation == 'nonlinear':
+        return tanh, tanh_deriv
+    else:
+        logger.error(f'Invalid activation: {activation}. Only "linear" or "nonlinear" allowed.')
+        raise KeyError()
 
+class tPCPendulumAgent(Agent):
     def __init__(self, name: str,
         state_dim: Union[Tuple[int], np.ndarray],
         action_dim: Union[Tuple[int], np.ndarray],
@@ -91,6 +50,7 @@ class tPCPendulumAgent(Agent):
             Time step/step size for state update
 
         """
+        self.name = name
         self.state: np.ndarray = np.zeros(state_dim)
         self.observation: np.ndarray = np.zeros(state_dim)
         self.predicted_observation: np.ndarray = np.zeros(state_dim)
@@ -104,30 +64,8 @@ class tPCPendulumAgent(Agent):
         self.inference_duration: int = inference_duration
         self.learning_duration: int = learning_duration
 
-        
-        if control_type == ControlTypes.PID:
-            self.controller = PID(
-                **controller_args
-            )
-        elif control_type == ControlTypes.RANDOM:
-            self.controller = lambda x: np.random.normal(0, 1, 1)
-        elif control_type == ControlTypes.LQR:
-            raise NotImplementedError("LQR not implemented yet")
-        else:
-            logger.error(f'Invalid control type: {control_type}. Only "PID", "Random" or "LQR" allowed.')
-            raise KeyError()
-
-        self.name = name
-
-        if activation == 'linear':
-            self.f = linear
-            self.df = linear_deriv
-        elif activation == 'nonlinear':
-            self.f = tanh
-            self.df = tanh_deriv
-        else:
-            logger.error(f'Invalid activation: {activation}. Only "linear" or "nonlinear" allowed.')
-            raise KeyError()
+        self.controller: ControlType = get_controller(control_type, controller_args)
+        self.f, self.df = get_activation(activation)
         logger.info(f'Temporal Predictive Coding using a {activation} function')
 
     def attach(self, simulator):
@@ -135,12 +73,13 @@ class tPCPendulumAgent(Agent):
 
     def compute_action(self):
 
-        # self.action[:] = (np.random.normal(0, 1, self.action.shape) > 0).astype(int)
-        # self.action[:] = np.random.normal(0, 1, self.action.shape)
+        self.theta = np.arctan2(self.state[1], self.state[0])
+        self.theta_dot = self.state[2]
+
+        self.action[:] = self.controller(self.theta)
         return True
 
     def compute_state(self, C_decay: Optional[int] = None, A_decay: Optional[int] = None):
-        # self.state[:] = np.random.normal(0, 1, self.state.shape)
 
         if C_decay:
             C_decay_counter = 1
@@ -181,12 +120,6 @@ class tPCPendulumAgent(Agent):
         return True
 
     def get_action(self):
-
-        self.theta = np.arctan2(self.state[1], self.state[0])
-        self.theta_dot = self.state[2]
-
-        self.action[:] = self.controller(self.theta)
-
         # return int(self.action.item())
         return self.action
 
@@ -200,3 +133,89 @@ class tPCPendulumAgent(Agent):
 
         return success_state and success_action
 
+class KalmanFilterPendulumAgent(Agent):
+    """
+    Kalman filter
+    """
+
+    def __init__(self, name:str,
+                A: np.ndarray, B: np.ndarray, C: np.ndarray,
+                Q: np.ndarray, R: np.ndarray, latent_size: int,
+                state_dim: Union[Tuple[int], np.ndarray],
+                action_dim: Union[Tuple[int], np.ndarray],
+                observation_dim: Union[Tuple[int], np.ndarray],
+                control_type: ControlTypes, controller_args: Dict,
+                 ) -> None:
+
+
+        self.name: str = name
+        self.state: np.ndarray = np.zeros(state_dim)
+        self.observation: np.ndarray = np.zeros(state_dim)
+        self.predicted_observation: np.ndarray = np.zeros(state_dim)
+        self.action: np.ndarray = np.zeros(action_dim)
+
+        super().__init__()
+        self.A: np.ndarray = A
+        self.B: np.ndarray = B
+        self.C: np.ndarray = C
+
+        # control input, a list/1d array
+        self.latent_size: int = latent_size
+
+        # covariance matrix of noise
+        self.Q = Q
+        self.R = R
+
+        # initialize covariance estimate of the latent state
+        self.P: np.ndarray = np.eye(state_dim[0])
+
+        self.controller: ControlType = get_controller(control_type, controller_args)
+
+    def attach(self, simulator):
+        simulator.agents[self.name] = self
+
+
+    def compute_action(self):
+
+        self.theta = np.arctan2(self.state[1], self.state[0])
+        self.theta_dot = self.state[2]
+
+        self.action[:] = self.controller(self.theta)
+        return True
+
+    def projection(self):
+        state_proj = np.matmul(self.A, self.state) + np.matmul(self.B, self.action)
+        P_proj = np.matmul(self.A, np.matmul(self.P, self.A.T)) + self.Q
+        return state_proj, P_proj
+
+    def correction(self, state_proj, P_proj):
+        """Correction step in KF
+
+        K: Kalman gain
+        """
+        K = np.matmul(np.matmul(P_proj, self.C.T),
+                         np.linalg.inv(np.matmul(np.matmul(self.C, P_proj), self.C.T) + self.R))
+        self.state = state_proj + np.matmul(K, self.observation - np.matmul(self.C, state_proj))
+        self.P = P_proj - np.matmul(K, np.matmul(self.C, P_proj))
+
+    def compute_state(self):
+
+        # self.x = self.observation
+        # self.u = self.action
+
+        state_proj, P_proj = self.projection()
+        self.correction(state_proj, P_proj)
+        self.pred_observation = np.matmul(self.C, state_proj)
+
+    def get_action(self):
+        return self.action
+
+    def step(self) -> bool:
+
+        # Compute state
+        success_state: bool = self.compute_state()
+
+        # Compute action
+        success_action: bool =  self.compute_action()
+
+        return success_state and success_action
