@@ -12,6 +12,17 @@
       "label": "Experiments"
     },
     {
+      "id": "683af945d4cda032",
+      "type": "group",
+      "styleAttributes": {},
+      "x": -1480,
+      "y": 280,
+      "width": 2640,
+      "height": 2470,
+      "color": "6",
+      "label": "Theoretical background"
+    },
+    {
       "id": "6a4c889d0904005d",
       "type": "group",
       "sideRatio": 1.7777777777777777,
@@ -22,17 +33,6 @@
       "height": 2028,
       "color": "4",
       "label": "New Slide"
-    },
-    {
-      "id": "683af945d4cda032",
-      "type": "group",
-      "styleAttributes": {},
-      "x": -1480,
-      "y": 280,
-      "width": 2640,
-      "height": 2470,
-      "color": "6",
-      "label": "Theoretical background"
     },
     {
       "id": "6113866a049266a6",
@@ -345,17 +345,6 @@
       "color": "6"
     },
     {
-      "id": "b181396840609138",
-      "type": "text",
-      "text": "\n> [!note] Kalman Filter\n> $$\n> \\begin{align}\n> \\hat{x}_{k} &= \\arg\\min_{x} \\ (y_{k}-Cx_{k})^T\\Sigma_{y}^{-1}(y_{k}-Cx_{k}) \\\\\n> & \\quad + (x_{k}-A\\hat{x}_{k-1}-Bu_{k})^T(\\textcolor{Red}{A\\Sigma_{k-1}A^T}+\\Sigma_{x})^{-1}(x_{k}-A\\hat{x}_{k-1}-Bu_{k})\n> \\end{align}\n> $$\n\n> [!note] tPC\n> $$\n> \\begin{align}\n> \\mathcal{F}_{k} &= \\frac{1}{2}(y_{k}-Cf(x_{k}))^T\\Sigma_{y}^{-1}(y_{k}-Cf(x_{k})) \\\\\n> \\quad &+ \\frac{1}{2}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})^T\\Sigma_{x}^{-1}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})\n> \\end{align}\n> $$\n\n> [!note] Thus\n> The theoretical difference between the two is that tPC assumes\n> $$\n> x_{k-1}|y_{1:k-1} \\sim \\delta(x_{k-1}-\\hat{x}_{k-1})\n> $$\n> instead of \n> $$\n> \\begin{equation}\n> x_{k-1}|y_{1:k-1} \\sim \\mathcal{N}(\\hat{x}_{k-1}, \\Sigma_{k-1})\n> \\end{equation}\n> $$\n> ",
-      "styleAttributes": {},
-      "x": -960,
-      "y": 1930,
-      "width": 580,
-      "height": 590,
-      "color": "6"
-    },
-    {
       "id": "c8fe20d8486d5f50",
       "type": "text",
       "text": "# Temporal Predictive Coding\n\n\nBy substituting the normal distribution assumptions from $KF$-case into\n$$\n\\mathcal{F}_{k} = -\\log{p(y_{k}|\\mu_{k})p(\\mu_{k}|\\hat{x}_{k-1},u_{k})}\n$$\none gets (abuse of notation $u_{k} \\to x_{k}$)\n$$\n\\begin{align}\n\\mathcal{F}_{k} &= \\frac{1}{2}(y_{k}-Cf(x_{k}))^T\\Sigma_{y}^{-1}(y_{k}-Cf(x_{k})) \\\\\n\\quad &+ \\frac{1}{2}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})^T\\Sigma_{x}^{-1}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})\n\\end{align}\n$$\n\nStates can be inferred by computing \n$$\n\\begin{equation}\n\\tau \\frac{d}{dt}x_{k}=-\\frac{\\partial \\mathcal{F}_{k}}{\\partial x_{k}}\n\\end{equation}\n$$\n\nParameters can be learned by\n$$\n\\begin{equation}\n\\Delta A = -\\alpha \\frac{\\partial \\mathcal{F}_{k}}{\\partial A} \\quad\n\\Delta B = -\\beta \\frac{\\partial \\mathcal{F}_{k}}{\\partial B} \\quad\n\\Delta C = -\\eta \\frac{\\partial \\mathcal{F}_{k}}{\\partial C}\n\\end{equation}\n$$\n\n",
@@ -378,6 +367,17 @@
       "width": 580,
       "height": 140,
       "color": "1"
+    },
+    {
+      "id": "b181396840609138",
+      "type": "text",
+      "text": "\n> [!note] Kalman Filter\n> $$\n> \\begin{align}\n> \\hat{x}_{k} &= \\arg\\min_{x} \\ (y_{k}-Cx_{k})^T\\Sigma_{y}^{-1}(y_{k}-Cx_{k}) \\\\\n> & \\quad + (x_{k}-A\\hat{x}_{k-1}-Bu_{k})^T(\\textcolor{Red}{A\\Sigma_{k-1}A^T}+\\Sigma_{x})^{-1}(x_{k}-A\\hat{x}_{k-1}-Bu_{k})\n> \\end{align}\n> $$\n\n> [!note] tPC\n> $$\n> \\begin{align}\n> \\mathcal{F}_{k} &= \\frac{1}{2}(y_{k}-Cf(x_{k}))^T\\Sigma_{y}^{-1}(y_{k}-Cf(x_{k})) \\\\\n> \\quad &+ \\frac{1}{2}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})^T\\Sigma_{x}^{-1}(x_{k}-Af(\\hat{x}_{k-1})-Bu_{k})\n> \\end{align}\n> $$\n\n> [!note] Thus\n> The theoretical difference between the two is that tPC assumes\n> $$\n> x_{k-1}|y_{1:k-1} \\sim \\delta(x_{k-1}-\\hat{x}_{k-1})\n> $$\n> instead of \n> $$\n> \\begin{equation}\n> x_{k-1}|y_{1:k-1} \\sim \\mathcal{N}(\\hat{x}_{k-1}, \\Sigma_{k-1})\n> \\end{equation}\n> $$\n> ",
+      "styleAttributes": {},
+      "x": -960,
+      "y": 1930,
+      "width": 580,
+      "height": 590,
+      "color": "6"
     }
   ],
   "edges": [
@@ -442,15 +442,6 @@
       "toSide": "top"
     },
     {
-      "id": "284e3619982538f6",
-      "styleAttributes": {},
-      "fromNode": "6113866a049266a6",
-      "fromSide": "bottom",
-      "toNode": "f63c70fb8178e770",
-      "toSide": "top",
-      "color": "4"
-    },
-    {
       "id": "788404e95045ec1b",
       "styleAttributes": {},
       "fromNode": "6f6129835c619c20",
@@ -465,6 +456,15 @@
       "fromSide": "left",
       "toNode": "b30941ba610c5af6",
       "toSide": "right"
+    },
+    {
+      "id": "284e3619982538f6",
+      "styleAttributes": {},
+      "fromNode": "6113866a049266a6",
+      "fromSide": "bottom",
+      "toNode": "f63c70fb8178e770",
+      "toSide": "top",
+      "color": "4"
     },
     {
       "id": "1f5c25a74d81b693",

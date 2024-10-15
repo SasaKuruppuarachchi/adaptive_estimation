@@ -1,4 +1,5 @@
 from typing import List, Tuple, Dict, Any, Union, TYPE_CHECKING
+from enum import Enum, auto
 
 if TYPE_CHECKING:
     from tpc.simulator import Simulator, PendulumSimulator
@@ -10,3 +11,10 @@ if TYPE_CHECKING:
 else:
     SimulatorType = Any
     AgentType = Any
+
+class ControlTypes(Enum):
+    PID = auto()
+    LQR = auto()
+    RANDOM = auto()
+    # MPC = auto()
+    # AIF = auto()
