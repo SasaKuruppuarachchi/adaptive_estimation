@@ -29,7 +29,9 @@ source /opt/ros/${ROS_DISTRO}/setup.bash
 #tentative
 #sudo apt-get update
 #rosdep update
-cd /workspaces/learned_io
+cd /workspaces/adaptive_est/src/adaptive_estimation/tpc/
+pip install .
+cd /workspaces/adaptive_est
 sudo service udev restart
 mamba init
 $@

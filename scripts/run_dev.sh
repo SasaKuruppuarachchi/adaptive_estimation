@@ -94,7 +94,7 @@ ON_EXIT+=("popd")
 
 # Fall back if isaac_ros_dev_dir not specified
 if [[ -z "$ISAAC_ROS_DEV_DIR" ]]; then
-    ISAAC_ROS_DEV_DIR_DEFAULTS=("$HOME/workspaces/isaac_ros-dev" "/workspaces/isaac_ros-dev" "/mnt/nova_ssd/workspaces/isaac_ros-dev")
+    ISAAC_ROS_DEV_DIR_DEFAULTS=("$HOME/workspaces/adaptive_est" "/workspaces/adaptive_est" "/mnt/nova_ssd/workspaces/adaptive_est")
     for ISAAC_ROS_DEV_DIR in "${ISAAC_ROS_DEV_DIR_DEFAULTS[@]}"
     do
         if [[ -d "$ISAAC_ROS_DEV_DIR" ]]; then
@@ -180,7 +180,7 @@ if [[ ! -z $CONFIG_SKIP_IMAGE_BUILD ]]; then
     SKIP_IMAGE_BUILD=1
 fi
 
-BASE_NAME="imo_ros_dev-$PLATFORM"
+BASE_NAME="tpc_ros_dev-$PLATFORM"
 if [[ ! -z "$CONFIG_CONTAINER_NAME_SUFFIX" ]] ; then
     BASE_NAME="$BASE_NAME-$CONFIG_CONTAINER_NAME_SUFFIX"
 fi
@@ -194,7 +194,7 @@ fi
 # Re-use existing container.
 if [ "$(docker ps -a --quiet --filter status=running --filter name=$CONTAINER_NAME)" ]; then
     print_info "Attaching to running container: $CONTAINER_NAME"
-    docker exec -i -t -u admin --workdir /workspaces/isaac_ros-dev $CONTAINER_NAME /bin/bash $@
+    docker exec -i -t -u admin --workdir /workspaces/adaptive_est $CONTAINER_NAME /bin/bash $@
     exit 0
 fi
 
@@ -232,7 +232,7 @@ DOCKER_ARGS+=("-e NVIDIA_DRIVER_CAPABILITIES=all")
 DOCKER_ARGS+=("-e FASTRTPS_DEFAULT_PROFILES_FILE=/usr/local/share/middleware_profiles/rtps_udp_profile.xml")
 DOCKER_ARGS+=("-e ROS_DOMAIN_ID")
 DOCKER_ARGS+=("-e USER")
-DOCKER_ARGS+=("-e ISAAC_ROS_WS=/workspaces/isaac_ros-dev")
+DOCKER_ARGS+=("-e ISAAC_ROS_WS=/workspaces/adaptive_est")
 
 if [[ $PLATFORM == "aarch64" ]]; then
     DOCKER_ARGS+=("-v /usr/bin/tegrastats:/usr/bin/tegrastats")
@@ -280,14 +280,14 @@ docker run -it --rm \
     --privileged \
     --network host \
     ${DOCKER_ARGS[@]} \
-    -v $WORKSPACES_DIR/learned_io:/workspaces/learned_io \
+    -v $WORKSPACES_DIR/adaptive_est:/workspaces/adaptive_est \
     -v $HOME/.profile:/home/admin/.profile \
     -v /etc/localtime:/etc/localtime:ro \
     --name "$CONTAINER_NAME" \
     --runtime nvidia \
     --user="admin" \
     --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \
-    --workdir /workspaces/learned_io \
+    --workdir /workspaces/adaptive_est \
     $BASE_NAME \
     /bin/bash
 #-v $WORKSPACES_DIR/agipix_control:/workspaces/agipix_control \

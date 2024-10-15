@@ -16,7 +16,7 @@ source $ROOT/utils/print_color.sh
 # sets a default command to run 'ros2 launch {launch package} {launch file}'
 
 # Example: installs two debians, copies three directories (includes ROS_WS/remaps one), runs package and launch file
-# ./docker_deploy.sh -i "libnvvpi3,tensorrt" -d /workspaces/isaac_ros-dev/tests -d /home/nvidia/scripts:/home/admin/scripts -w /workspaces/isaac_ros-dev/ros_ws -b "aarch64.ros2_humble" -p "isaac_ros_image_proc" -f "isaac_ros_image_flip.launch.py"
+# ./docker_deploy.sh -i "libnvvpi3,tensorrt" -d /workspaces/adaptive_est/tests -d /home/nvidia/scripts:/home/admin/scripts -w /workspaces/adaptive_est/ros_ws -b "aarch64.ros2_humble" -p "isaac_ros_image_proc" -f "isaac_ros_image_flip.launch.py"
 
 # Read and parse config file if exists
 #
@@ -129,7 +129,7 @@ if [[ ! -z "${ROS_WS}" ]]; then
     fi
 
     # Resolve ROS_WS_DEST from install directory setup.sh
-    ROS_WS_DEST=/workspaces/isaac_ros-dev
+    ROS_WS_DEST=/workspaces/adaptive_est
     FILE_CONTENT=$(< "${ROS_WS}/install/setup.sh")
     REGEX="_colcon_prefix_chain_sh_COLCON_CURRENT_PREFIX=([^[:space:]]*)"
     if [[ $FILE_CONTENT =~ $REGEX ]]; then

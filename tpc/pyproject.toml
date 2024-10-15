@@ -3,7 +3,7 @@ authors = [{name = "Nicklas", email = "gitnicklas@pm.me"}]
 description = "Walk like your feet are kissing the earth."
 dependencies = ["gymnasium[classic-control]"]
 name = "tpc"
-requires-python = ">= 3.11"
+requires-python = ">= 3.10"
 version = "0.1.0"
 
 [build-system]
