@@ -24,7 +24,7 @@ class PendulumState(Enum):
 class PendulumObservations(Enum):
     y_0 = auto()
     y_1 = auto()
-    
+
 def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) -> Dict:
     sim: Simulator = GymnasiumSimulator(**config.simulator)
 
@@ -33,15 +33,27 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
 
     agents: List[Agent] = []
     for agent_key, agent_config in config.agents.items():
-        agent: Agent = tPCPendulumAgent(
 
-            state_dim=state_shape,
-            observation_dim=state_shape,
-            action_dim=action_shape,
-            **agent_config.args,
-            **init_tPC_matrices(rng=rng, state_dim=state_shape[0], 
-                action_dim=action_shape[0], observation_dim=state_shape[0]),
-        )
+        if agent_config.type == 'tPCPendulumAgent':
+            agent: Agent = tPCPendulumAgent(
+                action_dim=action_shape,
+                state=np.zeros_like(sim.state),
+                observation=sim.observation,
+                observation_estimate=np.zeros_like(sim.observation),
+                **agent_config.args,
+                **init_tPC_matrices(rng=rng, state_dim=state_shape[0], 
+                    action_dim=action_shape[0], observation_dim=state_shape[0]),
+            )
+        elif agent_config.type == 'KalmanFilterPendulumAgent':
+            agent: Agent = KalmanFilterPendulumAgent(
+                action_dim=action_shape,
+                state=np.zeros_like(sim.state),
+                observation=sim.observation,
+                observation_estimate=np.zeros_like(sim.observation),
+                **agent_config.args,
+            )
+
+
         agents.append(agent)
         agent.attach(simulator=sim)
 
@@ -49,8 +61,8 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
             # state: np.ndarray,
             # state_estimate: np.ndarray,
             observation = sim.observation,
-            # observation_estimates = [agent.predicted_observation for agent in agents],
-            observation_estimate = np.concatenate([agent.predicted_observation[None,...] for agent in agents], axis=0),
+            # observation_estimates = [agent.observation_estimate for agent in agents],
+            observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
             # state_error: np.ndarray,
             # observation_error: np.ndarray,
             # positions_x=positions_x, positions_y=positions_y

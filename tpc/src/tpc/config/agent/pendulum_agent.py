@@ -1,23 +1,26 @@
 from dataclasses import dataclass
 from typing import List, Tuple, Dict, Optional, Union, TypedDict, Any
 
+import numpy as np
+
 from tpc.config.agent.base import Agent, AgentClassArgs
 
 from tpc.utils.types import ControlTypes, AgentType
 
 @dataclass
-class PendulumAgentConfig(Agent):
-
-    type: AgentType
-    args: Dict[str, Any]
-
-@dataclass
-class KFPendulumAgentConfig(Agent):
-
+class KalmanFilterPendulumAgentArgs(AgentClassArgs):
     name: str
-    type: AgentType
     control_type: ControlTypes
     controller_args: Dict[str, Union[float, int]]
+    dt: float
+    state_noise_std: float
+    observation_noise_std: float
+
+@dataclass
+class KalmanFilterPendulumAgentConfig(Agent):
+
+    type: AgentType
+    args: KalmanFilterPendulumAgentArgs
 
 @dataclass
 class tPCPendulumAgentArgs(AgentClassArgs):

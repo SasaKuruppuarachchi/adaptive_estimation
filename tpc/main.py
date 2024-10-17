@@ -53,16 +53,21 @@ def main():
         # cprint(f"PendulumAgent state: {agent.state}", 'cyan')
 
         # Observation
-        cprint(f"GymnasiumSimulator observation: {sim.observation}", 'red')
-        # cprint(f"PendulumAgent observation: {agent.predicted_observation}", 'cyan')
+        # cprint(f"GymnasiumSimulator observation: {(360/np.pi)*sim.observation)}", 'red')
+        cprint(f"GymnasiumSimulator observation\n:", 'red')
+        cprint(f"theta: {180/np.pi*sim.observation[0]}", 'red')
+        cprint(f"theta_dot: {180/np.pi*sim.observation[1]}", 'red')
+        for agent in agents:
+            cprint(f"Agent {agent.name} PendulumAgent observation\n:", 'cyan')
+            cprint(f"    theta: {180/np.pi*agent.observation_estimate[0]}", 'cyan')
+            cprint(f"    theta_dot: {180/np.pi*agent.observation_estimate[1]}", 'cyan')
 
-        # Action
         # cprint(f"PendulumAgent action: {agent.action}", 'yellow')
 
         viz.step(
             observation = sim.observation,
-            # observation_estimate = agent.predicted_observation,
-            observation_estimate = np.concatenate([agent.predicted_observation[None,...] for agent in agents], axis=0),
+            # observation_estimate = agent.observation_estimate,
+            observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
         )
         sleep(config.simulator.dt)
         # input("Press Enter to continue...")

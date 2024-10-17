@@ -33,13 +33,16 @@ def get_activation(activation: str):
 
 class tPCPendulumAgent(Agent):
     def __init__(self, name: str,
-        state_dim: Union[Tuple[int], np.ndarray],
+        # state_dim: Union[Tuple[int], np.ndarray],
         action_dim: Union[Tuple[int], np.ndarray],
-        observation_dim: Union[Tuple[int], np.ndarray],
+        # observation_dim: Union[Tuple[int], np.ndarray],
         A: np.ndarray, C: np.ndarray, B: np.ndarray,
         control_type: ControlTypes,
         controller_args: Dict,
         dt: float,
+        state: np.ndarray,
+        observation: np.ndarray,
+        observation_estimate: np.ndarray,
         inference_duration: int,
         learning_duration: int = 1,
         k1: float = 0.001, k2: float = 0.008,
@@ -51,16 +54,17 @@ class tPCPendulumAgent(Agent):
 
         """
         self.name = name
-        self.state: np.ndarray = np.zeros(state_dim)
-        self.observation: np.ndarray = np.zeros(state_dim)
-        self.predicted_observation: np.ndarray = np.zeros(state_dim)
+        self.state: np.ndarray = state
+        self.observation: np.ndarray = observation
+        self.observation_estimate: np.ndarray = observation_estimate
         self.action: np.ndarray = np.zeros(action_dim)
         self.A: np.ndarray = A
         self.B: np.ndarray = B
         self.C: np.ndarray = C
         self.dt: float = dt
         self.k1, self.k2 = k1, k2
-        self.error: np.ndarray = np.zeros(state_dim)
+        # self.error: np.ndarray = np.zeros(state_dim)
+        self.error: np.ndarray = np.zeros_like(observation)
         self.inference_duration: int = inference_duration
         self.learning_duration: int = learning_duration
 
@@ -73,10 +77,7 @@ class tPCPendulumAgent(Agent):
 
     def compute_action(self):
 
-        self.theta = np.arctan2(self.state[1], self.state[0])
-        self.theta_dot = self.state[2]
-
-        self.action[:] = self.controller(self.theta)
+        self.action[:] = self.controller(self.state[0])
         return True
 
     def compute_state(self, C_decay: Optional[int] = None, A_decay: Optional[int] = None):
@@ -94,8 +95,8 @@ class tPCPendulumAgent(Agent):
         for t in range(self.inference_duration):
             prev_state[:] = self.state.copy()
             self.state[:] = self.state + self.dt * (self.A @ self.f(self.state) + self.B @ self.action)
-            self.predicted_observation[:] = self.C @ self.f(self.state)
-            error_observation[:] = self.observation - self.predicted_observation
+            self.observation_estimate[:] = self.C @ self.f(self.state)
+            error_observation[:] = self.observation - self.observation_estimate
             error_state[:] = self.C.T @ self.df(self.state) * error_observation
             self.state[:] = self.state + self.dt * (self.C.T @ (self.df(self.state) * error_observation))
             self.C += self.dt * (self.k1 * error_observation[..., np.newaxis] @ self.f(self.state)[..., np.newaxis].T)
@@ -110,7 +111,7 @@ class tPCPendulumAgent(Agent):
                     self.k1 /= 1.015
                     C_decay_counter = 1
             # self.error[:, t] = np.linalg.norm(
-            #                 self.observation - self.predicted_observation) ** 2
+            #                 self.observation - self.observation_estimate) ** 2
             self.error[:] = np.linalg.norm(error_observation) ** 2
             if A_decay:
                 A_decay_counter += 1
@@ -133,41 +134,45 @@ class tPCPendulumAgent(Agent):
 
         return success_state and success_action
 
-class KalmanFilterPendulumAgent(Agent):
+class LinearKalmanFilterPendulumAgent(Agent):
     """
     Kalman filter
     """
 
     def __init__(self, name:str,
-                A: np.ndarray, B: np.ndarray, C: np.ndarray,
-                Q: np.ndarray, R: np.ndarray, latent_size: int,
-                state_dim: Union[Tuple[int], np.ndarray],
+                # A: np.ndarray, B: np.ndarray, C: np.ndarray,
+                # Q: np.ndarray, R: np.ndarray, 
+                state: np.ndarray,
+                observation: np.ndarray,
+                observation_estimate: np.ndarray,
                 action_dim: Union[Tuple[int], np.ndarray],
-                observation_dim: Union[Tuple[int], np.ndarray],
                 control_type: ControlTypes, controller_args: Dict,
                  ) -> None:
 
 
         self.name: str = name
-        self.state: np.ndarray = np.zeros(state_dim)
-        self.observation: np.ndarray = np.zeros(state_dim)
-        self.predicted_observation: np.ndarray = np.zeros(state_dim)
+        self.state: np.ndarray = state
+        self.observation: np.ndarray = observation
+        self.observation_estimate: np.ndarray = observation_estimate
         self.action: np.ndarray = np.zeros(action_dim)
 
-        super().__init__()
+        # super().__init__() # TODO Do we want to call the super constructor?
+        A = np.array([[1, 1], [0, 1]])
+        B = np.array([[0], [1]])
+        C = np.array([[1, 0], [0, 1]])
+        Q = np.eye(state.shape[0])
+        R = np.eye(state.shape[0])
+
         self.A: np.ndarray = A
         self.B: np.ndarray = B
         self.C: np.ndarray = C
-
-        # control input, a list/1d array
-        self.latent_size: int = latent_size
 
         # covariance matrix of noise
         self.Q = Q
         self.R = R
 
         # initialize covariance estimate of the latent state
-        self.P: np.ndarray = np.eye(state_dim[0])
+        self.P: np.ndarray = np.eye(state.shape[0])
 
         self.controller: ControlType = get_controller(control_type, controller_args)
 
@@ -176,11 +181,7 @@ class KalmanFilterPendulumAgent(Agent):
 
 
     def compute_action(self):
-
-        self.theta = np.arctan2(self.state[1], self.state[0])
-        self.theta_dot = self.state[2]
-
-        self.action[:] = self.controller(self.theta)
+        self.action[:] = self.controller(self.state[0])
         return True
 
     def projection(self):
@@ -200,12 +201,126 @@ class KalmanFilterPendulumAgent(Agent):
 
     def compute_state(self):
 
-        # self.x = self.observation
-        # self.u = self.action
-
         state_proj, P_proj = self.projection()
         self.correction(state_proj, P_proj)
-        self.pred_observation = np.matmul(self.C, state_proj)
+        self.observation_estimate = np.matmul(self.C, state_proj)
+
+        return True
+
+    def get_action(self):
+        return self.action
+
+    def step(self) -> bool:
+
+        # Compute state
+        success_state: bool = self.compute_state()
+
+        # Compute action
+        success_action: bool =  self.compute_action()
+
+        return success_state and success_action
+
+class KalmanFilterPendulumAgent(Agent):
+    """
+    Kalman filter
+    """
+
+    def __init__(self, name:str,
+                # A: np.ndarray, B: np.ndarray, C: np.ndarray,
+                # Q: np.ndarray, R: np.ndarray, 
+                state: np.ndarray,
+                observation: np.ndarray,
+                observation_estimate: np.ndarray,
+                action_dim: Union[Tuple[int], np.ndarray],
+                control_type: ControlTypes, controller_args: Dict,
+                dt: float, 
+                state_noise_std: float, observation_noise_std: float,
+                pendulum_length: float = 1, gravity: float = 9.81,
+                ) -> None:
+
+
+        self.name: str = name
+        self.state: np.ndarray = state
+        self.observation: np.ndarray = observation
+        self.observation_estimate: np.ndarray = observation_estimate
+        self.action: np.ndarray = np.zeros(action_dim)
+        self.dt: float = dt
+        self.g: float = gravity
+        self.l: float = pendulum_length
+
+        # super().__init__() # TODO Do we want to call the super constructor?
+        A = np.array([[1.0, self.dt], [-self.dt*(self.g/self.l)*np.cos(self.state[0]), 1]])
+        B = np.array([[0], [1]])
+        C = np.array([[1, 0], [0,0]])
+        Q = np.eye(state.shape[0])*state_noise_std
+        R = np.eye(state.shape[0])*observation_noise_std
+
+        self.A: np.ndarray = A
+        self.B: np.ndarray = B
+        self.C: np.ndarray = C
+
+        # covariance matrix of noise
+        self.Q = Q
+        self.R = R
+
+        # initialize covariance estimate of the latent state
+        self.P: np.ndarray = np.eye(state.shape[0])
+
+        self.controller: ControlType = get_controller(control_type, controller_args)
+
+    def get_nonlinear_dynamics(self, x):
+        return np.array([x[1], -self.g/self.l*np.cos(x[0])]) + self.B @ self.action
+
+    def update_A(self, x):
+        """
+        A is the jacobian of the state equation linearized around x
+        """
+        # return self.A[:] = [[1.0, self.dt], [-self.dT*(self.g/self.l)*np.cos(x[0,0]), 1])
+        self.A[1,0] = -self.dt*(self.g/self.l)*np.cos(x[0])
+
+    def update_C(self):
+        """
+        C is the jacobian of the output equation
+        """
+        pass
+
+    def attach(self, simulator):
+        simulator.agents[self.name] = self
+
+
+    def compute_action(self):
+        self.action[:] = self.controller(self.state[0])
+        return True
+
+    def projection(self):
+        # state_proj = np.matmul(self.A, self.state) + np.matmul(self.B, self.action)
+        # P_proj = np.matmul(self.A, np.matmul(self.P, self.A.T)) + self.Q
+
+        state_proj = self.state + self.dt * self.get_nonlinear_dynamics(self.state)
+        P_proj = np.matmul(self.A, np.matmul(self.P, self.A.T)) + self.Q
+        return state_proj, P_proj
+
+    def correction(self, state_proj, P_proj):
+        """Correction step in KF
+
+        K: Kalman gain
+        """
+        K = np.matmul(np.matmul(P_proj, self.C.T),
+                         np.linalg.inv(np.matmul(np.matmul(self.C, P_proj), self.C.T) + self.R))
+        self.state = state_proj + np.matmul(K, self.observation - np.matmul(self.C, state_proj))
+        self.P = P_proj - np.matmul(K, np.matmul(self.C, P_proj))
+
+    def compute_state(self):
+
+        self.update_A(self.state)
+        state_proj, P_proj = self.projection()
+
+        # self.update_C()
+        self.correction(state_proj, P_proj)
+        self.observation_estimate[:] = np.matmul(self.C, state_proj)
+        # import pdb; pdb.set_trace()
+
+        return True
 
     def get_action(self):
         return self.action

@@ -7,6 +7,9 @@ from tpc.utils.types import SimulatorType
 
 class Agent(ABC):
 
+    def __init__(self, name: str):
+        self.name: str = name
+
     @abstractmethod
     def attach(self, simulator):
         """

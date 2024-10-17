@@ -3,7 +3,7 @@
 from loguru import logger
 logger.add("logs/main.log", rotation="500 MB")
 
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Union, Callable
 from abc import ABC, abstractmethod
 
 import numpy as np
@@ -15,6 +15,14 @@ from tpc.utils.types import AgentType, SimulatorType
 
 from tpc.simulator import Simulator
 
+def pendulum_state_post_process_(state: np.ndarray) -> np.ndarray:
+    """
+    Compute angle based on x-y position
+
+    """
+    theta: float = np.arctan2(state[1], state[0])
+    return np.array([theta, state[2]])
+
 class GymnasiumSimulator(Simulator):
 
     def __init__(self,
@@ -23,6 +31,7 @@ class GymnasiumSimulator(Simulator):
         dt: float,
         seed: int,
         name: str,
+        observation_noise_std: float,
         env_name: str = 'CartPole-v1',
         render_mode: str = 'human',
 
@@ -39,11 +48,26 @@ class GymnasiumSimulator(Simulator):
             self.action_shape = self.env.action_space.shape
 
         self.state_shape: np.ndarray = np.array([1])
-        if self.env.observation_space.shape:
+        if self.env.observation_space.shape and env_name != 'Pendulum-v1':
             self.state_shape = self.env.observation_space.shape
+        elif env_name == 'Pendulum-v1':
+            # We'll post-process the state to get the angle
+            self.state_shape = np.array([2])
 
-        self.state, self.info = self.env.reset()
-        self.observation = self.state + self.rng.normal(0, 1, self.state.shape)
+        if env_name == 'Pendulum-v1':
+            state, _ = self.env.reset()
+            self.state: np.ndarray = pendulum_state_post_process_(state)
+        else:
+            raise NotImplementedError(
+                "Only Pendulum-v1 is supported."
+                "We're always post processing the state to be theta and theta dot"
+            )
+            self.state, _ = self.env.reset()
+
+        self.observation_noise: Callable = lambda: self.rng.normal(
+                                    0, observation_noise_std, self.state_shape
+        )
+        self.observation = self.state + self.observation_noise()
 
     def start(self):
         # self.state, self.info = self.env.reset()
@@ -51,7 +75,7 @@ class GymnasiumSimulator(Simulator):
         self.env.render()
         logger.info(f"Initial state: {self.state}")
 
-        return self.info
+        return True
 
     def stop(self):
         pass
@@ -64,7 +88,7 @@ class GymnasiumSimulator(Simulator):
         for agent_name, agent in self.agents.items():
 
             # Send updated state and observation to the agent
-            agent.observation[:] = self.observation
+            agent.observation[:] = self.observation 
             # agent.state = self.state
 
             # Update agent state and get action
@@ -74,8 +98,10 @@ class GymnasiumSimulator(Simulator):
 
             # Send action to the simulator environment
             # self.env.step(action)
-            self.state[:], self.reward, terminated, truncated, info = self.env.step(action)
-            self.observation[:] = self.state + self.rng.normal(0, 0.05, self.state.shape)
+            # self.state[:], self.reward, terminated, truncated, info = self.env.step(action)
+            state, self.reward, terminated, truncated, info = self.env.step(action)
+            self.state[:] = pendulum_state_post_process_(state)
+            self.observation[:] = self.state + self.observation_noise()
             # self.observation[:] = self.state
 
             # logger.info(f"{agent.name} action: {action}")

@@ -6,9 +6,9 @@ from tpc.config.simulator.base import Simulator
 @dataclass
 class GymnasiumSimulator(Simulator):
 
-    name: str = "GymnasiumSimulator"
-    env_name: str = "CartPole-v1"
-
-    dt: float = 0.01
-    seed: int = 666
+    name: str
+    env_name: str
+    dt: float
+    seed: int
+    observation_noise_std: float
 

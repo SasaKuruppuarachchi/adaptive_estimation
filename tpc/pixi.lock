@@ -3074,10 +3074,10 @@ packages:
   name: tpc
   version: 0.1.0
   path: .
-  sha256: a25c43daec2f5fb0cefebb35c231714fe162a4fef0ea78bbf3edc05a58bb279d
+  sha256: 8962cda88576c5dac76efedb919cde83afc1a0d433645b9d157426da1d1e3240
   requires_dist:
   - gymnasium[classic-control]
-  requires_python: '>=3.11'
+  requires_python: '>=3.10'
   editable: true
 - kind: conda
   name: typing_extensions

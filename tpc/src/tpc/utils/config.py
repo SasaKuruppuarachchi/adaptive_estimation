@@ -8,9 +8,8 @@ from omegaconf import OmegaConf as oc
 
 from tpc.config.root import Config
 from tpc.config.agent.pendulum_agent import (
-        PendulumAgentConfig,
         tPCPendulumAgentConfig,
-        KFPendulumAgentConfig
+        KalmanFilterPendulumAgentConfig
 )
 from tpc.config.simulator.gymnasium_simulator import GymnasiumSimulator as GymnasiumSimulatorConfig
 
@@ -20,7 +19,7 @@ SIMULATOR_CONFIGS = {
 
 AGENT_CONFIGS = {
     'tPCPendulumAgent': tPCPendulumAgentConfig,
-    'KFPendulumAgent': KFPendulumAgentConfig
+    'KalmanFilterPendulumAgent': KalmanFilterPendulumAgentConfig
 
 }
 
