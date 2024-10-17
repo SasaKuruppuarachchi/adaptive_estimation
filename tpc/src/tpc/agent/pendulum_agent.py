@@ -52,6 +52,9 @@ class tPCPendulumAgent(Agent):
         dt: float
             Time step/step size for state update
 
+        TODO:
+            - Does the agent need to add noise to it's observation estimate when 
+                projected from x through C?
         """
         self.name = name
         self.state: np.ndarray = state
@@ -67,6 +70,7 @@ class tPCPendulumAgent(Agent):
         self.error: np.ndarray = np.zeros_like(observation)
         self.inference_duration: int = inference_duration
         self.learning_duration: int = learning_duration
+        self.control_type: ControlTypes = control_type
 
         self.controller: ControlType = get_controller(control_type, controller_args)
         self.f, self.df = get_activation(activation)
@@ -155,6 +159,7 @@ class LinearKalmanFilterPendulumAgent(Agent):
         self.observation: np.ndarray = observation
         self.observation_estimate: np.ndarray = observation_estimate
         self.action: np.ndarray = np.zeros(action_dim)
+        self.control_type: ControlTypes = control_type
 
         # super().__init__() # TODO Do we want to call the super constructor?
         A = np.array([[1, 1], [0, 1]])
@@ -226,17 +231,17 @@ class KalmanFilterPendulumAgent(Agent):
     """
 
     def __init__(self, name:str,
-                # A: np.ndarray, B: np.ndarray, C: np.ndarray,
-                # Q: np.ndarray, R: np.ndarray, 
-                state: np.ndarray,
-                observation: np.ndarray,
-                observation_estimate: np.ndarray,
-                action_dim: Union[Tuple[int], np.ndarray],
-                control_type: ControlTypes, controller_args: Dict,
-                dt: float, 
-                state_noise_std: float, observation_noise_std: float,
-                pendulum_length: float = 1, gravity: float = 9.81,
-                ) -> None:
+        # A: np.ndarray, B: np.ndarray, C: np.ndarray,
+        # Q: np.ndarray, R: np.ndarray, 
+        state: np.ndarray,
+        observation: np.ndarray,
+        observation_estimate: np.ndarray,
+        action_dim: Union[Tuple[int], np.ndarray],
+        control_type: ControlTypes, controller_args: Dict,
+        dt: float, 
+        state_noise_std: float, observation_noise_std: float,
+        pendulum_length: float = 1, gravity: float = 9.81,
+        ) -> None:
 
 
         self.name: str = name
@@ -247,6 +252,7 @@ class KalmanFilterPendulumAgent(Agent):
         self.dt: float = dt
         self.g: float = gravity
         self.l: float = pendulum_length
+        self.control_type: ControlTypes = control_type
 
         # super().__init__() # TODO Do we want to call the super constructor?
         A = np.array([[1.0, self.dt], [-self.dt*(self.g/self.l)*np.cos(self.state[0]), 1]])

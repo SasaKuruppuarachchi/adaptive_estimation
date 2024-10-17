@@ -11,6 +11,7 @@ from tpc.config.agent.pendulum_agent import (
         tPCPendulumAgentConfig,
         KalmanFilterPendulumAgentConfig
 )
+from tpc.config.visualiser.pendulum_visualiser import GymnasiumPendulumVisualizerConfig
 from tpc.config.simulator.gymnasium_simulator import GymnasiumSimulator as GymnasiumSimulatorConfig
 
 SIMULATOR_CONFIGS = {
@@ -34,6 +35,8 @@ def get_config(config_path: Path) -> Union[DictConfig,ListConfig]:
     structured_simulator_config = oc.structured(simulator_config_class)
     simulator_config = oc.merge(structured_simulator_config, yaml_config.simulator)
 
+    visualiser_config = oc.merge(GymnasiumPendulumVisualizerConfig, yaml_config.visualiser)
+
     agents_configs: DictConfig = DictConfig({})
     for agent_key, agent_config in yaml_config.agents.items():
         agent_config_class = AGENT_CONFIGS[agent_config.type]
@@ -47,7 +50,8 @@ def get_config(config_path: Path) -> Union[DictConfig,ListConfig]:
     structured_root_config: Config = oc.structured(Config(
         name=yaml_config.name,
         simulator=simulator_config,
-        agents=agents_configs
+        agents=agents_configs,
+        visualiser=visualiser_config
     ))
     config: Union[DictConfig, ListConfig] = oc.merge(structured_root_config, yaml_config)
 

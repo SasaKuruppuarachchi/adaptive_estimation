@@ -101,18 +101,21 @@ class GymnasiumSimulator(Simulator):
 
             # Update agent state and get action
             agent.step()
-            action = agent.get_action()
+
+            if agent.is_controlling:
+                action = agent.get_action()
             # action = self.env.action_space.sample()
 
-            # Send action to the simulator environment
-            # self.env.step(action)
-            # self.state[:], self.reward, terminated, truncated, info = self.env.step(action)
-            state, self.reward, terminated, truncated, info = self.env.step(action)
-            self.state[:] = pendulum_state_post_process_(state)
-            self.observation[:] = self.state + self.observation_noise()
-            # self.observation[:] = self.state
+        # Send action to the simulator environment
+        # self.env.step(action)
+        # self.state[:], self.reward, terminated, truncated, info = self.env.step(action)
+        state, self.reward, terminated, truncated, info = self.env.step(action)
+        # self.state[:] = state[:2]
+        self.state[:] = pendulum_state_post_process_(state)
+        self.observation[:] = self.state + self.observation_noise()
+        # self.observation[:] = self.state
 
-            # logger.info(f"{agent.name} action: {action}")
+        # logger.info(f"{agent.name} action: {action}")
 
 
     def reset(self):

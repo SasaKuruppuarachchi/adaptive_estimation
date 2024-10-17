@@ -2,41 +2,43 @@
 name: "GymnasiumConfig"
 agents:
 
-  # agent_1:
-  #   type: tPCPendulumAgent
-  #   args:
-  #     inference_duration: 25
-  #     control_type: PID
-  #     # control_type: "RANDOM"
-  #     name: slow_agent
-  #     dt: 0.02
-  #     controller_args:
-  #       setpoint: 0.0
-  #       Kp: 1.0
-  #       Ki: 0.1
-  #       Kd: 0.1
-
-  agent_2:
-    type: KalmanFilterPendulumAgent
+  agent_1:
+    type: tPCPendulumAgent
     args:
-      control_type: NONE
-      # control_type: "RANDOM"
-      name: kalmari
+      inference_duration: 2500
+      # control_type: PID
+      control_type: "RANDOM"
+      name: slow_agent
+      dt: 0.25
       controller_args:
         setpoint: 0.0
-      dt: 0.02
-      state_noise_std: 0.01
-      observation_noise_std: 0.01
+        Kp: 1.0
+        Ki: 0.1
+        Kd: 0.1
+
+  # agent_2:
+  #   type: KalmanFilterPendulumAgent
+  #   args:
+  #     control_type: NONE
+  #     # control_type: "RANDOM"
+  #     name: kalmari
+  #     controller_args:
+  #       setpoint: 0.0
+  #     dt: 0.05
+  #     state_noise_std: 0.01
+  #     # observation_noise_std: 0.01
+  #     observation_noise_std: ${simulator.observation_noise_std}
 
   # agent_3:
   #   type: tPCPendulumAgent
   #   args:
-  #     inference_duration: 100
+  #     # inference_duration: 10000
+  #     inference_duration: 1000
   #     control_type: NONE
   #     # control_type: "RANDOM"
-  #     name: fast_agent
-  #     # dt: 0.01
-  #     dt: 1.0
+  #     name: tPC
+  #     dt: 0.25
+  #     # dt: 1.0
   #     controller_args:
   #       setpoint: 0.0
 
@@ -46,3 +48,8 @@ simulator:
   dt: 0.02
   observation_noise_std: 0.005
   seed: 42
+
+visualiser:
+  name: "GymnasiumVisualiser"
+  # plot_theta: false
+  plot_theta: true

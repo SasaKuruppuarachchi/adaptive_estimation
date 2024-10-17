@@ -70,7 +70,8 @@ def main():
             observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
         )
         sleep(config.simulator.dt)
-        # input("Press Enter to continue...")
+        # if i % 10 == 0 and i > 0:
+        #     input("Press Enter to continue...")
 
 if __name__ == "__main__":
     main()

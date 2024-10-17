@@ -66,6 +66,8 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
             # state_error: np.ndarray,
             # observation_error: np.ndarray,
             # positions_x=positions_x, positions_y=positions_y
+            agent_names = [agent.name for agent in agents],
+            **config.visualiser
                                  )
 
     return { 'simulator': sim, 'agents': agents, 'visualiser': viz}

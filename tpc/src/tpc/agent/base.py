@@ -3,12 +3,13 @@ from typing import Tuple, List, Dict
 
 import numpy as np
 
-from tpc.utils.types import SimulatorType
+from tpc.utils.types import SimulatorType, ControlTypes
 
 class Agent(ABC):
 
-    def __init__(self, name: str):
-        self.name: str = name
+    def __init__(self):
+        self.name: str
+        self.control_type: ControlTypes
 
     @abstractmethod
     def attach(self, simulator):
@@ -21,3 +22,6 @@ class Agent(ABC):
     @abstractmethod
     def step(self):
         pass
+
+    def is_controlling(self):
+        return True if self.control_type is not ControlTypes.NONE else False

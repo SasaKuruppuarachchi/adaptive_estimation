@@ -1,4 +1,6 @@
 from typing import List, Tuple, Dict, Union, Callable
+from collections import deque
+
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.gridspec import GridSpec
@@ -17,7 +19,9 @@ class GymnasiumPendulumVisualizer:
                  observation_estimate: np.ndarray, 
                  # state_error: np.ndarray,
                  # observation_error: np.ndarray,
+                 agent_names: List[str],
                  plot_theta: bool = True,
+                 name: str = "GymnasiumPendulumVisualizer",
         ):
         """
         observation: np.ndarray
@@ -35,7 +39,7 @@ class GymnasiumPendulumVisualizer:
 
         if observation_estimate.ndim != 2:
             raise ValueError("observation_estimate must be a 2D array.")
-        n_agents: int = observation_estimate.shape[0]
+        n_agents: int = len(agent_names)
         if n_agents > 2:
             raise ValueError("Visualizer can only support up to 2 agents.")
         
@@ -49,9 +53,18 @@ class GymnasiumPendulumVisualizer:
         else:
             # self.fig, self.axs = plt.subplots(2,1)
             self.fig: Figure = plt.figure(figsize=(10, 5))
-            gs: GridSpec = self.fig.add_gridspec(3, 2)
+            gs: GridSpec = self.fig.add_gridspec(4, 2)
             self.ax_pendulum: Axes = self.fig.add_subplot(gs[0:2, :])
             self.ax_theta: Axes = self.fig.add_subplot(gs[2, :])
+            self.ax_theta_error: Axes = self.fig.add_subplot(gs[3, :])
+
+            deq_len: int = 100
+
+            self.ax_theta_error.set_xlim([0, deq_len])
+            self.ax_theta_error.set_ylim([-np.pi, np.pi])
+
+        self.ax_pendulum.set_xlim([-2.1, 2.1])
+        self.ax_pendulum.set_ylim([-2.1, 2.1])
 
         # self.artists: List[Tuple[plt.Artist, plt.Axes]] = []
         
@@ -59,7 +72,7 @@ class GymnasiumPendulumVisualizer:
         self.scat_sim_observation = self.ax_pendulum.scatter(
             x=-np.sin(observation[0]), y=np.cos(observation[0]), 
             c='yellow', marker='o', s=100,
-            label="Simulated Observation",
+            # label="Simulated Observation",
             animated=False
         )
         # Line representing the pendulum rod
@@ -67,7 +80,8 @@ class GymnasiumPendulumVisualizer:
             [0, -np.sin(observation[0])],
             [0, np.cos(observation[0])],
             # 'b-', linewidth=2
-            c=cmap_simulator(), linewidth=2, linestyle='-'
+            c=cmap_simulator(), linewidth=2, linestyle='-',
+            label="Ground Truth"
         )
         # self.artists.append((self.scat_sim_observation, self.ax_pendulum))
 
@@ -81,7 +95,6 @@ class GymnasiumPendulumVisualizer:
                     y=np.cos(observation_estimate[agent,1]), 
                     # c='green', marker='x', s=100,
                     c=cmap_agent(agent), marker='x', s=100,
-                    label="Estimated Observation",
                     animated=False
                 )
             )
@@ -90,16 +103,13 @@ class GymnasiumPendulumVisualizer:
             pendulum_line_estimate, = self.ax_pendulum.plot(
                 [0, -np.sin(observation_estimate[agent, 0])],
                 [0, np.cos(observation_estimate[agent, 1])],
-                c=cmap_agent(agent), linewidth=2, linestyle='-'
+                c=cmap_agent(agent), linewidth=2, linestyle='-',
+                label=agent_names[agent],
             )
             self.pendulum_line_estimate.append(pendulum_line_estimate)
         
-        self.ax_pendulum.set_xlim([-2.1, 2.1])
-        self.ax_pendulum.set_ylim([-2.1, 2.1])
 
         if self.plot_theta:
-            from collections import deque
-            deq_len: int = 100
 
             self.sim_theta_history: deque = deque(maxlen=deq_len)
             # self.sim_theta_dot_history: deque = deque(maxlen=deq_len)
@@ -144,7 +154,16 @@ class GymnasiumPendulumVisualizer:
                 # )
                 self.agent_theta_lines.append(theta_line)
                 # self.agent_theta_dot_lines.append(theta_dot_line)
+
+                self.ax_theta_error.plot(
+                    np.arange(deq_len), np.zeros(deq_len),
+                    c=cmap_agent(agent), linewidth=2, linestyle='-',
+                    label=f"Agent {agent}"
+                )
+
+
             # self.ax_theta.legend()
+            self.ax_pendulum.legend()
 
         plt.ion()
 
@@ -168,6 +187,7 @@ class GymnasiumPendulumVisualizer:
 
         ### Update the artists
         gt_x, gt_y = self.theta_to_xy(observation[0])
+        # gt_x, gt_y = -observation[1], observation[0]
         self.scat_sim_observation.set_offsets(np.c_[gt_x, gt_y])
         self.pendulum_line.set_data([0, gt_x], [0, gt_y])
         if self.plot_theta:
@@ -179,6 +199,7 @@ class GymnasiumPendulumVisualizer:
         # Update the pendulum line position
         for agent in range(len(self.scat_agent_observation)):
             estimated_x, estimated_y = self.theta_to_xy(observation_estimate[agent,0])
+            # estimated_x, estimated_y = -observation_estimate[agent,1], observation_estimate[agent,0]
             # estimated_x, estimated_y = self.theta_to_xy(observation[0])
             self.scat_agent_observation[agent].set_offsets(np.c_[estimated_x, estimated_y])
             self.pendulum_line_estimate[agent].set_data([0, estimated_x], [0, estimated_y])
@@ -188,6 +209,10 @@ class GymnasiumPendulumVisualizer:
                 # self.agent_theta_dot_history[agent].append(observation_estimate[agent, 1])
                 self.agent_theta_lines[agent].set_ydata(list(self.agent_theta_history[agent]))
                 # self.agent_theta_dot_lines[agent].set_ydata(list(self.agent_theta_dot_history[agent]))
+
+                self.ax_theta_error.lines[agent].set_ydata(
+                    np.array(self.agent_theta_history[agent]) - np.array(self.sim_theta_history)
+                )
 
 
         # Redraw the figure
