@@ -121,7 +121,8 @@ class GymnasiumPendulumVisualizer:
             # self.agent_theta_dot_history: List[deque] = [deque(maxlen=deq_len) for _ in range(n_agents)]
 
             self.ax_theta.set_xlim([0, deq_len])
-            self.ax_theta.set_ylim([-np.pi*1.5, np.pi*1.5])
+            # self.ax_theta.set_ylim([-np.pi*1.5, np.pi*1.5])
+            self.ax_theta.set_ylim([-0.1, 2*np.pi*1.3])
             self.ax_theta.set_xlabel("Time")
             self.ax_theta.set_ylabel("Theta")
             self.ax_theta.set_title("Theta vs Time")
@@ -191,5 +192,6 @@ class GymnasiumPendulumVisualizer:
 
         # Redraw the figure
         self.fig.canvas.draw_idle()
-        plt.pause(0.0001)
+        plt.pause(0.005)
+        # plt.pause(0.5)
         # plt.pause(0.75)

@@ -20,8 +20,16 @@ def pendulum_state_post_process_(state: np.ndarray) -> np.ndarray:
     Compute angle based on x-y position
 
     """
-    theta: float = np.arctan2(state[1], state[0])
+    # theta: float = np.arctan2(state[1], state[0]) + np.pi
+    theta: float = arctan2_2pi(state[1], state[0])
     return np.array([theta, state[2]])
+
+def arctan2_2pi(y, x):
+    return -1 * (
+            np.arctan2(
+            y, (-1) * x
+        ) - np.pi
+    )
 
 class GymnasiumSimulator(Simulator):
 
