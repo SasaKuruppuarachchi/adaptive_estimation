@@ -13,6 +13,8 @@ class Config:
     simulator: Simulator
     agents: Dict[str, Agent]
     visualiser: Optional[AbstractVisualiser]
+    duration: float
+    dt: Optional[float]
     seed: int = 42
     # simulator: Union[PendulumSimulator, Simulator]
     # agent: Union[Agent, PendulumAgent]

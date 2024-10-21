@@ -1,5 +1,9 @@
 # Invalid YAML (agent.name is an int)
 name: "GymnasiumConfig"
+duration: 30.0
+dt: null
+# dt: 0.05
+seed: 42
 agents:
 
   agent_1:
@@ -9,7 +13,9 @@ agents:
       # control_type: PID
       control_type: "RANDOM"
       name: slow_agent
-      dt: 0.25
+      dt: ${dt}
+      # dt: 0.05
+      # dt: ${dt}
       controller_args:
         setpoint: 0.0
         Kp: 1.0
@@ -24,7 +30,8 @@ agents:
   #     name: kalmari
   #     controller_args:
   #       setpoint: 0.0
-  #     dt: 0.05
+  #     dt: ???
+      # dt: ${dt}
   #     state_noise_std: 0.01
   #     # observation_noise_std: 0.01
   #     observation_noise_std: ${simulator.observation_noise_std}
@@ -37,7 +44,8 @@ agents:
   #     control_type: NONE
   #     # control_type: "RANDOM"
   #     name: tPC
-  #     dt: 0.25
+  #     dt: ???
+      # dt: ${dt}
   #     # dt: 1.0
   #     controller_args:
   #       setpoint: 0.0
@@ -45,7 +53,6 @@ agents:
 simulator:
   name: "GymnasiumSimulator"
   env_name: "Pendulum-v1"
-  dt: 0.02
   observation_noise_std: 0.005
   seed: 42
 

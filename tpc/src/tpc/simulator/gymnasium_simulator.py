@@ -36,7 +36,7 @@ class GymnasiumSimulator(Simulator):
     def __init__(self,
         # state_dim: int,
         # action_dim: int,
-        dt: float,
+        # dt: float,
         seed: int,
         name: str,
         observation_noise_std: float,
@@ -77,6 +77,8 @@ class GymnasiumSimulator(Simulator):
         )
         self.observation = self.state + self.observation_noise()
 
+        self.dt: float = self.env.dt
+
     def start(self):
         # self.state, self.info = self.env.reset()
         # self.observation = self.state + self.rng.normal(0, 1, self.state.shape)
@@ -90,33 +92,24 @@ class GymnasiumSimulator(Simulator):
 
     def step(self):
 
-        # self.observation: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
-        # self.state: np.ndarray = self.rng.normal( 0, 1, self.state.shape)
-
         for agent_name, agent in self.agents.items():
 
             # Send updated state and observation to the agent
-            agent.observation[:] = self.observation 
-            # agent.state = self.state
+            # agent.observation[:] = self.observation 
 
             # Update agent state and get action
-            agent.step()
+            agent.step(observation=self.observation)
 
             if agent.is_controlling:
                 action = agent.get_action()
             # action = self.env.action_space.sample()
 
         # Send action to the simulator environment
-        # self.env.step(action)
-        # self.state[:], self.reward, terminated, truncated, info = self.env.step(action)
         state, self.reward, terminated, truncated, info = self.env.step(action)
         # self.state[:] = state[:2]
         self.state[:] = pendulum_state_post_process_(state)
+
         self.observation[:] = self.state + self.observation_noise()
-        # self.observation[:] = self.state
-
-        # logger.info(f"{agent.name} action: {action}")
-
 
     def reset(self):
         pass

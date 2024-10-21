@@ -8,7 +8,7 @@ class GymnasiumSimulator(Simulator):
 
     name: str
     env_name: str
-    dt: float
+    # dt: Optional[float]
     seed: int
     observation_noise_std: float
 

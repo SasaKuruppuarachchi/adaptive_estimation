@@ -16,7 +16,7 @@ from tpc.agent import Agent
 from tpc.visualiser.visualiser import GymnasiumPendulumVisualizer as Visualizer
 
 from tpc.utils.config import get_config
-from tpc.utils.utils import init_sim
+from tpc.utils.utils import init_sim, States
 
 def main():
 
@@ -35,19 +35,19 @@ def main():
     sim: Simulator = inits['simulator']
     agents: List[Agent] = inits['agents']
     viz: Visualizer = inits['visualiser']
-    # visualiser: PendulumVisualiser = inits['visualiser']
+    states: States = inits['states']
 
     sim.start()
 
     # while not sim.done:
-    for i in range(1000):
+    for i in range(states.num_time_steps):
         time = perf_counter()
-        # visualiser.update()
+
         sim.step()
 
-        # logger.info(f"Step {i}, {perf_counter() - time:.2f} seconds")
-        cprint(f"Step {i}, {perf_counter() - time:.2f} seconds", 'green')
+        # Communicate states to agents
 
+        # Agent steps
         # State
         # cprint(f"GymnasiumSimulator state: {sim.state}", 'red')
         # cprint(f"PendulumAgent state: {agent.state}", 'cyan')
@@ -69,7 +69,7 @@ def main():
             # observation_estimate = agent.observation_estimate,
             observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
         )
-        sleep(config.simulator.dt)
+        # sleep(config.simulator.dt)
         # if i % 10 == 0 and i > 0:
         #     input("Press Enter to continue...")
 

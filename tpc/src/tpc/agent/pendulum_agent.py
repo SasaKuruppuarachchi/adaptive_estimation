@@ -128,7 +128,9 @@ class tPCPendulumAgent(Agent):
         # return int(self.action.item())
         return self.action
 
-    def step(self) -> bool:
+    def step(self, observation: np.ndarray) -> bool:
+
+        self.observation[:] = observation
 
         # Compute state
         success_state: bool = self.compute_state()

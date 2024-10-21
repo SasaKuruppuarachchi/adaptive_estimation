@@ -1,0 +1,24 @@
+[project]
+authors = ["Nicklas <gitnicklas@pm.me>"]
+channels = ["robostack-staging", "conda-forge"]
+description = "Walk like your feet are kissing the earth."
+name = "tpc"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[pypi-dependencies]
+tpc = { path = ".", editable = true }
+
+[tasks]
+
+[dependencies]
+python = "=3.10"
+gymnasium = "*"
+numpy = "*"
+loguru = "*"
+termcolor = "*"
+matplotlib = ">=3.9.2"
+simple-pid = "*"
+# ros-humble-desktop = "*"
+# colcon-common-extensions = "*"
+# gymnasium = { version = "*", extras = ["classic-control"] }

@@ -49,6 +49,10 @@ def get_config(config_path: Path) -> Union[DictConfig,ListConfig]:
 
     structured_root_config: Config = oc.structured(Config(
         name=yaml_config.name,
+        duration=yaml_config.duration,
+        seed=yaml_config.seed,
+        dt=yaml_config.dt,
+
         simulator=simulator_config,
         agents=agents_configs,
         visualiser=visualiser_config

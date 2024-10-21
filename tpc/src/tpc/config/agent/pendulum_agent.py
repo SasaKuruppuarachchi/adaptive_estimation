@@ -28,15 +28,10 @@ class tPCPendulumAgentArgs(AgentClassArgs):
     inference_duration: int
     control_type: ControlTypes
     controller_args: Dict[str, Union[float, int]]
-    dt: float
+    dt: Optional[float]
 
 @dataclass
 class tPCPendulumAgentConfig(Agent):
 
     type: AgentType
     args: tPCPendulumAgentArgs
-    # name: str
-    # inference_duration: int
-    # control_type: ControlTypes
-    # controller_args: Dict[str, Union[float, int]]
-    # dt: float
