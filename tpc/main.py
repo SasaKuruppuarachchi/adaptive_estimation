@@ -17,6 +17,7 @@ from tpc.visualiser.visualiser import GymnasiumPendulumVisualizer as Visualizer
 
 from tpc.utils.config import get_config
 from tpc.utils.utils import init_sim, States
+from tpc.utils.types import CommunicationTypes
 
 def main():
 
@@ -37,13 +38,30 @@ def main():
     viz: Visualizer = inits['visualiser']
     states: States = inits['states']
 
+    if config.communication_type == CommunicationTypes.ROS:
+        import rclpy
+        from threading import Thread
+        # Spin the service nodes (agents)
+        agent_threads = []
+        for agent in agents:
+            thread = Thread(target=rclpy.spin, args=(agent.server,))
+            thread.start()
+            agent_threads.append(thread)
+
     sim.start()
 
     # while not sim.done:
     for i in range(states.num_time_steps):
         time = perf_counter()
 
+        # Step simulator.
+        # Sim will request an action from the agents. Thus we can also update the agent states.
         sim.step()
+
+        if config.communication_type == 'ROS':
+            # Spin the client intermittently to process the async response (if using call_async)
+            rclpy.spin_once(sim.communication_handler, timeout_sec=0.1)
+
         states.states[i] = sim.state
         states.observations[i] = sim.observation
         states.sim_dt[i] = sim.dt
@@ -56,7 +74,7 @@ def main():
 
         # Communicate states to agents
         for agent in agents:
-            agent.step(observation=states.observations[i])
+            # agent.step(observation=states.observations[i])
             states.agents_state_estimates[agent.name][i] = agent.state
             states.agents_observation_estimates[agent.name][i] = agent.observation_estimate
             states.agents_actions[agent.name][i] = agent.action
@@ -76,6 +94,13 @@ def main():
             # observation_estimate = agent.observation_estimate,
             observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
         )
+
+    if config.communication_type == CommunicationTypes.ROS:
+        import pdb; pdb.set_trace()
+        # Clean up: shutdown ROS and join threads
+        rclpy.shutdown()
+        for thread in agent_threads:
+            thread.join()
 
 if __name__ == "__main__":
     main()

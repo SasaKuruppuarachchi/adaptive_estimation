@@ -5,7 +5,9 @@ from tpc.config.agent.base import Agent
 from tpc.config.simulator.base import Simulator
 from tpc.config.visualiser.base import AbstractVisualiser
 
-from tpc.utils.types import ControlTypes
+from tpc.utils.types import (
+        ControlTypes, CommunicationTypes
+)
 
 @dataclass
 class Config:
@@ -15,6 +17,7 @@ class Config:
     visualiser: Optional[AbstractVisualiser]
     duration: float
     dt: Optional[float]
+    communication_type: CommunicationTypes
     seed: int = 42
     # simulator: Union[PendulumSimulator, Simulator]
     # agent: Union[Agent, PendulumAgent]

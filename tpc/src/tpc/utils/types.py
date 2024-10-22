@@ -27,3 +27,7 @@ class ControlTypes(Enum):
     # MPC = auto()
     # AIF = auto()
     NONE = auto()
+
+class CommunicationTypes(Enum):
+    LOCAL = auto()
+    ROS = auto()

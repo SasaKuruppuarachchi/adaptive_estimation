@@ -16,10 +16,14 @@ from tpc.agent.pendulum_agent import (
 )
 from tpc.communication.base import (
     LocalClientCommunicationHandler as LocalClient,
-    LocalServerCommunicationHandler as LocalServer
+    LocalServerCommunicationHandler as LocalServer,
+    ROSClientCommunicationHandler as ROSClient,
+    ROSServerCommunicationHandler as ROSServer,
+    ClientCommunicationHandler as Client,
+    ServerCommunicationHandler as Server,
 )
 
-from tpc.utils.types import ControlTypes, ControlType
+from tpc.utils.types import ControlTypes, ControlType, CommunicationTypes
 from simple_pid.PID import PID
 
 class PendulumState(Enum):
@@ -58,6 +62,23 @@ class States:
 
 def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) -> Dict:
 
+    if config.communication_type == CommunicationTypes.LOCAL:
+        ServerClass = LocalServer
+        ClientClass = LocalClient
+    elif config.communication_type == CommunicationTypes.ROS:
+        ServerClass = ROSServer
+        ClientClass = ROSClient
+        import rclpy
+        rclpy.init(args=None)
+    else:
+
+        msg: str = str(f"Communication type {config.communication_type} not implemented.\n"
+                    f"Expected one of {CommunicationTypes}. Got {config.communication_type}")
+        logger.error(msg)
+        raise ValueError(
+            msg
+        )
+
     sim: Simulator = GymnasiumSimulator(**config.simulator)
     config.dt = sim.dt
 
@@ -92,7 +113,7 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
             raise ValueError(
                 f"Agent type {agent_config.type} not implemented")
 
-        server: LocalServer = LocalServer(
+        server: Server = ServerClass(
             agent=agent
         )
         agent.init_communication_handler(server=server)
@@ -112,7 +133,7 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
     # for agent in agents:
     #     client: LocalClient = LocalClient(agent=agent)
     #     clients.append(client)
-    clients: List[LocalClient] = [LocalClient(agent=agent) \
+    clients: List[LocalClient] = [ClientClass(agent=agent) \
                                     for agent in agents]
 
     sim.init_communication_handler(clients=clients)

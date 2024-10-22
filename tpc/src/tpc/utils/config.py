@@ -52,6 +52,8 @@ def get_config(config_path: Path) -> Union[DictConfig,ListConfig]:
         duration=yaml_config.duration,
         seed=yaml_config.seed,
         dt=yaml_config.dt,
+        communication_type=yaml_config.communication_type,
+        # **yaml_config.root,
 
         simulator=simulator_config,
         agents=agents_configs,

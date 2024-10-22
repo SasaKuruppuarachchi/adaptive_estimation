@@ -98,11 +98,6 @@ class GymnasiumSimulator(Simulator):
 
     def step(self):
 
-        # for agent_name, agent in self.agents.items():
-        #     # Update agent state and get action
-        #     agent.step(observation=self.observation)
-        #     if agent.is_controlling:
-        #         action = agent.get_action()
         # action = self.env.action_space.sample()
         # for client in self.clients:
         #     action = client.send_action_request(observation=self.observation)
