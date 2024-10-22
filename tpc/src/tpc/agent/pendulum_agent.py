@@ -9,6 +9,7 @@ from tpc.agent import Agent
 
 from tpc.utils.types import SimulatorType, ControlTypes, ControlType
 from tpc.utils.control import get_controller
+from tpc.communication.base import ServerCommunicationHandler as Server
 
 def linear(x):
     return x
@@ -33,9 +34,7 @@ def get_activation(activation: str):
 
 class tPCPendulumAgent(Agent):
     def __init__(self, name: str,
-        # state_dim: Union[Tuple[int], np.ndarray],
         action_dim: Union[Tuple[int], np.ndarray],
-        # observation_dim: Union[Tuple[int], np.ndarray],
         A: np.ndarray, C: np.ndarray, B: np.ndarray,
         control_type: ControlTypes,
         controller_args: Dict,
@@ -56,6 +55,10 @@ class tPCPendulumAgent(Agent):
             - Does the agent need to add noise to it's observation estimate when 
                 projected from x through C?
         """
+        super().__init__(
+            name=name,
+            control_type=control_type,
+        )
         self.name = name
         self.state: np.ndarray = state
         self.observation: np.ndarray = observation

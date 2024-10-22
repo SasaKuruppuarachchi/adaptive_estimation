@@ -4,21 +4,23 @@ channels = ["robostack-staging", "conda-forge"]
 description = "Walk like your feet are kissing the earth."
 name = "tpc"
 platforms = ["linux-64"]
-version = "0.1.0"
+version = "0.2.0"
 
 [pypi-dependencies]
 tpc = { path = ".", editable = true }
+# gymnasium = { version = "*", extras = ["classic-control"] }
 
 [tasks]
 
 [dependencies]
 python = "=3.10"
 gymnasium = "*"
+pygame = "*"
 numpy = "*"
 loguru = "*"
 termcolor = "*"
-matplotlib = ">=3.9.2"
+matplotlib = "*"
 simple-pid = "*"
-# ros-humble-desktop = "*"
+ros-humble-desktop = "*"
 # colcon-common-extensions = "*"
 # gymnasium = { version = "*", extras = ["classic-control"] }

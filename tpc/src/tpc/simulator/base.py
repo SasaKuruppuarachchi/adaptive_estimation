@@ -6,6 +6,8 @@ import gymnasium as gym
 
 # from tpc.utils.utils import PendulumState, PendulumObservations
 from tpc.utils.types import AgentType, SimulatorType
+from tpc.communication.base import ClientCommunicationHandler as Client
+from tpc.agent import Agent
 
 class Simulator(ABC):
 
@@ -14,6 +16,9 @@ class Simulator(ABC):
         self.agents: Dict[str, Agent] = {}
         self.state_shape: np.ndarray
         self.action_shape: np.ndarray
+        self.clients: List[Client] = []
+        
+    def init_communication_handler(self, clients: List[Client]):
         pass
 
     @abstractmethod

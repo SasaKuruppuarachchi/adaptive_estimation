@@ -14,6 +14,7 @@ from gymnasium.wrappers import ClipAction
 from tpc.utils.types import AgentType, SimulatorType
 
 from tpc.simulator import Simulator
+from tpc.communication.base import ClientCommunicationHandler
 
 def pendulum_state_post_process_(state: np.ndarray) -> np.ndarray:
     """
@@ -40,9 +41,9 @@ class GymnasiumSimulator(Simulator):
         seed: int,
         name: str,
         observation_noise_std: float,
+        # communication_handler: ClientCommunicationHandler,
         env_name: str = 'CartPole-v1',
         render_mode: str = 'human',
-
     ):
         self.agents: Dict[str, AgentType] = {}
 
@@ -79,9 +80,14 @@ class GymnasiumSimulator(Simulator):
 
         self.dt: float = self.env.dt
 
+
+    def init_communication_handler(self, clients: List[ClientCommunicationHandler]):
+        self.clients : List[ClientCommunicationHandler] = clients
+
     def start(self):
-        # self.state, self.info = self.env.reset()
-        # self.observation = self.state + self.rng.normal(0, 1, self.state.shape)
+        if not self.clients:
+            raise ValueError("No clients attached to the simulator")
+
         self.env.render()
         logger.info(f"Initial state: {self.state}")
 
@@ -92,17 +98,16 @@ class GymnasiumSimulator(Simulator):
 
     def step(self):
 
-        for agent_name, agent in self.agents.items():
-
-            # Send updated state and observation to the agent
-            # agent.observation[:] = self.observation 
-
-            # Update agent state and get action
-            agent.step(observation=self.observation)
-
-            if agent.is_controlling:
-                action = agent.get_action()
-            # action = self.env.action_space.sample()
+        # for agent_name, agent in self.agents.items():
+        #     # Update agent state and get action
+        #     agent.step(observation=self.observation)
+        #     if agent.is_controlling:
+        #         action = agent.get_action()
+        # action = self.env.action_space.sample()
+        # for client in self.clients:
+        #     action = client.send_action_request(observation=self.observation)
+        action = self.clients[0].send_action_request(
+                                observation=self.observation)
 
         # Send action to the simulator environment
         state, self.reward, terminated, truncated, info = self.env.step(action)

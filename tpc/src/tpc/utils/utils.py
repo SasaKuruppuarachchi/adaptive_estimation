@@ -1,4 +1,5 @@
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Tuple, Optional
+from dataclasses import dataclass
 from enum import Enum, auto
 
 import numpy as np
@@ -13,6 +14,10 @@ from tpc.agent.pendulum_agent import (
     tPCPendulumAgent,
     KalmanFilterPendulumAgent
 )
+from tpc.communication.base import (
+    LocalClientCommunicationHandler as LocalClient,
+    LocalServerCommunicationHandler as LocalServer
+)
 
 from tpc.utils.types import ControlTypes, ControlType
 from simple_pid.PID import PID
@@ -25,14 +30,43 @@ class PendulumObservations(Enum):
     y_0 = auto()
     y_1 = auto()
 
+class States:
+    def __init__(self,
+                 num_time_steps: int,
+                 states_shape: Tuple[int, ...],
+                 observations_shape: Tuple[int, ...],
+                 agent_names: List[str],
+                 fill_value: float = np.nan
+                 ):
+        self.num_time_steps: int = num_time_steps
+        self.states: np.ndarray = np.full((num_time_steps, *states_shape), fill_value)
+        self.observations: np.ndarray = np.full((num_time_steps, *observations_shape), fill_value)
+        self.sim_dt: np.ndarray = np.full((num_time_steps, 1), fill_value)
+
+        self.agents_state_estimates: Dict[str, np.ndarray] = {}
+        self.agents_observation_estimates: Dict[str, np.ndarray] = {}
+        self.agents_actions: Dict[str, np.ndarray] = {}
+        for name in agent_names:
+            self.agents_state_estimates[name] = np.full(
+                            (num_time_steps, *states_shape), fill_value)
+
+            self.agents_observation_estimates[name] = np.full(   
+                             (num_time_steps, *observations_shape), fill_value)
+
+            self.agents_actions[name] = np.full(
+                        (num_time_steps, 1), fill_value)
+
 def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) -> Dict:
+
     sim: Simulator = GymnasiumSimulator(**config.simulator)
+    config.dt = sim.dt
 
     state_shape = sim.state_shape
     action_shape = sim.action_shape
 
     agents: List[Agent] = []
     for agent_key, agent_config in config.agents.items():
+
 
         if agent_config.type == 'tPCPendulumAgent':
             agent: Agent = tPCPendulumAgent(
@@ -41,8 +75,10 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
                 observation=sim.observation,
                 observation_estimate=np.zeros_like(sim.observation),
                 **agent_config.args,
-                **init_tPC_matrices(rng=rng, state_dim=state_shape[0], 
-                    action_dim=action_shape[0], observation_dim=state_shape[0]),
+                **init_tPC_matrices(rng=rng, 
+                    state_dim=state_shape[0], 
+                    action_dim=action_shape[0],
+                    observation_dim=state_shape[0]),
             )
         elif agent_config.type == 'KalmanFilterPendulumAgent':
             agent: Agent = KalmanFilterPendulumAgent(
@@ -52,10 +88,34 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
                 observation_estimate=np.zeros_like(sim.observation),
                 **agent_config.args,
             )
+        else:
+            raise ValueError(
+                f"Agent type {agent_config.type} not implemented")
 
+        server: LocalServer = LocalServer(
+            agent=agent
+        )
+        agent.init_communication_handler(server=server)
 
         agents.append(agent)
         agent.attach(simulator=sim)
+
+    states: States = States(
+        num_time_steps=int(config.duration/sim.dt),
+        states_shape=sim.state.shape,
+        observations_shape=sim.observation.shape,
+        agent_names=[agent.name for agent in agents]
+    )
+
+
+    # clients: List[LocalClient] = []
+    # for agent in agents:
+    #     client: LocalClient = LocalClient(agent=agent)
+    #     clients.append(client)
+    clients: List[LocalClient] = [LocalClient(agent=agent) \
+                                    for agent in agents]
+
+    sim.init_communication_handler(clients=clients)
 
     viz: Visualizer = Visualizer(
             # state: np.ndarray,
@@ -70,7 +130,7 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
             **config.visualiser
                                  )
 
-    return { 'simulator': sim, 'agents': agents, 'visualiser': viz}
+    return { 'simulator': sim, 'agents': agents, 'visualiser': viz, 'states': states }
 
 def init_tPC_matrices(rng: np.random.Generator, state_dim: int, action_dim: int, observation_dim: int) -> Dict:
     # A = rng.normal(0, 1, (state_dim, state_dim))

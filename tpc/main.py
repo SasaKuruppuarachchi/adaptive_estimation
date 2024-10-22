@@ -44,34 +44,38 @@ def main():
         time = perf_counter()
 
         sim.step()
+        states.states[i] = sim.state
+        states.observations[i] = sim.observation
+        states.sim_dt[i] = sim.dt
+
+        cprint(f"GymnasiumSimulator observation\n:", 'red')
+        # cprint(f"theta: {180/np.pi*sim.observation[0]}", 'red')
+        # cprint(f"theta_dot: {180/np.pi*sim.observation[1]}", 'red')
+        cprint(f"theta: {180/np.pi*states.observations[i][0]}", 'red')
+        cprint(f"theta_dot: {180/np.pi*states.observations[i][1]}", 'red')
 
         # Communicate states to agents
-
-        # Agent steps
-        # State
-        # cprint(f"GymnasiumSimulator state: {sim.state}", 'red')
-        # cprint(f"PendulumAgent state: {agent.state}", 'cyan')
-
-        # Observation
-        # cprint(f"GymnasiumSimulator observation: {(360/np.pi)*sim.observation)}", 'red')
-        cprint(f"GymnasiumSimulator observation\n:", 'red')
-        cprint(f"theta: {180/np.pi*sim.observation[0]}", 'red')
-        cprint(f"theta_dot: {180/np.pi*sim.observation[1]}", 'red')
         for agent in agents:
-            cprint(f"Agent {agent.name} PendulumAgent observation\n:", 'cyan')
-            cprint(f"    theta: {180/np.pi*agent.observation_estimate[0]}", 'cyan')
-            cprint(f"    theta_dot: {180/np.pi*agent.observation_estimate[1]}", 'cyan')
+            agent.step(observation=states.observations[i])
+            states.agents_state_estimates[agent.name][i] = agent.state
+            states.agents_observation_estimates[agent.name][i] = agent.observation_estimate
+            states.agents_actions[agent.name][i] = agent.action
 
-        # cprint(f"PendulumAgent action: {agent.action}", 'yellow')
+            cprint(f"Agent {agent.name} PendulumAgent observation:\n", 'cyan')
+            cprint(
+                f"    theta: "
+                f"{180/np.pi*states.agents_observation_estimates[agent.name][i][0]}",
+                'cyan')
+            cprint(
+                f"    theta_dot: "
+                f"{180/np.pi*states.agents_observation_estimates[agent.name][i][1]}", 
+                'cyan')
 
         viz.step(
             observation = sim.observation,
             # observation_estimate = agent.observation_estimate,
             observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
         )
-        # sleep(config.simulator.dt)
-        # if i % 10 == 0 and i > 0:
-        #     input("Press Enter to continue...")
 
 if __name__ == "__main__":
     main()
