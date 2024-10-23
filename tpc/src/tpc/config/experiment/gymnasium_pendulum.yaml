@@ -1,43 +1,46 @@
 # Invalid YAML (agent.name is an int)
 name: "GymnasiumConfig"
+# duration: 0.5
 duration: 2.0
+# duration: 10.0
 dt: null
 # dt: 0.05
 seed: 42
-communication_type: LOCAL
-# communication_type: ROS
+# communication_type: LOCAL
+communication_type: ROS
 
 agents:
 
-  agent_1:
-    type: tPCPendulumAgent
-    args:
-      inference_duration: 2500
-      # control_type: PID
-      control_type: "RANDOM"
-      name: slow_agent
-      dt: ${dt}
-      # dt: 0.05
-      # dt: ${dt}
-      controller_args:
-        setpoint: 0.0
-        Kp: 1.0
-        Ki: 0.1
-        Kd: 0.1
-
-  # agent_2:
-  #   type: KalmanFilterPendulumAgent
+  # agent_1:
+  #   type: tPCPendulumAgent
   #   args:
-  #     control_type: NONE
+  #     inference_duration: 2500
+  #     # control_type: PID
   #     # control_type: "RANDOM"
-  #     name: kalmari
+  #     control_type: NONE
+  #     name: slow_agent
+  #     dt: ${dt}
+  #     # dt: 0.05
+  #     # dt: ${dt}
   #     controller_args:
   #       setpoint: 0.0
-  #     dt: ???
-      # dt: ${dt}
-  #     state_noise_std: 0.01
-  #     # observation_noise_std: 0.01
-  #     observation_noise_std: ${simulator.observation_noise_std}
+  #       Kp: 1.0
+  #       Ki: 0.1
+  #       Kd: 0.1
+
+  agent_2:
+    type: KalmanFilterPendulumAgent
+    args:
+      control_type: NONE
+      # control_type: PID
+      # control_type: "RANDOM"
+      name: kalmari
+      controller_args:
+        setpoint: 0.0
+      dt: ${dt}
+      state_noise_std: 0.01
+      # observation_noise_std: 0.01
+      observation_noise_std: ${simulator.observation_noise_std}
 
   # agent_3:
   #   type: tPCPendulumAgent

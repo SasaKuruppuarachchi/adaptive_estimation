@@ -21,13 +21,13 @@ class Agent(ABC):
     def init_communication_handler(self, server: Server):
         self.server: Server = server
 
-    @abstractmethod
-    def attach(self, simulator):
-        """
-        Attach the agent to a simulator.
-        Access all configured readable states from the simulator.
-        """
-        pass
+    # @abstractmethod
+    # def attach(self, simulator):
+    #     """
+    #     Attach the agent to a simulator.
+    #     Access all configured readable states from the simulator.
+    #     """
+    #     pass
 
     @abstractmethod
     def step(self, observation: np.ndarray) -> bool:

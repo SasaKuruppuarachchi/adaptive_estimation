@@ -1,6 +1,8 @@
-from typing import List, Tuple, Dict, Union, Callable
+from typing import List, Tuple, Dict, Union, Callable, Optional
 from collections import deque
 
+import imageio
+from matplotlib.colors import Colormap
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from matplotlib.gridspec import GridSpec
@@ -20,6 +22,7 @@ class GymnasiumPendulumVisualizer:
                  # state_error: np.ndarray,
                  # observation_error: np.ndarray,
                  agent_names: List[str],
+                 n_frames: Optional[int],
                  plot_theta: bool = True,
                  name: str = "GymnasiumPendulumVisualizer",
         ):
@@ -31,17 +34,13 @@ class GymnasiumPendulumVisualizer:
             shape: (n_agents, observation_dim)
         """
 
-        from matplotlib.colors import Colormap
-        # colors: Dict[str, Union[str, Colormap]] = {
-        #     "simulator": "yellow",
-        #     "agent": agent_cmap,
-        # }
 
         if observation_estimate.ndim != 2:
             raise ValueError("observation_estimate must be a 2D array.")
         n_agents: int = len(agent_names)
         if n_agents > 2:
             raise ValueError("Visualizer can only support up to 2 agents.")
+
         
         cmap_simulator: Callable = lambda: "yellow"
         cmap_agent: Colormap = plt.get_cmap('Set2', n_agents)
@@ -65,6 +64,12 @@ class GymnasiumPendulumVisualizer:
 
         self.ax_pendulum.set_xlim([-2.1, 2.1])
         self.ax_pendulum.set_ylim([-2.1, 2.1])
+
+        # self.frames = []
+        # width, height = self.fig.get_size_inches()
+        width, height = self.fig.canvas.get_width_height()
+        self.frames: np.ndarray = np.zeros((n_frames, width, height, 3), dtype=np.uint8)
+        self.frame_idx: int = 0
 
         # self.artists: List[Tuple[plt.Artist, plt.Axes]] = []
         
@@ -217,6 +222,22 @@ class GymnasiumPendulumVisualizer:
 
         # Redraw the figure
         self.fig.canvas.draw_idle()
-        plt.pause(0.005)
-        # plt.pause(0.5)
-        # plt.pause(0.75)
+        plt.pause(0.0001)
+
+        # Capture the current frame
+        # self.fig.canvas.draw()
+        # image = np.frombuffer(self.fig.canvas.tostring_rgb(), dtype='uint8')
+        # image = image.reshape(self.fig.canvas.get_width_height()[::-1] + (3,))
+        # # Resize to fit the frames array
+        # # self.frames.append(image)
+        # self.frames[self.frame_idx] = image
+        # self.frame_idx += 1
+
+    def save_animation(self, filename='pendulum_animation.mp4', fps=30):
+        """Save the recorded frames as a video file."""
+        pass
+        # writer = imageio.get_writer(filename, fps=fps)
+        # for frame in self.frames:
+        #     writer.append_data(frame)
+        # writer.close()
+        # print(f"Animation saved as {filename}")

@@ -236,8 +236,6 @@ class KalmanFilterPendulumAgent(Agent):
     """
 
     def __init__(self, name:str,
-        # A: np.ndarray, B: np.ndarray, C: np.ndarray,
-        # Q: np.ndarray, R: np.ndarray, 
         state: np.ndarray,
         observation: np.ndarray,
         observation_estimate: np.ndarray,
@@ -336,7 +334,9 @@ class KalmanFilterPendulumAgent(Agent):
     def get_action(self):
         return self.action
 
-    def step(self) -> bool:
+    def step(self, observation: np.ndarray) -> bool:
+
+        self.observation[:] = observation
 
         # Compute state
         success_state: bool = self.compute_state()

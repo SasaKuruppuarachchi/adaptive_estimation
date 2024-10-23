@@ -8,6 +8,7 @@ version = "0.2.0"
 
 [pypi-dependencies]
 tpc = { path = ".", editable = true }
+tpc_test = { path = "tests", editable = true }
 # gymnasium = { version = "*", extras = ["classic-control"] }
 
 [tasks]
@@ -22,5 +23,13 @@ termcolor = "*"
 matplotlib = "*"
 simple-pid = "*"
 ros-humble-desktop = "*"
+colcon-common-extensions = "*"
+setuptools = "*"
+pytz = "*"
+imageio = ">=2.36.0,<3"
+imageio-ffmpeg = ">=0.5.1,<0.6"
+
+[feature.test.tasks]
+test = "pytest"
 # colcon-common-extensions = "*"
 # gymnasium = { version = "*", extras = ["classic-control"] }

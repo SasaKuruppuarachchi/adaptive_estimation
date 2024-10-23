@@ -39,7 +39,7 @@ class Config:
             if agent.args.control_type is not ControlTypes.NONE:
                 not_none_controls.append(agent)
 
-        assert len(not_none_controls) == 1, "Only one agent can control the environment"
+        assert len(not_none_controls) <= 1, "Only one agent can control the environment"
 
 
 

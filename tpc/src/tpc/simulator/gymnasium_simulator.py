@@ -1,17 +1,20 @@
-# import logging
-# logger = logging.getLogger(__name__)
-from loguru import logger
-logger.add("logs/main.log", rotation="500 MB")
-
+import time
+from asyncio import Future
 from typing import Dict, List, Tuple, Union, Callable
 from abc import ABC, abstractmethod
 
+
+from loguru import logger
+logger.add("logs/main.log", rotation="500 MB")
+
 import numpy as np
 import gymnasium as gym
-from gymnasium.wrappers import ClipAction
+from gymnasium.wrappers.clip_action import ClipAction
+
 
 # from tpc.utils.utils import PendulumState, PendulumObservations
 from tpc.utils.types import AgentType, SimulatorType
+from tpc_ros.srv import ActionRequest
 
 from tpc.simulator import Simulator
 from tpc.communication.base import ClientCommunicationHandler
@@ -77,9 +80,15 @@ class GymnasiumSimulator(Simulator):
                                     0, observation_noise_std, self.state_shape
         )
         self.observation = self.state + self.observation_noise()
+        self.action: np.ndarray = np.zeros(self.action_shape)
 
-        self.dt: float = self.env.dt
+        self.dt: float = self.env.unwrapped.dt
 
+
+        response = ActionRequest.Response()
+        response.action = self.action.flatten().tolist()
+        self.future_: Future = Future()
+        self.future_.set_result(response)
 
     def init_communication_handler(self, clients: List[ClientCommunicationHandler]):
         self.clients : List[ClientCommunicationHandler] = clients
@@ -87,6 +96,10 @@ class GymnasiumSimulator(Simulator):
     def start(self):
         if not self.clients:
             raise ValueError("No clients attached to the simulator")
+
+        for client in self.clients:
+            while not client.client.wait_for_service(timeout_sec=1.0):
+                logger.info(f"Waiting for service {client.service_name}...")
 
         self.env.render()
         logger.info(f"Initial state: {self.state}")
@@ -98,18 +111,21 @@ class GymnasiumSimulator(Simulator):
 
     def step(self):
 
-        # action = self.env.action_space.sample()
-        # for client in self.clients:
-        #     action = client.send_action_request(observation=self.observation)
-        action = self.clients[0].send_action_request(
-                                observation=self.observation)
+        if self.future_.done():
+            self.action[:] = self.future_.result().action
+            logger.info(f"received action: {self.action}")
+            self.future_ = self.clients[0].send_action_request(
+                                    observation=self.observation)
+
 
         # Send action to the simulator environment
-        state, self.reward, terminated, truncated, info = self.env.step(action)
-        # self.state[:] = state[:2]
+        state, self.reward, terminated, truncated, info = self.env.step(self.action)
+        # self.state[:] = state[:2] # Only pos_x and pos_y
         self.state[:] = pendulum_state_post_process_(state)
 
         self.observation[:] = self.state + self.observation_noise()
+
+        time.sleep(self.dt)
 
     def reset(self):
         pass

@@ -1,10 +1,13 @@
 from typing import Dict, List, Union, Tuple, Optional
 from dataclasses import dataclass
 from enum import Enum, auto
+from threading import Thread
 
 import numpy as np
 from loguru import logger
 from omegaconf import DictConfig, ListConfig
+import rclpy
+from rclpy.executors import SingleThreadedExecutor, MultiThreadedExecutor
 
 from tpc.simulator import Simulator
 from tpc.agent import Agent
@@ -40,12 +43,14 @@ class States:
                  states_shape: Tuple[int, ...],
                  observations_shape: Tuple[int, ...],
                  agent_names: List[str],
+                 action_shape: Tuple[int, ...] = (1,),
                  fill_value: float = np.nan
                  ):
         self.num_time_steps: int = num_time_steps
         self.states: np.ndarray = np.full((num_time_steps, *states_shape), fill_value)
         self.observations: np.ndarray = np.full((num_time_steps, *observations_shape), fill_value)
         self.sim_dt: np.ndarray = np.full((num_time_steps, 1), fill_value)
+        self.actions: np.ndarray = np.full((num_time_steps, *action_shape), fill_value)
 
         self.agents_state_estimates: Dict[str, np.ndarray] = {}
         self.agents_observation_estimates: Dict[str, np.ndarray] = {}
@@ -58,7 +63,7 @@ class States:
                              (num_time_steps, *observations_shape), fill_value)
 
             self.agents_actions[name] = np.full(
-                        (num_time_steps, 1), fill_value)
+                        (num_time_steps, *action_shape), fill_value)
 
 def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) -> Dict:
 
@@ -86,6 +91,9 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
     action_shape = sim.action_shape
 
     agents: List[Agent] = []
+    # executor: Union[SingleThreadedExecutor, MultiThreadedExecutor] = MultiThreadedExecutor()
+    # executor: SingleThreadedExecutor = SingleThreadedExecutor()
+    executor = None
     for agent_key, agent_config in config.agents.items():
 
 
@@ -118,11 +126,22 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
         )
         agent.init_communication_handler(server=server)
 
+        # Create a thread for the agent and the server
+        if config.communication_type == CommunicationTypes.ROS:
+
+            # Multi-threaded
+            agent_thread = Thread(target=run_agent_with_server, args=(agent,))
+            agent_thread.start()
+            
+            # executor.add_node(agent.server)
+
         agents.append(agent)
         agent.attach(simulator=sim)
 
+
+    num_time_steps: int = int(config.duration/sim.dt)
     states: States = States(
-        num_time_steps=int(config.duration/sim.dt),
+        num_time_steps=num_time_steps,
         states_shape=sim.state.shape,
         observations_shape=sim.observation.shape,
         agent_names=[agent.name for agent in agents]
@@ -148,10 +167,24 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
             # observation_error: np.ndarray,
             # positions_x=positions_x, positions_y=positions_y
             agent_names = [agent.name for agent in agents],
-            **config.visualiser
+            **config.visualiser,
+            n_frames=num_time_steps
                                  )
 
-    return { 'simulator': sim, 'agents': agents, 'visualiser': viz, 'states': states }
+    return { 
+        'simulator': sim, 'agents': agents, 
+        'visualiser': viz, 'states': states,
+        'server_executor': executor
+    }
+
+# def spin_executor(executor):
+#     executor.spin() 
+
+def run_agent_with_server(agent: Agent):
+    """
+    Run the agent and its server in a separate thread
+    """
+    rclpy.spin(agent.server)
 
 def init_tPC_matrices(rng: np.random.Generator, state_dim: int, action_dim: int, observation_dim: int) -> Dict:
     # A = rng.normal(0, 1, (state_dim, state_dim))

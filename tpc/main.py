@@ -10,6 +10,7 @@ from termcolor import colored, cprint
 from omegaconf import DictConfig, ListConfig
 from omegaconf import OmegaConf as oc
 import numpy as np
+import rclpy
 
 from tpc.simulator import Simulator
 from tpc.agent import Agent
@@ -38,15 +39,15 @@ def main():
     viz: Visualizer = inits['visualiser']
     states: States = inits['states']
 
-    if config.communication_type == CommunicationTypes.ROS:
-        import rclpy
-        from threading import Thread
-        # Spin the service nodes (agents)
-        agent_threads = []
-        for agent in agents:
-            thread = Thread(target=rclpy.spin, args=(agent.server,))
-            thread.start()
-            agent_threads.append(thread)
+    # if config.communication_type == CommunicationTypes.ROS:
+    #     import rclpy
+    #     from threading import Thread
+    #     # Spin the service nodes (agents)
+    #     agent_threads = []
+    #     for agent in agents:
+    #         thread = Thread(target=rclpy.spin, args=(agent.server,))
+    #         thread.start()
+    #         agent_threads.append(thread)
 
     sim.start()
 
@@ -58,19 +59,19 @@ def main():
         # Sim will request an action from the agents. Thus we can also update the agent states.
         sim.step()
 
-        if config.communication_type == 'ROS':
+        if config.communication_type == CommunicationTypes.ROS:
+            # raise NotImplementedError("STUCK HERE MAIN THREAD HANGS")
+            rclpy.spin_once(sim.clients[0], timeout_sec=0.01)
+            # inits['server_executor'].spin_once(timeout_sec=0.1)
             # Spin the client intermittently to process the async response (if using call_async)
-            rclpy.spin_once(sim.communication_handler, timeout_sec=0.1)
 
         states.states[i] = sim.state
         states.observations[i] = sim.observation
         states.sim_dt[i] = sim.dt
 
-        cprint(f"GymnasiumSimulator observation\n:", 'red')
-        # cprint(f"theta: {180/np.pi*sim.observation[0]}", 'red')
-        # cprint(f"theta_dot: {180/np.pi*sim.observation[1]}", 'red')
-        cprint(f"theta: {180/np.pi*states.observations[i][0]}", 'red')
-        cprint(f"theta_dot: {180/np.pi*states.observations[i][1]}", 'red')
+        # cprint(f"GymnasiumSimulator observation\n:", 'red')
+        # cprint(f"theta: {180/np.pi*states.observations[i][0]}", 'red')
+        # cprint(f"theta_dot: {180/np.pi*states.observations[i][1]}", 'red')
 
         # Communicate states to agents
         for agent in agents:
@@ -79,15 +80,15 @@ def main():
             states.agents_observation_estimates[agent.name][i] = agent.observation_estimate
             states.agents_actions[agent.name][i] = agent.action
 
-            cprint(f"Agent {agent.name} PendulumAgent observation:\n", 'cyan')
-            cprint(
-                f"    theta: "
-                f"{180/np.pi*states.agents_observation_estimates[agent.name][i][0]}",
-                'cyan')
-            cprint(
-                f"    theta_dot: "
-                f"{180/np.pi*states.agents_observation_estimates[agent.name][i][1]}", 
-                'cyan')
+            # cprint(f"Agent {agent.name} PendulumAgent observation:\n", 'cyan')
+            # cprint(
+            #     f"    theta: "
+            #     f"{180/np.pi*states.agents_observation_estimates[agent.name][i][0]}",
+            #     'cyan')
+            # cprint(
+            #     f"    theta_dot: "
+            #     f"{180/np.pi*states.agents_observation_estimates[agent.name][i][1]}", 
+            #     'cyan')
 
         viz.step(
             observation = sim.observation,
@@ -95,12 +96,13 @@ def main():
             observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
         )
 
+    viz.save_animation()
+
     if config.communication_type == CommunicationTypes.ROS:
-        import pdb; pdb.set_trace()
         # Clean up: shutdown ROS and join threads
         rclpy.shutdown()
-        for thread in agent_threads:
-            thread.join()
+        # for thread in agent_threads:
+        #     thread.join()
 
 if __name__ == "__main__":
     main()

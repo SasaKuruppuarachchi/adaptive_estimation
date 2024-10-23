@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 
 import numpy as np
 import gymnasium as gym
+from loguru import logger
 
 # from tpc.utils.utils import PendulumState, PendulumObservations
 from tpc.utils.types import AgentType, SimulatorType
@@ -21,9 +22,13 @@ class Simulator(ABC):
     def init_communication_handler(self, clients: List[Client]):
         pass
 
-    @abstractmethod
-    def start(self) -> Any:
-        pass
+    def start(self):
+        if not self.clients:
+            raise ValueError("No clients attached to the simulator")
+
+        for client in self.clients:
+            while not client.client.wait_for_service(timeout_sec=1.0):
+                logger.info(f"Waiting for service {client.service_name}...")
     #
     # @abstractmethod
     # def stop(self):
