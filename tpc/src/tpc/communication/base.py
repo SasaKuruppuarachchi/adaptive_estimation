@@ -112,7 +112,7 @@ class ROSClientCommunicationHandler(ClientCommunicationHandler, Node):
     def __init__(self, agent: Agent):
         self.service_name: str = f"{agent.name}/action_request"
         ClientCommunicationHandler.__init__(self, service_name=self.service_name)
-        Node.__init__(self, node_name='simulator')
+        Node.__init__(self, node_name=f'simulator_{agent.name}')
         self.client: Client = self.create_client(ActionRequest, self.service_name)
 
         logger.info(f"ROS Client {self.client.srv_name} started")

@@ -246,6 +246,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/nspr-4.36-h5888daf_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/nss-3.100-hca3bf56_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/numpy-1.26.4-py310hb13e2d6_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/opencv-4.6.0-py310hff52083_8.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/openexr-3.1.5-h0cdce71_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/openh264-2.3.1-hcb278e6_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/openjpeg-2.5.0-h7d73246_1.tar.bz2
@@ -662,7 +663,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zstd-1.5.6-ha6fb4c9_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/zziplib-0.13.69-h27826a3_1.tar.bz2
       - pypi: .
-      - pypi: tests
 packages:
 - kind: conda
   name: _libgcc_mutex
@@ -5100,6 +5100,24 @@ packages:
   - pkg:pypi/numpy?source=hash-mapping
   size: 7009070
   timestamp: 1707225917496
+- kind: conda
+  name: opencv
+  version: 4.6.0
+  build: py310hff52083_8
+  build_number: 8
+  subdir: linux-64
+  url: https://conda.anaconda.org/conda-forge/linux-64/opencv-4.6.0-py310hff52083_8.conda
+  sha256: 68b8d7a7c255adde0abb90ee7f0074e1560ff44a90aa07dd891416384a611afa
+  md5: 8500020a59fc8c1df425b9f5759b0097
+  depends:
+  - libopencv 4.6.0 py310h8149549_8
+  - py-opencv 4.6.0 py310hfdc917e_8
+  - python_abi 3.10.* *_cp310
+  license: Apache-2.0
+  license_family: Apache
+  purls: []
+  size: 24772
+  timestamp: 1671408921738
 - kind: conda
   name: openexr
   version: 3.1.5
@@ -14609,13 +14627,6 @@ packages:
   version: 0.1.0
   path: .
   sha256: eb20b27098c28c4643505960c6a56d9d91798827ef441485240c1497b62c5da5
-  requires_python: '>=3.10'
-  editable: true
-- kind: pypi
-  name: tpc-test
-  version: 0.1.0
-  path: tests
-  sha256: 330406220155edb0614f6673ec60aca737a8994424adbd3918fb37b7a0eba158
   requires_python: '>=3.10'
   editable: true
 - kind: conda

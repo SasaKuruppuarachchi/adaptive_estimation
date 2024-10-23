@@ -1,32 +1,32 @@
 # Invalid YAML (agent.name is an int)
 name: "GymnasiumConfig"
 # duration: 0.5
-duration: 2.0
-# duration: 10.0
+# duration: 2.0
+duration: 10.0
 dt: null
 # dt: 0.05
 seed: 42
-# communication_type: LOCAL
-communication_type: ROS
+communication_type: LOCAL
+# communication_type: ROS
 
 agents:
 
-  # agent_1:
-  #   type: tPCPendulumAgent
-  #   args:
-  #     inference_duration: 2500
-  #     # control_type: PID
-  #     # control_type: "RANDOM"
-  #     control_type: NONE
-  #     name: slow_agent
-  #     dt: ${dt}
-  #     # dt: 0.05
-  #     # dt: ${dt}
-  #     controller_args:
-  #       setpoint: 0.0
-  #       Kp: 1.0
-  #       Ki: 0.1
-  #       Kd: 0.1
+  agent_1:
+    type: tPCPendulumAgent
+    args:
+      inference_duration: 50000
+      # control_type: PID
+      # control_type: "RANDOM"
+      control_type: NONE
+      name: tPC_convergence
+      dt: ${dt}
+      # dt: 0.05
+      # dt: ${dt}
+      controller_args:
+        setpoint: 0.0
+        Kp: 1.0
+        Ki: 0.1
+        Kd: 0.1
 
   agent_2:
     type: KalmanFilterPendulumAgent
@@ -45,16 +45,20 @@ agents:
   # agent_3:
   #   type: tPCPendulumAgent
   #   args:
-  #     # inference_duration: 10000
-  #     inference_duration: 1000
-  #     control_type: NONE
+  #     inference_duration: 100
+  #     # control_type: PID
   #     # control_type: "RANDOM"
-  #     name: tPC
-  #     dt: ???
-      # dt: ${dt}
-  #     # dt: 1.0
+  #     control_type: NONE
+  #     name: tPC_100
+  #     # dt: ${dt}
+  #     dt: 0.5
+  #     # dt: 0.05
+  #     # dt: ${dt}
   #     controller_args:
   #       setpoint: 0.0
+  #       Kp: 1.0
+  #       Ki: 0.1
+  #       Kd: 0.1
 
 simulator:
   name: "GymnasiumSimulator"

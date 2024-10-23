@@ -98,8 +98,9 @@ class GymnasiumSimulator(Simulator):
             raise ValueError("No clients attached to the simulator")
 
         for client in self.clients:
-            while not client.client.wait_for_service(timeout_sec=1.0):
-                logger.info(f"Waiting for service {client.service_name}...")
+            if hasattr(client, 'client') and hasattr(client.client, 'wait_for_service'):
+                while not client.client.wait_for_service(timeout_sec=1.0):
+                    logger.info(f"Waiting for service {client.service_name}...")
 
         self.env.render()
         logger.info(f"Initial state: {self.state}")
@@ -111,11 +112,19 @@ class GymnasiumSimulator(Simulator):
 
     def step(self):
 
-        if self.future_.done():
-            self.action[:] = self.future_.result().action
-            logger.info(f"received action: {self.action}")
-            self.future_ = self.clients[0].send_action_request(
+        # if 'ROS' == 'ROS': # ROS BASED COMMUNICATION
+        if 'NOT_ROS' == 'ROS':
+            if self.future_.done():
+                self.action[:] = self.future_.result().action
+                logger.info(f"received action: {self.action}")
+                self.future_ = self.clients[0].send_action_request(
+                                        observation=self.observation)
+        else:
+            self.action[:] = self.clients[0].send_action_request(
                                     observation=self.observation)
+            self.action[:] = self.clients[1].send_action_request(
+                                    observation=self.observation)
+            logger.info(f"received action: {self.action}")
 
 
         # Send action to the simulator environment

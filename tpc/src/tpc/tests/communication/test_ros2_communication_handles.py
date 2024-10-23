@@ -28,6 +28,13 @@ from tpc.utils.utils import run_agent_with_server, States
 
 from tpc_ros.srv import ActionRequest
 
+"""
+TODO: True negative tests e.g.:
+
+with pytest.raises(NotImplementedError) as e:
+    val = self.some_method(args=args)
+"""
+
 class TestAgent(Agent):
 
     def __init__(self,
@@ -113,7 +120,8 @@ class TestSimulator(Simulator):
 
 class TestROSCommunicationHandlers:
     def __init__(self):
-        self.num_time_steps: int = 50
+        self.spin_timeout_sec: float = 2.5
+        self.num_time_steps: int = 5
 
         rclpy.init(args=None)
         self.agent: Agent = self.init_agent()
@@ -125,13 +133,13 @@ class TestROSCommunicationHandlers:
         self.agent.init_communication_handler(server=self.server)
         self.simulator.init_communication_handler(clients=[self.client])
 
-        self.num_time_steps: int = 5
         self.states: States = States(
             num_time_steps=self.num_time_steps,
             states_shape=self.simulator.state.shape,
             observations_shape=self.simulator.observation.shape,
             agent_names=[agent.name for agent in self.agents]
         )
+
 
 
 
@@ -151,6 +159,7 @@ class TestROSCommunicationHandlers:
 
         # executor = rclpy.executors.MultiThreadedExecutor()
         executor = rclpy.executors.SingleThreadedExecutor()
+        # executor = rclpy.executors.StaticSingleThreadedExecutor()
         executor.add_node(self.agent.server)
         executor.add_node(self.simulator.clients[0])
 
@@ -159,14 +168,12 @@ class TestROSCommunicationHandlers:
         for i in range(self.num_time_steps):
             print("#"*20 + f" Step {i} " + "#"*20)
             self.simulator.step()
-            self.states.states[i] = self.simulator.state
-            self.states.observations[i] = self.simulator.observation
 
-            executor.spin_once(timeout_sec=0.01)
+            executor.spin_once(timeout_sec=self.spin_timeout_sec)
 
             time.sleep(0.05)
 
-            self.states.agents_state_estimates[self.agent.name][i] = self.agent.state
+            self.states.update(agent=self.agent, simulator=self.simulator, step=i)
 
         print(self.states.states)
         print(self.states.agents_state_estimates[self.agent.name])
@@ -191,12 +198,10 @@ class TestROSCommunicationHandlers:
         for i in range(self.num_time_steps):
             print("#"*20 + f" Step {i} " + "#"*20)
             self.simulator.step()
-            self.states.states[i] = self.simulator.state
-            self.states.observations[i] = self.simulator.observation
 
             time.sleep(0.05)
 
-            self.states.agents_state_estimates[self.agent.name][i] = self.agent.state
+            self.states.update(agent=self.agent, simulator=self.simulator, step=i)
 
         print(self.states.states)
         print(self.states.agents_state_estimates[self.agent.name])
@@ -207,24 +212,19 @@ class TestROSCommunicationHandlers:
 
         self.simulator.start()
 
-        timeout_sec: float = 5.0
         for i in range(self.num_time_steps):
             print("#"*20 + f" Step {i} " + "#"*20)
             self.simulator.step()
-            self.states.states[i] = self.simulator.state
-            self.states.observations[i] = self.simulator.observation
-            self.states.actions[i] = self.simulator.action
 
             rclpy.spin_once(
                 self.simulator.clients[0],
-                timeout_sec=timeout_sec)
+                timeout_sec=self.spin_timeout_sec)
             rclpy.spin_once(
                 self.agent.server,
-                timeout_sec=timeout_sec)
+                timeout_sec=self.spin_timeout_sec)
 
             time.sleep(0.05)
-
-            self.states.agents_state_estimates[self.agent.name][i] = self.agent.state
+            self.states.update(agent=self.agent, simulator=self.simulator, step=i)
 
         print(self.states.states)
         print(self.states.actions)

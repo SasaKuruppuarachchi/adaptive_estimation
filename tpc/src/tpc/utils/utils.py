@@ -65,6 +65,15 @@ class States:
             self.agents_actions[name] = np.full(
                         (num_time_steps, *action_shape), fill_value)
 
+    def update(self, agent: Agent, simulator: Simulator, step:int ):
+
+            self.states[step] = simulator.state
+            self.observations[step] = simulator.observation
+            self.actions[step] = simulator.action
+
+            self.agents_state_estimates[agent.name][step] = agent.state
+
+
 def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) -> Dict:
 
     if config.communication_type == CommunicationTypes.LOCAL:
@@ -91,9 +100,12 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
     action_shape = sim.action_shape
 
     agents: List[Agent] = []
-    # executor: Union[SingleThreadedExecutor, MultiThreadedExecutor] = MultiThreadedExecutor()
-    # executor: SingleThreadedExecutor = SingleThreadedExecutor()
-    executor = None
+    
+    if config.communication_type == CommunicationTypes.ROS:
+        executor: Union[SingleThreadedExecutor, MultiThreadedExecutor] = MultiThreadedExecutor()
+        # executor: SingleThreadedExecutor = SingleThreadedExecutor()
+    else:
+        executor = None
     for agent_key, agent_config in config.agents.items():
 
 
@@ -129,11 +141,7 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
         # Create a thread for the agent and the server
         if config.communication_type == CommunicationTypes.ROS:
 
-            # Multi-threaded
-            agent_thread = Thread(target=run_agent_with_server, args=(agent,))
-            agent_thread.start()
-            
-            # executor.add_node(agent.server)
+            executor.add_node(agent.server)
 
         agents.append(agent)
         agent.attach(simulator=sim)
@@ -147,13 +155,12 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
         agent_names=[agent.name for agent in agents]
     )
 
-
-    # clients: List[LocalClient] = []
-    # for agent in agents:
-    #     client: LocalClient = LocalClient(agent=agent)
-    #     clients.append(client)
-    clients: List[LocalClient] = [ClientClass(agent=agent) \
-                                    for agent in agents]
+    clients: List[LocalClient] = []
+    for agent in agents:
+        client = ClientClass(agent=agent)
+        clients.append(client)
+        if config.communication_type == CommunicationTypes.ROS:
+            executor.add_node(client)
 
     sim.init_communication_handler(clients=clients)
 
@@ -174,17 +181,8 @@ def init_sim(config: Union[DictConfig, ListConfig], rng: np.random.Generator) ->
     return { 
         'simulator': sim, 'agents': agents, 
         'visualiser': viz, 'states': states,
-        'server_executor': executor
+        'executor': executor
     }
-
-# def spin_executor(executor):
-#     executor.spin() 
-
-def run_agent_with_server(agent: Agent):
-    """
-    Run the agent and its server in a separate thread
-    """
-    rclpy.spin(agent.server)
 
 def init_tPC_matrices(rng: np.random.Generator, state_dim: int, action_dim: int, observation_dim: int) -> Dict:
     # A = rng.normal(0, 1, (state_dim, state_dim))

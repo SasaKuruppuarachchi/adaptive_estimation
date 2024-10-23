@@ -1,6 +1,7 @@
 from typing import List, Tuple, Dict, Union, Callable, Optional
 from collections import deque
 
+import cv2
 import imageio
 from matplotlib.colors import Colormap
 import matplotlib.pyplot as plt
@@ -49,13 +50,22 @@ class GymnasiumPendulumVisualizer:
         self.plot_theta = plot_theta
         if not self.plot_theta:
             self.fig, self.ax_pendulum = plt.subplots(1,1)
+            plt.rcParams['figure.autolayout'] = False  # Prevents auto-resizing
         else:
-            # self.fig, self.axs = plt.subplots(2,1)
-            self.fig: Figure = plt.figure(figsize=(10, 5))
+            self.fig: Figure = plt.figure(
+                # figsize=(20, 15),
+                figsize=(15, 10),
+                # dpi=200
+            )
             gs: GridSpec = self.fig.add_gridspec(4, 2)
             self.ax_pendulum: Axes = self.fig.add_subplot(gs[0:2, :])
             self.ax_theta: Axes = self.fig.add_subplot(gs[2, :])
             self.ax_theta_error: Axes = self.fig.add_subplot(gs[3, :])
+
+            # gs: GridSpec = self.fig.add_gridspec(3, 2)
+            # self.ax_pendulum: Axes = self.fig.add_subplot(gs[0:2, :])
+            # self.ax_theta: Axes = self.fig.add_subplot(gs[2, 0])
+            # self.ax_theta_error: Axes = self.fig.add_subplot(gs[2, 1])
 
             deq_len: int = 100
 
@@ -64,12 +74,7 @@ class GymnasiumPendulumVisualizer:
 
         self.ax_pendulum.set_xlim([-2.1, 2.1])
         self.ax_pendulum.set_ylim([-2.1, 2.1])
-
-        # self.frames = []
-        # width, height = self.fig.get_size_inches()
-        width, height = self.fig.canvas.get_width_height()
-        self.frames: np.ndarray = np.zeros((n_frames, width, height, 3), dtype=np.uint8)
-        self.frame_idx: int = 0
+        self.ax_pendulum.set_title("Pendulum Visualizer")
 
         # self.artists: List[Tuple[plt.Artist, plt.Axes]] = []
         
@@ -142,6 +147,13 @@ class GymnasiumPendulumVisualizer:
             self.ax_theta.set_ylabel("Theta")
             self.ax_theta.set_title("Theta vs Time")
 
+            self.ax_theta_error.set_xlim([0, deq_len])
+            self.ax_theta_error.set_ylim([-np.pi, np.pi])
+            self.ax_theta_error.set_xlabel("Time")
+            self.ax_theta_error.set_ylabel('Error')
+            self.ax_theta_error.set_title("Error vs Time")
+
+
             self.agent_theta_lines: List[plt.Artist] = []
             # self.agent_theta_dot_lines: List[plt.Artist] = []
             for agent in range(n_agents):
@@ -170,6 +182,14 @@ class GymnasiumPendulumVisualizer:
             # self.ax_theta.legend()
             self.ax_pendulum.legend()
 
+        self.fig.canvas.draw()
+        # width, height = self.fig.canvas.get_width_height()
+        # width, height = 1920, 1080
+        width, height = 1920, 1920
+        self.frames: np.ndarray = np.zeros((n_frames, width, height, 3), dtype=np.uint8)
+        self.frame_idx: int = 0
+
+        plt.tight_layout()
         plt.ion()
 
 
@@ -225,19 +245,19 @@ class GymnasiumPendulumVisualizer:
         plt.pause(0.0001)
 
         # Capture the current frame
-        # self.fig.canvas.draw()
-        # image = np.frombuffer(self.fig.canvas.tostring_rgb(), dtype='uint8')
-        # image = image.reshape(self.fig.canvas.get_width_height()[::-1] + (3,))
-        # # Resize to fit the frames array
-        # # self.frames.append(image)
-        # self.frames[self.frame_idx] = image
-        # self.frame_idx += 1
+        self.fig.canvas.draw()
+        image = np.frombuffer(self.fig.canvas.tostring_rgb(), dtype='uint8')
+        image = image.reshape(self.fig.canvas.get_width_height()[::-1] + (3,))
+        self.frames[self.frame_idx] = cv2.resize( image, 
+            # self.frames.shape[1:3][::-1],
+            (self.frames.shape[1], self.frames.shape[2]),
+            interpolation=cv2.INTER_AREA)
+        self.frame_idx += 1
 
-    def save_animation(self, filename='pendulum_animation.mp4', fps=30):
+    def save_animation(self, filename='pendulum_animation.mp4', fps=10):
         """Save the recorded frames as a video file."""
-        pass
-        # writer = imageio.get_writer(filename, fps=fps)
-        # for frame in self.frames:
-        #     writer.append_data(frame)
-        # writer.close()
-        # print(f"Animation saved as {filename}")
+        writer = imageio.get_writer(filename, fps=fps)
+        for frame in self.frames:
+            writer.append_data(frame)
+        writer.close()
+        print(f"Animation saved as {filename}")

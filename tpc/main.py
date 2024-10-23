@@ -39,8 +39,8 @@ def main():
     viz: Visualizer = inits['visualiser']
     states: States = inits['states']
 
-    # if config.communication_type == CommunicationTypes.ROS:
-    #     import rclpy
+    if config.communication_type == CommunicationTypes.ROS:
+        import rclpy
     #     from threading import Thread
     #     # Spin the service nodes (agents)
     #     agent_threads = []
@@ -61,9 +61,8 @@ def main():
 
         if config.communication_type == CommunicationTypes.ROS:
             # raise NotImplementedError("STUCK HERE MAIN THREAD HANGS")
-            rclpy.spin_once(sim.clients[0], timeout_sec=0.01)
-            # inits['server_executor'].spin_once(timeout_sec=0.1)
-            # Spin the client intermittently to process the async response (if using call_async)
+            # rclpy.spin_once(sim.clients[0], timeout_sec=0.01)
+            inits['executor'].spin_once(timeout_sec=0.1)
 
         states.states[i] = sim.state
         states.observations[i] = sim.observation
@@ -96,13 +95,17 @@ def main():
             observation_estimate = np.concatenate([agent.observation_estimate[None,...] for agent in agents], axis=0),
         )
 
-    viz.save_animation()
+    # viz.save_animation()
+    # filename: str = f"results/{config.agents.agent_1.args.name}_{config.agents.agent_2.args.name}_{config.communication_type}.mp4"
+    filename: str = "results/"
+    for agent in agents:
+        filename += f"{agent.name}_"
+    filename += f"{config.communication_type}.mp4"
+    viz.save_animation(filename=filename)
 
     if config.communication_type == CommunicationTypes.ROS:
         # Clean up: shutdown ROS and join threads
         rclpy.shutdown()
-        # for thread in agent_threads:
-        #     thread.join()
 
 if __name__ == "__main__":
     main()

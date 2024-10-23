@@ -8,7 +8,7 @@ version = "0.2.0"
 
 [pypi-dependencies]
 tpc = { path = ".", editable = true }
-tpc_test = { path = "tests", editable = true }
+# tpc_test = { path = "tests", editable = true }
 # gymnasium = { version = "*", extras = ["classic-control"] }
 
 [tasks]
@@ -28,6 +28,7 @@ setuptools = "*"
 pytz = "*"
 imageio = ">=2.36.0,<3"
 imageio-ffmpeg = ">=0.5.1,<0.6"
+opencv = ">=4.6.0,<5"
 
 [feature.test.tasks]
 test = "pytest"
