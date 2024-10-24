@@ -25,7 +25,6 @@ from simulator.params import SIMULATION_ENVIRONMENTS, ROBOTS
 from simulator.robot.pendulum import Pendulum
 
 import rclpy
-#from geometry_msgs.msg import 
 from cominterface_ros2 import ComInterfaceROS2
         
 class InvertedPendulumApp:
@@ -58,7 +57,7 @@ class InvertedPendulumApp:
         self.stage = omni.usd.get_context().get_stage()
         self.pendulum_prim = self._world.stage.GetPrimAtPath(self.pendulum._stage_prefix + "/pendulum")
         
-        #self.simulation_context = SimulationContext(physics_dt=1.0 / self.phy_dt, rendering_dt=1.0 / 30.0, stage_units_in_meters=1.0)
+        self.simulation_context = SimulationContext(physics_dt=1.0 / self.phy_dt, rendering_dt=1.0 / 30.0, stage_units_in_meters=1.0)
 
         
         # Initialize ROS 2
@@ -72,9 +71,17 @@ class InvertedPendulumApp:
         self._world.add_physics_callback(self.pendulum._stage_prefix + "/sim_step", callback_fn=self.physics_step)
         
     def physics_step(self, step_size):
-        print(Rotation.from_quat(self.pendulum._state.attitude).as_rotvec())
+        current_sim_time = self.simulation_context.current_time
+        self.node.publish_clock(current_sim_time)
         
-        #self.node.time_publisher.publish()
+        #print(Rotation.from_quat(self.pendulum._state.attitude).as_rotvec())
+        print(self.pendulum._state.theta_dot1)
+        # TODO
+        # publish gt
+        # get noisy sensor input -> obsevation
+        # call agent throught service(obsevation) -> est_state, controls
+        # Publish est_state and controls
+        
         return
         
     async def load_environment_async(self, usd_path: str, force_clear: bool=False):
@@ -144,15 +151,15 @@ class InvertedPendulumApp:
         """
 
         # Start the simulation
-        self.timeline.play()
-        #self.simulation_context.play()
+        #self.timeline.play()
+        self.simulation_context.play()
         # The "infinite" loop
         while simulation_app.is_running() and not self.stop_sim:
             simulation_app.update()
         
         # Cleanup and stop
-        carb.log_warn("PegasusApp Simulation App is closing.")
-        #self.simulation_context.stop()
+        carb.log_warn("Pendulum Simulation App is closing.")
+        self.simulation_context.stop()
         #self.timeline.stop()
         simulation_app.close()
 

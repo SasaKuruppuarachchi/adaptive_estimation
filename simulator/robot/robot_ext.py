@@ -18,21 +18,7 @@ from omni.isaac.core.robots.robot import Robot
 # Extension APIs
 from .state import State
 
-def get_world_transform_xform(prim: Usd.Prim):
-    """
-    Get the local transformation of a prim using omni.usd.get_world_transform_matrix().
-    See https://docs.omniverse.nvidia.com/kit/docs/omni.usd/latest/omni.usd/omni.usd.get_world_transform_matrix.html
-    Args:
-        prim (Usd.Prim): The prim to calculate the world transformation.
-    Returns:
-        A tuple of:
-        - Translation vector.
-        - Rotation quaternion, i.e. 3d vector plus angle.
-        - Scale vector.
-    """
-    world_transform: Gf.Matrix4d = omni.usd.get_world_transform_matrix(prim)
-    rotation: Gf.Rotation = world_transform.ExtractRotation()
-    return rotation
+
 
 class RobotExt(Robot):
     def __init__(
@@ -188,6 +174,22 @@ class RobotExt(Robot):
 
         # Apply the torque to the rigidbody. The torque should be expressed in the rigidbody frame
         self._world.dc_interface.apply_body_torque(rb, carb._carb.Float3(torque), False)
+        
+    def get_world_transform_xform(self,prim: Usd.Prim):
+        """
+        Get the local transformation of a prim using omni.usd.get_world_transform_matrix().
+        See https://docs.omniverse.nvidia.com/kit/docs/omni.usd/latest/omni.usd/omni.usd.get_world_transform_matrix.html
+        Args:
+            prim (Usd.Prim): The prim to calculate the world transformation.
+        Returns:
+            A tuple of:
+            - Translation vector.
+            - Rotation quaternion, i.e. 3d vector plus angle.
+            - Scale vector.
+        """
+        world_transform: Gf.Matrix4d = omni.usd.get_world_transform_matrix(prim)
+        rotation: Gf.Rotation = world_transform.ExtractRotation()
+        return rotation
 
     def update_state(self, dt: float):
         """
@@ -206,7 +208,7 @@ class RobotExt(Robot):
 
         # Get the attitude according to the convention [w, x, y, z]
         prim = self._world.stage.GetPrimAtPath(self._stage_prefix + "/body")
-        rotation_quat = get_world_transform_xform(prim).GetQuaternion()
+        rotation_quat = self.get_world_transform_xform(prim).GetQuaternion()
         rotation_quat_real = rotation_quat.GetReal()
         rotation_quat_img = rotation_quat.GetImaginary()
 

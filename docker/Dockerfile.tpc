@@ -34,6 +34,7 @@ RUN pip install "numpy<2.0"
 RUN pip install gymnasium
 #RUN curl -fsSL https://pixi.sh/install.sh | bash
 RUN pip install loguru omegaconf termcolor simple_pid
+RUN apt install exa -y
 #RUN python3 -m pip install debugpy
 #ENTRYPOINT [ "python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "-m" ] 
 #debugpy --listen 0.0.0.0:5678 --wait-for-client -m python
