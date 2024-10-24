@@ -1,0 +1,384 @@
+{
+  "nodes": [
+    {
+      "id": "5efbc976e79841a7",
+      "type": "group",
+      "styleAttributes": {},
+      "x": -700,
+      "y": 1320,
+      "width": 3872,
+      "height": 1094,
+      "color": "3",
+      "label": "Plan"
+    },
+    {
+      "id": "372ceba3ad2dce4d",
+      "type": "group",
+      "styleAttributes": {},
+      "x": -700,
+      "y": 260,
+      "width": 3872,
+      "height": 820,
+      "color": "4",
+      "label": "Results"
+    },
+    {
+      "id": "2bcf26067cda0ad4",
+      "type": "group",
+      "styleAttributes": {},
+      "x": 440,
+      "y": 1340,
+      "width": 1860,
+      "height": 1054,
+      "color": "3",
+      "label": "New Slide"
+    },
+    {
+      "id": "43a3642ba6e35b0c",
+      "type": "group",
+      "sideRatio": 1.7777777777777777,
+      "isStartNode": true,
+      "styleAttributes": {},
+      "x": -1760,
+      "y": -680,
+      "width": 924,
+      "height": 520,
+      "label": "Start Slide"
+    },
+    {
+      "id": "1855027ff17fa6f4",
+      "type": "file",
+      "file": "Videos/kalmari_tPC_100_CommunicationTypes.LOCAL.mp4",
+      "styleAttributes": {},
+      "x": 1500,
+      "y": 280,
+      "width": 780,
+      "height": 780,
+      "color": "4"
+    },
+    {
+      "id": "0a04eb283f686e14",
+      "type": "file",
+      "file": "Videos/tPC_convergence_kalmari_CommunicationTypes.LOCAL.mp4",
+      "styleAttributes": {},
+      "x": 340,
+      "y": 280,
+      "width": 780,
+      "height": 780,
+      "color": "4"
+    },
+    {
+      "id": "781bfc49aa3dbe13",
+      "type": "text",
+      "text": "# Updates in the plan",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 2640,
+      "y": 1738,
+      "width": 512,
+      "height": 256,
+      "color": "3"
+    },
+    {
+      "id": "a1a14a925e6fd1cc",
+      "type": "text",
+      "text": "# Placeholder for Sasa's video",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 2640,
+      "y": 542,
+      "width": 512,
+      "height": 256,
+      "color": "4"
+    },
+    {
+      "id": "f740845173fc42bb",
+      "type": "text",
+      "text": "# Results so far",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": -680,
+      "y": 634,
+      "width": 280,
+      "height": 72,
+      "color": "4"
+    },
+    {
+      "id": "1626271cfd4e0866",
+      "type": "text",
+      "text": "# Limit sccope to\n- Show performance difference of tPC and eKF in state estimation\n- Investigate performance differences in tPC paired with PID/LQR/LQR+dynamics",
+      "styleAttributes": {},
+      "x": -680,
+      "y": 1788,
+      "width": 700,
+      "height": 152,
+      "color": "3"
+    },
+    {
+      "id": "b2b25d0ea12342b7",
+      "type": "text",
+      "text": "# Actuation\nMotor Control",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1462,
+      "y": 1461,
+      "width": 259,
+      "height": 103,
+      "color": "3"
+    },
+    {
+      "id": "1cc61a2288e5ab9a",
+      "type": "file",
+      "file": "Images/Furuta_pendulum.jpg",
+      "styleAttributes": {},
+      "x": 1825,
+      "y": 1996,
+      "width": 412,
+      "height": 252,
+      "color": "3"
+    },
+    {
+      "id": "19655d6cd57c5d52",
+      "type": "text",
+      "text": "# Control \n## LQR or PID\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 601,
+      "y": 1659,
+      "width": 259,
+      "height": 124,
+      "color": "3"
+    },
+    {
+      "id": "0455378edbb7d985",
+      "type": "text",
+      "text": "$X = \\set{x_{1}, x_{2}}$",
+      "styleAttributes": {
+        "border": "dashed",
+        "textAlign": "center"
+      },
+      "x": 612,
+      "y": 1872,
+      "width": 237,
+      "height": 93,
+      "color": "3"
+    },
+    {
+      "id": "2ae7c09fcb5862c5",
+      "type": "text",
+      "text": "State dynamics $A$ to LQR controller.",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 966,
+      "y": 1810,
+      "width": 149,
+      "height": 108,
+      "color": "1"
+    },
+    {
+      "id": "f10a12c526e91ee2",
+      "type": "text",
+      "text": "# State Estimation\n### And learning dynamics\n",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": 1006,
+      "y": 2058,
+      "width": 297,
+      "height": 129,
+      "color": "3"
+    },
+    {
+      "id": "c71b42467359da2d",
+      "type": "text",
+      "text": "Sensor Measurement $\\set{\\theta_1, \\theta_2}$",
+      "styleAttributes": {
+        "border": "dashed",
+        "textAlign": "center"
+      },
+      "x": 1473,
+      "y": 2076,
+      "width": 237,
+      "height": 93,
+      "color": "3"
+    },
+    {
+      "id": "c9baa0169d1c52c3",
+      "type": "text",
+      "text": "# Adaptive State Estimation  & Control with Temporal Predictive Coding\n\n---\n\n\n##### Sasanka Kuruppu Arachchige, Nicklas Fianda\n\n##### Mentor: Gökhan Alcan, Azwirman Gusrialdi",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": -1620,
+      "y": -568,
+      "width": 586,
+      "height": 280
+    },
+    {
+      "id": "4e964627850627df",
+      "type": "text",
+      "text": "# TODOs\n\n1. Pure state estimation without control (In progress)\n2. tPC + PID Control\n3. tPC + LQR with linearised dynamics\n4. tPC + LQR with learned dynamics",
+      "styleAttributes": {
+        "textAlign": "center"
+      },
+      "x": -550,
+      "y": 2880,
+      "width": 440,
+      "height": 360,
+      "color": "1"
+    }
+  ],
+  "edges": [
+    {
+      "id": "ff12e2c5ac886f89",
+      "fromNode": "43a3642ba6e35b0c",
+      "fromSide": "right",
+      "toNode": "f740845173fc42bb",
+      "toSide": "left"
+    },
+    {
+      "id": "f02aa68e1a2bcf89",
+      "styleAttributes": {},
+      "fromNode": "f740845173fc42bb",
+      "fromSide": "right",
+      "toNode": "0a04eb283f686e14",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "93cfd3701fdd380b",
+      "styleAttributes": {},
+      "fromNode": "0a04eb283f686e14",
+      "fromSide": "right",
+      "toNode": "1855027ff17fa6f4",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "0608ad2af81204de",
+      "styleAttributes": {},
+      "fromNode": "1855027ff17fa6f4",
+      "fromSide": "right",
+      "toNode": "a1a14a925e6fd1cc",
+      "toSide": "left",
+      "color": "4"
+    },
+    {
+      "id": "fc5b9583e012762b",
+      "styleAttributes": {},
+      "fromNode": "a1a14a925e6fd1cc",
+      "fromSide": "bottom",
+      "toNode": "781bfc49aa3dbe13",
+      "toSide": "top"
+    },
+    {
+      "id": "6b794d12cce9feb7",
+      "fromNode": "19655d6cd57c5d52",
+      "fromSide": "top",
+      "toNode": "b2b25d0ea12342b7",
+      "toSide": "left",
+      "color": "3",
+      "label": "Set point - E "
+    },
+    {
+      "id": "003675a26ea80f40",
+      "styleAttributes": {},
+      "fromNode": "0455378edbb7d985",
+      "fromSide": "top",
+      "toNode": "19655d6cd57c5d52",
+      "toSide": "bottom",
+      "color": "3"
+    },
+    {
+      "id": "7a76ae818da9cc24",
+      "fromNode": "f10a12c526e91ee2",
+      "fromSide": "left",
+      "toNode": "0455378edbb7d985",
+      "toSide": "bottom",
+      "color": "3"
+    },
+    {
+      "id": "b5030b4e2df6efe1",
+      "styleAttributes": {},
+      "fromNode": "c71b42467359da2d",
+      "fromSide": "left",
+      "toNode": "f10a12c526e91ee2",
+      "toSide": "right",
+      "color": "3"
+    },
+    {
+      "id": "b662e43036613125",
+      "fromNode": "b2b25d0ea12342b7",
+      "fromSide": "right",
+      "toNode": "1cc61a2288e5ab9a",
+      "toSide": "top",
+      "color": "3",
+      "label": "PWM"
+    },
+    {
+      "id": "c6cf3a954d1d515f",
+      "styleAttributes": {},
+      "fromNode": "1cc61a2288e5ab9a",
+      "fromSide": "left",
+      "toNode": "c71b42467359da2d",
+      "toSide": "right",
+      "color": "3"
+    },
+    {
+      "id": "92c14ce55ce033aa",
+      "styleAttributes": {},
+      "fromNode": "781bfc49aa3dbe13",
+      "fromSide": "left",
+      "toNode": "2bcf26067cda0ad4",
+      "toSide": "right",
+      "color": "3"
+    },
+    {
+      "id": "c033593fc1412471",
+      "styleAttributes": {
+        "path": "short-dashed"
+      },
+      "fromNode": "f10a12c526e91ee2",
+      "fromSide": "top",
+      "toNode": "2ae7c09fcb5862c5",
+      "toSide": "bottom",
+      "toEnd": "none",
+      "color": "1"
+    },
+    {
+      "id": "d9ba0b6d200feb0b",
+      "styleAttributes": {
+        "path": "short-dashed"
+      },
+      "fromNode": "2ae7c09fcb5862c5",
+      "fromSide": "top",
+      "toNode": "19655d6cd57c5d52",
+      "toSide": "right",
+      "color": "1"
+    },
+    {
+      "id": "61e2ecd1d378d169",
+      "styleAttributes": {},
+      "fromNode": "2bcf26067cda0ad4",
+      "fromSide": "left",
+      "toNode": "1626271cfd4e0866",
+      "toSide": "right",
+      "color": "3"
+    },
+    {
+      "id": "99b17b3b4ee603c2",
+      "styleAttributes": {},
+      "fromNode": "1626271cfd4e0866",
+      "fromSide": "bottom",
+      "toNode": "4e964627850627df",
+      "toSide": "top"
+    }
+  ],
+  "metadata": {}
+}
