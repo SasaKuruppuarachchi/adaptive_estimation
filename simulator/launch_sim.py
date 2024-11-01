@@ -21,8 +21,8 @@ import omni
 from scipy.spatial.transform import Rotation
 from omni.isaac.core import SimulationContext
 
-from simulator.params import SIMULATION_ENVIRONMENTS, ROBOTS
-from simulator.robot.pendulum import Pendulum
+from isaac_simulator.params import SIMULATION_ENVIRONMENTS, ROBOTS
+from isaac_simulator.robot.pendulum import Pendulum
 
 import rclpy
 from cominterface_ros2 import ComInterfaceROS2
