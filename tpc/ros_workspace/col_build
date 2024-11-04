@@ -1,0 +1,19 @@
+#!/bin/bash
+
+export PYTHON_EXECUTABLE=$(which python)   # Path to the Python executable in your environment
+export Python3_EXECUTABLE=$(which python)  # Ensure CMake uses the same Python
+export Python3_LIBRARY=$(python3-config --libs | cut -d' ' -f1 | sed 's/-L//')  # Path to Python 3.10 library
+export Python3_INCLUDE_DIR=$(python3-config --includes | cut -d' ' -f1 | sed 's/-I//')  # Path to Python 3.10 includes
+export Python3_NumPy_INCLUDE_DIRS=$(python -c "import numpy; print(numpy.get_include())")  # Path to NumPy includes
+
+cmake_args=("
+  -DPYTHON_EXECUTABLE=$PYTHON_EXECUTABLE \
+  -DPython3_EXECUTABLE=$Python3_EXECUTABLE \
+  -DPython3_LIBRARY=$Python3_LIBRARY \
+  -DPython3_INCLUDE_DIR=$Python3_INCLUDE_DIR \
+  -DPython3_NumPy_INCLUDE_DIRS=$Python3_NumPy_INCLUDE_DIRS
+")
+
+colcon build \
+    --packages-select tpc_ros \
+    --cmake-args $cmake_args
