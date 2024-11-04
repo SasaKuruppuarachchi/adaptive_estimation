@@ -1,0 +1,2 @@
+include invpsimulator/config/configs.yaml
+recursive-include invpsimulator/assets *

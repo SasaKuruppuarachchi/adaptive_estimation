@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-from .state import State
+from inpsimulator.state.state import State
 
 class PndulumState(State):
     """

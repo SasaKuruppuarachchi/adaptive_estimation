@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 import omni.isaac.core.utils.nucleus as nucleus
+from setuptools import setup, find_packages
 
 # Extension configuration
 EXTENSION_NAME = "IsaacSim App"
@@ -15,10 +16,10 @@ EXTENSION_FOLDER_PATH = Path(os.path.dirname(os.path.realpath(__file__)))
 ROOT = str(EXTENSION_FOLDER_PATH.parent.resolve())
 
 # Get the configurations file path
-CONFIG_FILE = ROOT + "/simulator/config/configs.yaml"
+CONFIG_FILE = ROOT + "/config/configs.yaml"
 
 # Define the Extension Assets Path
-ASSET_PATH = ROOT + "/simulator/assets"
+ASSET_PATH = ROOT + "/isaac_simulator/assets"
 ROBOTS_ASSETS = ASSET_PATH + "/Robots"
 
 # Define the built in robots of the extension

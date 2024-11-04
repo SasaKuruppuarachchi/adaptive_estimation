@@ -1,5 +1,5 @@
-from .robot_ext import RobotExt
-from .pendulum_state import PndulumState
+from inpsimulator.isaac_simulator.robot.robot_ext import RobotExt
+from inpsimulator.state.pendulum_state import PndulumState 
 
 # Numerical computations
 import numpy as np

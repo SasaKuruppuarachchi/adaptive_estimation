@@ -21,11 +21,11 @@ import omni
 from scipy.spatial.transform import Rotation
 from omni.isaac.core import SimulationContext
 
-from isaac_simulator.params import SIMULATION_ENVIRONMENTS, ROBOTS
-from isaac_simulator.robot.pendulum import Pendulum
+from inpsimulator.isaac_simulator.params import SIMULATION_ENVIRONMENTS, ROBOTS
+from inpsimulator.isaac_simulator.robot.pendulum import Pendulum
 
 import rclpy
-from cominterface_ros2 import ComInterfaceROS2
+from inpsimulator.com_interface.cominterface_ros2 import ComInterfaceROS2
         
 class InvertedPendulumApp:
     def __init__(self):
@@ -64,11 +64,11 @@ class InvertedPendulumApp:
         rclpy.init()
 
         # Create ROS 2 publisher node
-        self.node = ComInterfaceROS2()
+        #self.node = ComInterfaceROS2()
         
         self.stop_sim = False
         
-        self._world.add_physics_callback(self.pendulum._stage_prefix + "/sim_step", callback_fn=self.physics_step)
+        #self._world.add_physics_callback(self.pendulum._stage_prefix + "/sim_step", callback_fn=self.physics_step)
         
     def physics_step(self, step_size):
         current_sim_time = self.simulation_context.current_time

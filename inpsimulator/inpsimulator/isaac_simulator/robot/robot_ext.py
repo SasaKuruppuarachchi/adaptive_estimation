@@ -16,7 +16,7 @@ from omni.usd import get_stage_next_free_path
 from omni.isaac.core.robots.robot import Robot
 
 # Extension APIs
-from .state import State
+from ...state.state import State
 
 
 
