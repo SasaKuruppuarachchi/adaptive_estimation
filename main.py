@@ -1,10 +1,9 @@
-# import sim compontents
-# import state
 # import controller
 # import estimator
 from inpsimulator.isaac_simulator.launch_sim import InvertedPendulumApp
 from inpsimulator.com_interface.cominterface_ros2 import ComInterfaceROS2
 from inpsimulator.state.pendulum_state import PndulumState
+# import logger
 
 
 class SimulationManager:
